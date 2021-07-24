@@ -1,5 +1,7 @@
-apply plugin: 'com.android.library'
-apply plugin: "com.vanniktech.maven.publish"
+plugins {
+    id 'com.android.library'
+    id "com.vanniktech.maven.publish"
+}
 
 def openCVersionName = "4.5.2"
 def openCVersionCode = ((4 * 100 + 5) * 100 + 2) * 10 + 0
@@ -44,8 +46,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_6
-        targetCompatibility JavaVersion.VERSION_1_6
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     sourceSets {
