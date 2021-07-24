@@ -31,7 +31,7 @@
 
 ### [opencv](opencv)
 
-OpenCV：编译好的OpenCV（opencv + opencv_contrib中的wechat-qrcode）（armeabi-v7a: libopencv_java4.so大小：11.3MB）
+OpenCV：编译好的OpenCV（armeabi-v7a/libopencv_java4.so | 11.3MB）
 
 ### [wechat-qrcode](wechat-qrcode)
 
