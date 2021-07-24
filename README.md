@@ -12,9 +12,9 @@
 
 基于OpenCV开源的微信二维码引擎移植的封装库。又一个扫码相关的轮子，之所以说又，是因为这样的轮子已经开源三个了；几个轮子之间的优缺点，各有千秋，请自寻选择（小孩子才做选择，我全都要）。
 
-基于ZXing的扫码轮子  [ZXingLite](https://github.com/jenly1314/ZXingLite)
-基于MLKit的扫码轮子  [MLKit](https://github.com/jenly1314/MLKit)
-基于OpenCV的扫码轮子 [wechat-qrcode](https://github.com/jenly1314/wechat-qrcode)
+ 基于ZXing的扫码轮子  [ZXingLite](https://github.com/jenly1314/ZXingLite)
+ 基于MLKit的扫码轮子  [MLKit](https://github.com/jenly1314/MLKit)
+ 基于OpenCV的扫码轮子 [wechat-qrcode](https://github.com/jenly1314/wechat-qrcode)
 
 ## GIF 展示
 
@@ -140,8 +140,8 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 
 ## 相关推荐
 
-[MLKit](https://github.com/jenly1314/MLKit) 一个强大易用的工具包。通过ML Kit您可以很轻松的实现文字识别、条码识别、图像标记、人脸检测、对象检测等功能。
-[ZXingLite](https://github.com/jenly1314/ZXingLite) 基于ZXing库优化扫码和生成二维码/条形码功能，扫码界面完全支持自定义。
+ [MLKit](https://github.com/jenly1314/MLKit) 一个强大易用的工具包。通过ML Kit您可以很轻松的实现文字识别、条码识别、图像标记、人脸检测、对象检测等功能。
+ [ZXingLite](https://github.com/jenly1314/ZXingLite) 基于ZXing库优化扫码和生成二维码/条形码功能，扫码界面完全支持自定义。
 
 
 ## 版本记录
