@@ -1,5 +1,5 @@
 rootProject.name = "wechat-qrcode"
 include ':app'
-include ':wechat-qrcode'
 include ':opencv'
+include ':wechat-qrcode'
 include ':wechat-qrcode-scanning'
