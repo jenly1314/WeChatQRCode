@@ -1,4 +1,4 @@
-rootProject.name = "wechat-qrcode"
+rootProject.name = "WeChatQRCode"
 include ':app'
 include ':opencv'
 include ':wechat-qrcode'

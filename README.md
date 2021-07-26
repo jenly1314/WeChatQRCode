@@ -1,10 +1,10 @@
-# wechat-qrcode
+# WeChatQRCode
 
-[![Download](https://img.shields.io/badge/download-App-blue.svg)](https://raw.githubusercontent.com/jenly1314/wechat-qrcode/master/app/release/app-release.apk)
-[![MavenCentral](https://img.shields.io/maven-central/v/com.github.jenly1314.wechat-qrcode/wechat-qrcode)](https://repo1.maven.org/maven2/com/github/jenly1314/wechat-qrcode)
-[![JitPack](https://jitpack.io/v/jenly1314/wechat-qrcode.svg)](https://jitpack.io/#jenly1314/wechat-qrcode)
-[![CI](https://travis-ci.org/jenly1314/wechat-qrcode.svg?branch=master)](https://travis-ci.org/jenly1314/wechat-qrcode)
-[![CircleCI](https://circleci.com/gh/jenly1314/wechat-qrcode.svg?style=svg)](https://circleci.com/gh/jenly1314/wechat-qrcode)
+[![Download](https://img.shields.io/badge/download-App-blue.svg)](https://raw.githubusercontent.com/jenly1314/WeChatQRCode/master/app/release/app-release.apk)
+[![MavenCentral](https://img.shields.io/maven-central/v/com.github.jenly1314.WeChatQRCode/wechat-qrcode)](https://repo1.maven.org/maven2/com/github/jenly1314/WeChatQRCode)
+[![JitPack](https://jitpack.io/v/jenly1314/WeChatQRCode.svg)](https://jitpack.io/#jenly1314/WeChatQRCode)
+[![CI](https://travis-ci.org/jenly1314/WeChatQRCode.svg?branch=master)](https://travis-ci.org/jenly1314/WeChatQRCode)
+[![CircleCI](https://circleci.com/gh/jenly1314/WeChatQRCode.svg?style=svg)](https://circleci.com/gh/jenly1314/WeChatQRCode)
 [![API](https://img.shields.io/badge/API-21%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=21)
 [![License](https://img.shields.io/badge/license-Apche%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Blog](https://img.shields.io/badge/blog-Jenly-9933CC.svg)](https://jenly1314.github.io/)
@@ -16,7 +16,7 @@
  
 > 基于MLKit的扫码轮子  [MLKit](https://github.com/jenly1314/MLKit)
  
-> 基于OpenCV的扫码轮子 [wechat-qrcode](https://github.com/jenly1314/wechat-qrcode)
+> 基于OpenCV的扫码轮子 [WeChatQRCode](https://github.com/jenly1314/WeChatQRCode)
 
 ## GIF 展示
 
@@ -27,7 +27,7 @@
 
 ### [app](app)
 
-示例App：主要用于提供wechat-qrcode的演示效果
+示例App：主要用于提供WeChatQRCode的演示效果
 
 ### [opencv](opencv)
 
@@ -138,7 +138,7 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
     <!-- 只需保证有布局内有PreviewView即可，然后自己可根据需要添加的控件 -->
 </FrameLayout>
 ```
-更多使用详情，请查看[app](app)中的源码使用示例或直接查看 [API帮助文档](https://jitpack.io/com/github/jenly1314/wechat-qrcode/latest/javadoc/)
+更多使用详情，请查看[app](app)中的源码使用示例或直接查看 [API帮助文档](https://jitpack.io/com/github/jenly1314/WeChatQRCode/latest/javadoc/)
 
 ## 相关推荐
 
@@ -150,10 +150,10 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 ## 版本记录
 
 #### v1.0.0：2021-7-24
-* wechat-qrcode初始版本
+* WeChatQRCode初始版本
 
 ## 赞赏
-如果您喜欢wechat-qrcode，或感觉wechat-qrcode帮助到了您，可以点右上角“Star”支持一下，您的支持就是我的动力，谢谢 :smiley:<p>
+如果您喜欢WeChatQRCode，或感觉WeChatQRCode帮助到了您，可以点右上角“Star”支持一下，您的支持就是我的动力，谢谢 :smiley:<p>
 您也可以扫描下面的二维码，请作者喝杯咖啡 :coffee:
     <div>
         <img src="https://jenly1314.github.io/image/pay/wxpay.png" width="280" heght="350">
