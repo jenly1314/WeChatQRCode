@@ -77,7 +77,7 @@ implementation 'com.github.jenly1314.MLKit:mlkit-camera-core:1.0.1'
 
 ## 示例
 
-初始化 **OpenCV** 和 **WeChatQRCodeDetector** (建议在 **Application** 中的 **onCreate** 方法中初始化)
+初始化 **OpenCV** 和 **WeChatQRCodeDetector** （建议在 **Application** 的 **onCreate** 方法中初始化）
 ```kotlin
         //初始化OpenCV
         OpenCV.initAsync(context)
