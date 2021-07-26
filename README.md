@@ -63,13 +63,13 @@ allprojects {
 
 ```gradle
 // OpenCV基础库（*必须）
-implementation 'com.github.jenly1314.wechat-qrcode:opencv:1.0.0'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv:1.0.0'
 
 // 微信二维码识别功能（可选）
-implementation 'com.github.jenly1314.wechat-qrcode:wechat-qrcode:1.0.0'
+implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:1.0.0'
 
 // 微信二维码扫码功能（可选）
-implementation 'com.github.jenly1314.wechat-qrcode:wechat-qrcode-scanning:1.0.0'
+implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:1.0.0'
 //MLKit的Camera核心库（可选），如果您使用了wechat-qrcode-scanning，则必须依赖mlkit-camera-core库
 implementation 'com.github.jenly1314.MLKit:mlkit-camera-core:1.0.1'
 
