@@ -1,7 +1,7 @@
 //App
 def app_version = [:]
-app_version.versionCode = 1
-app_version.versionName = "1.0.0"
+app_version.versionCode = 3
+app_version.versionName = "1.1.0"
 ext.app_version = app_version
 
 //build version
@@ -30,6 +30,6 @@ versions.espressoCore = "3.3.0"
 
 versions.kotlinxCoroutines = "1.4.3"
 versions.lifecycleKtx="2.3.1"
-versions.mlkit="1.0.1"
+versions.mlkit="1.0.2"
 
 ext.versions = versions

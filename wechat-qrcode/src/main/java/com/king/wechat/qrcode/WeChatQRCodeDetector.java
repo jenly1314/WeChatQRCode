@@ -67,7 +67,7 @@ public final class WeChatQRCodeDetector {
                     Log.d(TAG,"file:" + saveFile.getAbsolutePath());
                 }
             }
-            Log.d(TAG,"Internal WeChatQRCode");
+            Log.d(TAG,"Initial WeChatQRCode");
             sWeChatQRCode = new WeChatQRCode(
                     detect.getAbsolutePath(),
                     detectModel.getAbsolutePath(),

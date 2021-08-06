@@ -31,7 +31,7 @@
 
 ### [opencv](opencv)
 
-OpenCV：编译好的OpenCV（armeabi-v7a/libopencv_java4.so | 11.3MB）
+OpenCV：编译好的OpenCV
 
 ### [wechat-qrcode](wechat-qrcode)
 
@@ -63,15 +63,21 @@ allprojects {
 
 ```gradle
 // OpenCV基础库（*必须）
-implementation 'com.github.jenly1314.WeChatQRCode:opencv:1.0.0'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv:1.1.0'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:1.1.0'
+
+// OpenCV的其他ABI（可选），根据你的需求选择想要的so支持
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv64:1.1.0'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86:1.1.0'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86_64:1.1.0'
 
 // 微信二维码识别功能（可选）
-implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:1.0.0'
+implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:1.1.0'
 
 // 微信二维码扫码功能（可选）
-implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:1.0.0'
-//MLKit的Camera核心库（可选），如果您使用了wechat-qrcode-scanning，则必须依赖mlkit-camera-core库
-implementation 'com.github.jenly1314.MLKit:mlkit-camera-core:1.0.1'
+implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:1.1.0'
+//MLKit的Camera核心库：如果您使用了wechat-qrcode-scanning，则必须依赖mlkit-camera-core库
+implementation 'com.github.jenly1314.MLKit:mlkit-camera-core:1.0.2'
 
 ```
 
@@ -127,6 +133,8 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 
 > PreviewView 用来预览，布局内至少要保证有PreviewView，如果是继承BaseCameraScanActivity或BaseCameraScanFragment，控件id可覆写getPreviewViewId方法自定义
 
+> 关于扫码框动画，你可以直接拷贝[MLKit](https://github.com/jenly1314/MLKit)中的[ViewfinderView](https://github.com/jenly1314/MLKit/blob/master/mlkit-barcode-scanning/src/main/java/com/king/mlkit/vision/barcode/ViewfinderView.java)来使用，也可以自定义实现。
+
 ```Xml
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -138,6 +146,7 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
     <!-- 只需保证有布局内有PreviewView即可，然后自己可根据需要添加的控件 -->
 </FrameLayout>
 ```
+
 更多使用详情，请查看[app](app)中的源码使用示例或直接查看 [API帮助文档](https://jitpack.io/com/github/jenly1314/WeChatQRCode/latest/javadoc/)
 
 ### 相关推荐
@@ -147,6 +156,10 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 
 
 ## 版本记录
+
+#### v1.1.0：2021-8-6
+* 编译多种ABI支持
+* 更新mlkit-camera-core至v1.0.2
 
 #### v1.0.0：2021-7-24
 * WeChatQRCode初始版本
