@@ -33,6 +33,21 @@
 
 OpenCV：编译好的OpenCV
 
+### [opencv-armv7a](opencv-armv7a)
+
+OpenCV：**armeabi-v7a** 的libopencv_java4.so
+
+### [opencv-armv64](opencv-armv64)
+
+OpenCV：**arm64-v8a** 的libopencv_java4.so
+
+### [opencv-x86](opencv-x86)
+
+OpenCV：**x86** 的libopencv_java4.so
+### [opencv-x86_64](opencv-x86_64)
+
+OpenCV：**x86_64** 的libopencv_java4.so
+
 ### [wechat-qrcode](wechat-qrcode)
 
 微信二维码识别：封装好的API，通过 **WeChatQRCodeDetector** 你可以很轻松的拥有OpenCV中开源的微信二维码识别功能
