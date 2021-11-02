@@ -20,8 +20,9 @@
 
 ## GIF 展示
 
-暂时没有录制GIF，请直接下载[Demo App](https://raw.githubusercontent.com/jenly1314/wechat-qrcode/master/app/release/app-release.apk)查看并体验吧。
+暂时没有录制GIF。
 
+> 你可以直接下载 [演示App](https://raw.githubusercontent.com/jenly1314/WeChatQRCode/master/app/release/app-release.apk) 体验效果
 
 ## 各Module相关说明
 

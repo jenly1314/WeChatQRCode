@@ -4,6 +4,7 @@ package com.king.wechat.qrcode.app
 import android.content.Intent
 import android.util.Log
 import com.king.mlkit.vision.camera.AnalyzeResult
+import com.king.mlkit.vision.camera.config.ResolutionCameraConfig
 import com.king.wechat.qrcode.scanning.WeChatCameraScanActivity
 
 /**

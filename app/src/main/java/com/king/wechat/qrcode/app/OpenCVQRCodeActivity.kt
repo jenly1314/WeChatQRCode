@@ -6,6 +6,7 @@ import android.util.Log
 import com.king.mlkit.vision.camera.AnalyzeResult
 import com.king.mlkit.vision.camera.BaseCameraScanActivity
 import com.king.mlkit.vision.camera.analyze.Analyzer
+import com.king.mlkit.vision.camera.config.ResolutionCameraConfig
 import com.king.wechat.qrcode.app.anlyze.OpenCVScanningAnalyzer
 
 /**

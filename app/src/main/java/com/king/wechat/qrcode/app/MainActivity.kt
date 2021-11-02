@@ -114,7 +114,6 @@ class MainActivity : AppCompatActivity() {
     fun onClick(view: View) {
         when(view.id){
             R.id.btnWeChatQRCode -> startActivityForResult(Intent(this,WeChatQRCodeActivity::class.java), REQUEST_CODE_QRCODE)
-            R.id.btnOpenCVQRCode -> startActivityForResult(Intent(this,OpenCVQRCodeActivity::class.java), REQUEST_CODE_QRCODE)
             R.id.btnPickPhoto -> pickPhotoClicked()
         }
     }
