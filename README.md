@@ -81,27 +81,27 @@ allprojects {
 
 ```gradle
 // OpenCV基础库（*必须）
-implementation 'com.github.jenly1314.WeChatQRCode:opencv:1.1.0'
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:1.1.0'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv:1.1.1'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:1.1.1'
 
 // OpenCV的其他ABI（可选），根据你的需求选择想要的so支持
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv64:1.1.0'
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86:1.1.0'
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86_64:1.1.0'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv64:1.1.1'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86:1.1.1'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86_64:1.1.1'
 
 // 微信二维码识别功能（可选）
-implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:1.1.0'
+implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:1.1.1'
 
 // 微信二维码扫码功能（可选）
-implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:1.1.0'
+implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:1.1.1'
 //MLKit的Camera核心库：如果您使用了wechat-qrcode-scanning，则必须依赖mlkit-camera-core库
-implementation 'com.github.jenly1314.MLKit:mlkit-camera-core:1.0.2'
+implementation 'com.github.jenly1314.MLKit:mlkit-camera-core:1.0.3'
 
 ```
 
 ## 示例
 
-初始化 **OpenCV** 和 **WeChatQRCodeDetector** （建议在 **Application** 的 **onCreate** 方法中初始化）
+初始化 **OpenCV** 和 **WeChatQRCodeDetector** （建议在 **MainActivity** 的 **onCreate** 方法中初始化）
 ```kotlin
         //初始化OpenCV
         OpenCV.initAsync(context)
@@ -176,6 +176,7 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 ## 版本记录
 
 #### v1.1.1：2021-11-2
+* 优化细节
 * 更新mlkit-camera-core至v1.0.3
 
 #### v1.1.0：2021-8-6
