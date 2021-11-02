@@ -97,8 +97,23 @@ public final class WeChatQRCodeDetector {
      */
     public static List<String> detectAndDecode(Bitmap bitmap){
         Mat mat = new Mat();
-        Utils.bitmapToMat(bitmap,mat);
-        return sWeChatQRCode.detectAndDecode(mat);
+        Utils.bitmapToMat(bitmap, mat);
+        return detectAndDecode(mat);
+    }
+
+    /**
+     * Both detects and decodes QR code.
+     * To simplify the usage, there is a only API: detectAndDecode
+     *
+     * @param bitmap {@link Bitmap}
+     * @param points optional output array of vertices of the found QR code quadrangle. Will be
+     * empty if not found.
+     * @return list of decoded string.
+     */
+    public static List<String> detectAndDecode(Bitmap bitmap, List<Mat> points){
+        Mat mat = new Mat();
+        Utils.bitmapToMat(bitmap, mat);
+        return detectAndDecode(mat, points);
     }
 
     /**
@@ -123,7 +138,7 @@ public final class WeChatQRCodeDetector {
      * @return list of decoded string.
      */
     public static List<String> detectAndDecode(Mat img, List<Mat> points){
-        return sWeChatQRCode.detectAndDecode(img,points);
+        return sWeChatQRCode.detectAndDecode(img, points);
     }
 
 

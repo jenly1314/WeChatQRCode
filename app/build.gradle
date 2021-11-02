@@ -56,6 +56,12 @@ dependencies {
     implementation "com.github.jenly1314.MLKit:mlkit-camera-core:$versions.mlkit"
 
     implementation project(path: ':opencv')
+    implementation project(path: ':opencv-armv7a')
+//    implementation project(path: ':opencv-armv64')
+//    implementation project(path: ':opencv-x86')
+//    implementation project(path: ':opencv-x86_64')
+
+
     implementation project(path: ':wechat-qrcode')
     implementation project(path: ':wechat-qrcode-scanning')
 }

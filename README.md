@@ -175,6 +175,9 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 
 ## 版本记录
 
+#### v1.1.1：2021-11-2
+* 更新mlkit-camera-core至v1.0.3
+
 #### v1.1.0：2021-8-6
 * 编译多种ABI支持
 * 更新mlkit-camera-core至v1.0.2

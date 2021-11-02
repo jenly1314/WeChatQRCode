@@ -3,7 +3,7 @@ package com.king.wechat.qrcode.app.anlyze
 import androidx.camera.core.ImageProxy
 import com.king.mlkit.vision.camera.AnalyzeResult
 import com.king.mlkit.vision.camera.analyze.Analyzer
-import com.king.mlkit.vision.camera.util.ImageUtils
+import com.king.mlkit.vision.camera.util.BitmapUtils
 import org.opencv.OpenCVQRCodeDetector
 
 /**
@@ -17,7 +17,7 @@ class OpenCVScanningAnalyzer : Analyzer<String> {
     override fun analyze(
         imageProxy: ImageProxy,
         listener: Analyzer.OnAnalyzeListener<AnalyzeResult<String>>) {
-        val bitmap = ImageUtils.imageProxyToBitmap(imageProxy,imageProxy.imageInfo.rotationDegrees)
+        val bitmap = BitmapUtils.getBitmap(imageProxy)
         val result = detector.detectAndDecode(bitmap)
 
         result?.let {

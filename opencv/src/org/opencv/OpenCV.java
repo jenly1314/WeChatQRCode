@@ -23,7 +23,7 @@ public final class OpenCV {
      * @param context
      */
     public static void initAsync(Context context){
-        LoaderCallbackInterface loaderCallback = new BaseLoaderCallback(context.getApplicationContext()){
+        LoaderCallbackInterface loaderCallback = new BaseLoaderCallback(context){
             @Override
             public void onManagerConnected(int status) {
                 super.onManagerConnected(status);
@@ -35,7 +35,7 @@ public final class OpenCV {
         };
         if (!OpenCVLoader.initDebug()) {
             Log.d(TAG, "Internal OpenCV library not found. Using OpenCV Manager for initialization");
-            OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION, context.getApplicationContext(), loaderCallback);
+            OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION, context, loaderCallback);
         } else {
             Log.d(TAG, "OpenCV library found inside package. Using it!");
             loaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);

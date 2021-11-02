@@ -30,6 +30,6 @@ versions.espressoCore = "3.3.0"
 
 versions.kotlinxCoroutines = "1.4.3"
 versions.lifecycleKtx="2.3.1"
-versions.mlkit="1.0.2"
+versions.mlkit="1.0.3"
 
 ext.versions = versions
