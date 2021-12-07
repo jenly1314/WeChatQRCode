@@ -8,6 +8,19 @@ version '1.0.0'
 repositories {
     mavenCentral()
 }
+tasks.matching {it instanceof Test}.all {
+    testLogging.events = ["failed", "passed", "skipped"]
+}
+
+allprojects {
+    tasks.withType(Javadoc) {
+        options{
+            encoding "UTF-8"
+            charSet 'UTF-8'
+            links "http://docs.oracle.com/javase/8/docs/api"
+        }
+    }
+}
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
