@@ -60,7 +60,7 @@ OpenCV：**x86_64** 的libopencv_java4.so
 **wechat-qrcode-scanning** 相当于[MLKit](https://github.com/jenly1314/MLKit)中的 **mlkit-camera-core**的衍生库。
 
 
-### [Java版本（点击查看java分支）](https://hub.fastgit.org/jenly1314/WeChatQRCode/tree/java) 
+### [Java版本（点击查看java分支）](https://github.com/jenly1314/WeChatQrCode/tree/java) 
 
 
 ## 引入
