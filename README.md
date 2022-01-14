@@ -9,12 +9,12 @@
 [![Blog](https://img.shields.io/badge/blog-Jenly-9933CC.svg)](https://jenly1314.github.io/)
 [![QQGroup](https://img.shields.io/badge/QQGroup-20867961-blue.svg)](http://shang.qq.com/wpa/qunwpa?idkey=8fcc6a2f88552ea44b1.1.982c94fd124f7bb3ec227e2a400dbbfaad3dc2f5ad)
 
-基于OpenCV开源的微信二维码引擎移植的封装库。（此分支为 **Java** 版本）
+基于OpenCV开源的微信二维码引擎移植的封装库。（此分支为 **Java** 版本；支持 **Windows** 和 **Linux** ）
 
 
 ## Java版本
 
-[WeChatQRCode-for-Java-1.0.0.zip](https://raw.githubusercontent.com/jenly1314/WeChatQRCode/java/release/WeChatQRCode-for-Java-1.0.0.zip)
+[WeChatQRCode-for-Java-2.0.0.zip](https://raw.githubusercontent.com/jenly1314/WeChatQRCode/java/release/WeChatQRCode-for-Java-2.0.0.zip)
 
 ## 使用步骤
 
@@ -25,7 +25,7 @@
 ## 示例
 
 ```java
-    //初始化 OpenCV
+    //初始化 OpenCV；可以自定义路径，windows加载dll，linux加载so库文件
     OpenCV.init();
     //初始化 WeChatQRCode
     WeChatQRCodeDetector.init();

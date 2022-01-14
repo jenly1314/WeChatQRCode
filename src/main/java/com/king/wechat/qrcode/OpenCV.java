@@ -8,6 +8,10 @@ import java.util.logging.Logger;
 
 public final class OpenCV {
 
+    private OpenCV(){
+        throw new AssertionError();
+    }
+
     /**
      * 初始化 OpenCV
      */
@@ -17,24 +21,34 @@ public final class OpenCV {
 
     /**
      * 初始化 OpenCV
-     * @param dllDirPath 动态链接库所在的文件夹
+     * @param libDirPath opencv_java*.dll 或 opencv_java*.so 所在文件夹
      */
-    public static void init(String dllDirPath) throws Exception{
-        initOpenCV(dllDirPath);
+    public static void init(String libDirPath) throws Exception{
+        initOpenCV(libDirPath);
     }
 
     /**
      * 初始化 OpenCV
-     * @param dllDirPath 动态链接库所在的文件夹
+     * @param libDirPath opencv_java*.dll 或 opencv_java*.so 所在文件夹
      */
-    private static void initOpenCV(String dllDirPath) throws Exception {
-        if(dllDirPath == null){//如果dllDirPath为空，使用 System.loadLibrary 的方式动态链接库
-            // java.library.path
+    private static void initOpenCV(String libDirPath) throws Exception {
+        String os = System.getProperty("os.name");
+        File libOpencvFile = null;
+        if(os != null){
+            os = os.toLowerCase();
+            Logger.getLogger(OpenCV.class.getName()).log(Level.INFO, "os.name = " + os);
+            if(os.indexOf("windows") >= 0){
+                libOpencvFile = new File(libDirPath,"libopencv_java455.dll");
+            }else if(os.indexOf("linux") >= 0){
+                libOpencvFile = new File(libDirPath,"libopencv_java455.so");
+            }else{
+                throw new IllegalAccessException("os.name = " + os);
+            }
+        }
+        if(libOpencvFile != null){
+            System.load(libOpencvFile.getAbsolutePath());
+        }else{
             System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        }else{//如果dllDirPath不为空，使用 System.load 的方式动态链接库
-            File dllFile = new File(dllDirPath,"libopencv_java452.dll");
-            // 加载动态链接库（libopencv_java452.dll）
-            System.load(dllFile.getAbsolutePath());
         }
         Core.setErrorVerbosity(false);
         Logger.getLogger(OpenCV.class.getName()).log(Level.INFO, "Successfully loaded OpenCV native library.");
