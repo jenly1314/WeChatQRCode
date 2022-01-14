@@ -25,7 +25,7 @@
 ## 示例
 
 ```java
-    //初始化 OpenCV；可以自定义路径，windows加载dll，linux加载so库文件
+    //初始化 OpenCV；也可以指定路径；windows加载dll，linux加载so库文件
     OpenCV.init();
     //初始化 WeChatQRCode
     WeChatQRCodeDetector.init();
