@@ -55,6 +55,10 @@ dependencies {
 
     implementation "com.github.jenly1314.MLKit:mlkit-camera-core:$versions.mlkit"
 
+    implementation "com.github.jenly1314.AppUpdater:app-dialog:$versions.appDialog"
+
+
+
     implementation project(path: ':opencv')
     implementation project(path: ':opencv-armv7a')
 //    implementation project(path: ':opencv-armv64')

@@ -2,12 +2,15 @@ package com.king.wechat.qrcode.app
 
 import android.Manifest
 import android.content.Intent
+import android.graphics.Path
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.tabs.TabLayout
 import com.king.mlkit.vision.camera.util.LogUtils
 import com.king.mlkit.vision.camera.util.PermissionUtils
 import com.king.wechat.qrcode.WeChatQRCodeDetector
@@ -92,6 +95,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun processQRCodeResult(text: String?){
         text?.let {
+            Log.d(SCAN_RESULT, it)
             Toast.makeText(getContext(),it,Toast.LENGTH_SHORT).show()
         }
     }
