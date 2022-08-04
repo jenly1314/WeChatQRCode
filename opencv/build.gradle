@@ -132,6 +132,11 @@ android {
         }
     }
 
+    lintOptions {
+        abortOnError false
+        warning 'InvalidPackage'
+    }
+
     sourceSets {
         main {
 //            jniLibs.srcDirs = ['native/libs']
