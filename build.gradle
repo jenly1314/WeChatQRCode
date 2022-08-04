@@ -10,6 +10,7 @@ buildscript {
         classpath "com.android.tools.build:gradle:$versions.gradle"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
         classpath "com.vanniktech:gradle-maven-publish-plugin:$versions.mavenPublish"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$versions.dokka"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -41,9 +42,9 @@ allprojects {
         failOnError false
     }
 
-//    plugins.withId("com.vanniktech.maven.publish") {
-//        mavenPublish {
-//            sonatypeHost = "S01"
-//        }
-//    }
+    plugins.withId("com.vanniktech.maven.publish") {
+        mavenPublish {
+            sonatypeHost = "S01"
+        }
+    }
 }

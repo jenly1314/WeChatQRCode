@@ -13,9 +13,10 @@ android {
         versionName app_version.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
         ndk {
-            // 设置支持的 SO 库构架
-            abiFilters 'armeabi-v7a'
+            //设置支持的 SO 库架构（开发者可以根据需要，选择一个或多个平台的so）
+            abiFilters 'armeabi-v7a' // , 'arm64-v8a', 'x86', 'x86_64'
         }
     }
 
@@ -41,6 +42,7 @@ android {
 
 dependencies {
 
+    implementation fileTree(dir: 'libs', include: ['*.aar','*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation "com.google.android.material:material:$versions.material"
@@ -56,7 +58,6 @@ dependencies {
     implementation "com.github.jenly1314.MLKit:mlkit-camera-core:$versions.mlkit"
 
     implementation "com.github.jenly1314.AppUpdater:app-dialog:$versions.appDialog"
-
 
 
     implementation project(path: ':opencv')

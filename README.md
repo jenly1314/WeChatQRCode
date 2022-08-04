@@ -82,23 +82,54 @@ allprojects {
 
 ```gradle
 // OpenCV基础库（*必须）
-implementation 'com.github.jenly1314.WeChatQRCode:opencv:1.1.1'
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:1.1.1'
-
-// OpenCV的其他ABI（可选），根据你的需求选择想要的so支持
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv64:1.1.1'
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86:1.1.1'
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86_64:1.1.1'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv:1.2.0'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:1.2.0'
 
 // 微信二维码识别功能（可选）
-implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:1.1.1'
+implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:1.2.0'
 
 // 微信二维码扫码功能（可选）
-implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:1.1.1'
+implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:1.2.0'
 //MLKit的Camera核心库：如果您使用了wechat-qrcode-scanning，则必须依赖mlkit-camera-core库
 implementation 'com.github.jenly1314.MLKit:mlkit-camera-core:1.0.3'
 
 ```
+
+3. ABI过滤：在Module的 **build.gradle** 里面的 android{} 中设置支持的 SO 库架构（可选，支持多个平台的 so， 支持的平台越多，APK体积越大）
+
+```gradle
+    defaultConfig {
+    
+        //...
+        
+        ndk {
+            //设置支持的 SO 库架构（开发者可以根据需要，选择一个或多个平台的 so）
+            abiFilters 'armeabi-v7a' // , 'arm64-v8a', 'x86', 'x86_64'
+        }
+    }
+```
+
+ABI过滤：根据需要选择支持的 SO 库架构
+```gradle
+// OpenCV基础库（*必须）
+implementation 'com.github.jenly1314.WeChatQRCode:opencv:1.2.0'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:1.2.0'
+
+// OpenCV的其他ABI（可选），根据你的需求选择想要的so支持
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv64:1.2.0'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86:1.2.0'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86_64:1.2.0'
+
+// 微信二维码识别功能（可选）
+implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:1.2.0'
+
+// 微信二维码扫码功能（可选）
+implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:1.2.0'
+//MLKit的Camera核心库：如果您使用了wechat-qrcode-scanning，则必须依赖mlkit-camera-core库
+implementation 'com.github.jenly1314.MLKit:mlkit-camera-core:1.0.3'
+
+```
+
 
 ## 示例
 
@@ -247,6 +278,9 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 
 
 ## 版本记录
+
+#### v1.2.0：2022-8-4
+* 更新OpenCV至v4.6.0
 
 #### v1.1.1：2021-11-2
 * 优化细节
