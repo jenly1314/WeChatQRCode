@@ -18,6 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.camera.core.ImageProxy;
 
 /**
+ * 微信二维码分析器：分析相机预览的帧数据，从中检测识别二维码
+ *
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
  */
 public class WeChatScanningAnalyzer implements Analyzer<List<String>> {
@@ -27,50 +29,55 @@ public class WeChatScanningAnalyzer implements Analyzer<List<String>> {
      */
     private boolean isNeedVertices;
 
-    public WeChatScanningAnalyzer(){
+    public WeChatScanningAnalyzer() {
         this(false);
     }
 
     /**
      * 构造
+     *
      * @param isNeedVertices 是否需要返回二维码的各个顶点
      */
-    public WeChatScanningAnalyzer(boolean isNeedVertices){
+    public WeChatScanningAnalyzer(boolean isNeedVertices) {
         this.isNeedVertices = isNeedVertices;
     }
 
     @Override
     public void analyze(@NonNull ImageProxy imageProxy, @NonNull Analyzer.OnAnalyzeListener<AnalyzeResult<List<String>>> listener) {
+        AnalyzeResult<List<String>> result = null;
         try {
             final Bitmap bitmap = BitmapUtils.getBitmap(imageProxy);
-            AnalyzeResult<List<String>> result = detectAndDecode(bitmap, isNeedVertices);
-            if(result != null){
-                listener.onSuccess(result);
-            }else{
-                listener.onFailure();
-            }
+            result = detectAndDecode(bitmap, isNeedVertices);
         } catch (Exception e) {
             LogUtils.w(e);
+        }
+        if (result != null && !result.getResult().isEmpty()) {
+            listener.onSuccess(result);
+        } else {
+            listener.onFailure();
         }
     }
 
     /**
      * 检测并识别二维码
+     *
      * @param bitmap
      * @param isNeedVertices
      * @return
      */
     @Nullable
-    private AnalyzeResult<List<String>> detectAndDecode(Bitmap bitmap,boolean isNeedVertices) {
-        if(isNeedVertices){//如果需要返回二维码的各个顶点
+    private AnalyzeResult<List<String>> detectAndDecode(Bitmap bitmap, boolean isNeedVertices) {
+        if (isNeedVertices) {
+            // 如果需要返回二维码的各个顶点
             final List<Mat> points = new ArrayList<>();
             List<String> result = WeChatQRCodeDetector.detectAndDecode(bitmap, points);
-            if(result != null && result.size() > 0){
+            if (result != null && result.size() > 0) {
                 return new QRCodeAnalyzeResult<>(bitmap, result, points);
             }
-        }else{//反之则需识别结果即可
+        } else {
+            // 反之则需识别结果即可
             List<String> result = WeChatQRCodeDetector.detectAndDecode(bitmap);
-            if(result != null && result.size() > 0){
+            if (result != null && result.size() > 0) {
                 return new QRCodeAnalyzeResult<>(bitmap, result);
             }
         }
@@ -78,27 +85,42 @@ public class WeChatScanningAnalyzer implements Analyzer<List<String>> {
         return null;
     }
 
+    /**
+     * 二维码分析结果
+     *
+     * @param <T>
+     */
     public static class QRCodeAnalyzeResult<T> extends AnalyzeResult<T> {
 
+        /**
+         * 二维码的位置点信息
+         */
         private List<Mat> points;
 
+        @Deprecated
         public QRCodeAnalyzeResult() {
             super();
         }
 
         public QRCodeAnalyzeResult(Bitmap bitmap, T result) {
-            super(bitmap,result);
+            super(bitmap, result);
         }
 
-        public QRCodeAnalyzeResult(Bitmap bitmap, T result,List<Mat> points) {
-            super(bitmap,result);
+        public QRCodeAnalyzeResult(Bitmap bitmap, T result, List<Mat> points) {
+            super(bitmap, result);
             this.points = points;
         }
 
+        /**
+         * 获取二维码的位置点信息
+         *
+         * @return
+         */
         public List<Mat> getPoints() {
             return points;
         }
 
+        @Deprecated
         public void setPoints(List<Mat> points) {
             this.points = points;
         }

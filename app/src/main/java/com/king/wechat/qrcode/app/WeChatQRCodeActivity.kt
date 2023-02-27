@@ -1,41 +1,44 @@
 package com.king.wechat.qrcode.app
 
-
 import android.content.Intent
 import android.graphics.Path
-import android.graphics.Rect
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import com.king.app.dialog.AppDialog
 import com.king.app.dialog.AppDialogConfig
 import com.king.mlkit.vision.camera.AnalyzeResult
+import com.king.mlkit.vision.camera.CameraScan
 import com.king.mlkit.vision.camera.analyze.Analyzer
+import com.king.mlkit.vision.camera.config.AspectRatioCameraConfig
 import com.king.wechat.qrcode.scanning.WeChatCameraScanActivity
 import com.king.wechat.qrcode.scanning.analyze.WeChatScanningAnalyzer
-import java.lang.StringBuilder
 
 /**
+ * 微信二维码扫描实现示例
+ *
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
  */
 class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 
-    companion object{
-        const val TAG = "WeChatQRCodeActivity"
+    override fun initCameraScan() {
+        super.initCameraScan()
+        // 使用 AspectRatioCameraConfig
+        cameraScan.setCameraConfig(AspectRatioCameraConfig(this))
     }
 
     override fun onScanResultCallback(result: AnalyzeResult<List<String>>) {
-        if(result.result.isNotEmpty()){
-            //停止分析
+        if (result.result.isNotEmpty()) {
+            // 停止分析
             cameraScan.setAnalyzeImage(false)
-            Log.d(TAG,result.result.toString())
+            Log.d(TAG, result.result.toString())
             // 当初始化 WeChatScanningAnalyzer 时，如果是需要二维码的位置信息，则会返回 WeChatScanningAnalyzer.QRCodeAnalyzeResult
-            if(result is WeChatScanningAnalyzer.QRCodeAnalyzeResult){ // 如果需要处理结果二维码的位置信息
+            if (result is WeChatScanningAnalyzer.QRCodeAnalyzeResult) { // 如果需要处理结果二维码的位置信息
 
                 val buffer = StringBuilder()
-                val bitmap = result.bitmap.drawRect {canvas,paint ->
+                val bitmap = result.bitmap.drawRect { canvas, paint ->
                     // 扫码结果可能有多个
-                    for ((index,data) in result.result.withIndex()) {
+                    for ((index, data) in result.result.withIndex()) {
                         buffer.append("[$index] ").append(data).append("\n")
                         result.points?.forEach { mat ->
                             // 扫码结果二维码的四个点
@@ -70,15 +73,14 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
                     val imageView = getView<ImageView>(R.id.ivDialogContent)
                     imageView.setImageBitmap(bitmap)
                 }
-                AppDialog.INSTANCE.showDialog(config,false)
+                AppDialog.INSTANCE.showDialog(config, false)
 
             } else {
-
-                //一般需求都是识别一个码，所以这里取第0个就可以；有识别多个码的需求，可以取全部
+                // 一般需求都是识别一个码，所以这里取第0个就可以；有识别多个码的需求，可以取全部
                 val text = result.result[0]
                 val intent = Intent()
-                intent.putExtra(MainActivity.SCAN_RESULT,text)
-                setResult(RESULT_OK,intent)
+                intent.putExtra(CameraScan.SCAN_RESULT, text)
+                setResult(RESULT_OK, intent)
                 finish()
             }
 
@@ -90,6 +92,10 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 //        return WeChatScanningAnalyzer()
         // 如果需要返回结果二维码位置信息，则初始化分析器时，参数传 true 即可
         return WeChatScanningAnalyzer(true)
+    }
+
+    companion object {
+        const val TAG = "WeChatQRCodeActivity"
     }
 
 }

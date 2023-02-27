@@ -36,13 +36,13 @@ android {
 
 dependencies {
 
-    compileOnly "androidx.appcompat:appcompat:$versions.appcompat"
+    implementation "androidx.appcompat:appcompat:$versions.appcompat"
 
     testImplementation "junit:junit:$versions.junit"
     androidTestImplementation "androidx.test.ext:junit:$versions.androidExtJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
 
-    compileOnly "com.github.jenly1314.MLKit:mlkit-camera-core:$versions.mlkit"
+    api "com.github.jenly1314.MLKit:mlkit-camera-core:$versions.mlkit"
 
     compileOnly project(path: ':opencv')
     compileOnly project(path: ':wechat-qrcode')

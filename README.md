@@ -82,20 +82,43 @@ allprojects {
 
 ```gradle
 // OpenCV基础库（*必须）
-implementation 'com.github.jenly1314.WeChatQRCode:opencv:1.2.0'
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:1.2.0'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv:1.2.1'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:1.2.1'
 
 // 微信二维码识别功能（可选）
-implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:1.2.0'
+implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:1.2.1'
 
 // 微信二维码扫码功能（可选）
-implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:1.2.0'
-//MLKit的Camera核心库：如果您使用了wechat-qrcode-scanning，则必须依赖mlkit-camera-core库
+implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:1.2.1'
+// wechat-qrcode-scanning 依赖了 mlkit-camera-core
 implementation 'com.github.jenly1314.MLKit:mlkit-camera-core:1.0.3'
 
 ```
 
-3. ABI过滤：在Module的 **build.gradle** 里面的 android{} 中设置支持的 SO 库架构（可选，支持多个平台的 so， 支持的平台越多，APK体积越大）
+**ABI过滤：**
+
+根据需要选择支持的 SO 库架构
+```gradle
+// OpenCV基础库（*必须）
+implementation 'com.github.jenly1314.WeChatQRCode:opencv:1.2.1'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:1.2.1'
+
+// OpenCV的其他ABI（可选），根据你的需求选择想要的so支持
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv64:1.2.1'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86:1.2.1'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86_64:1.2.1'
+
+// 微信二维码识别功能（可选）
+implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:1.2.1'
+
+// 微信二维码扫码功能（可选）
+implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:1.2.1'
+// wechat-qrcode-scanning 依赖了 mlkit-camera-core
+implementation 'com.github.jenly1314.MLKit:mlkit-camera-core:1.0.3'
+
+```
+
+在Module的 **build.gradle** 里面的 android{} 中设置支持的 SO 库架构（可选，支持多个平台的 so， 支持的平台越多，APK体积越大）
 
 ```gradle
     defaultConfig {
@@ -109,29 +132,9 @@ implementation 'com.github.jenly1314.MLKit:mlkit-camera-core:1.0.3'
     }
 ```
 
-ABI过滤：根据需要选择支持的 SO 库架构
-```gradle
-// OpenCV基础库（*必须）
-implementation 'com.github.jenly1314.WeChatQRCode:opencv:1.2.0'
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:1.2.0'
+## 使用说明
 
-// OpenCV的其他ABI（可选），根据你的需求选择想要的so支持
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv64:1.2.0'
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86:1.2.0'
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86_64:1.2.0'
-
-// 微信二维码识别功能（可选）
-implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:1.2.0'
-
-// 微信二维码扫码功能（可选）
-implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:1.2.0'
-//MLKit的Camera核心库：如果您使用了wechat-qrcode-scanning，则必须依赖mlkit-camera-core库
-implementation 'com.github.jenly1314.MLKit:mlkit-camera-core:1.0.3'
-
-```
-
-
-## 示例
+### 初始化
 
 初始化 **OpenCV** 和 **WeChatQRCodeDetector** （建议在 **MainActivity** 的 **onCreate** 方法中初始化）
 ```kotlin
@@ -141,6 +144,7 @@ implementation 'com.github.jenly1314.MLKit:mlkit-camera-core:1.0.3'
         //初始化WeChatQRCodeDetector
         WeChatQRCodeDetector.init(context)
 ```   
+### 识别二维码
 
 识别二维码 （**wechat-qrcode**中的WeChatQRCodeDetector）
 ```kotlin
@@ -165,28 +169,25 @@ implementation 'com.github.jenly1314.MLKit:mlkit-camera-core:1.0.3'
 
 ``` 
 
-
+### 完整示例
 
 通过继承 **wechat-qrcode-scanning** 中的 WeChatCameraScanActivity或者WeChatCameraScanFragment可以很轻松的实现扫码功能
+
 ```kotlin
 class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 
-    companion object{
-        const val TAG = "WeChatQRCodeActivity"
-    }
-
     override fun onScanResultCallback(result: AnalyzeResult<List<String>>) {
-        if(result.result.isNotEmpty()){
-            //停止分析
+        if (result.result.isNotEmpty()) {
+            // 停止分析
             cameraScan.setAnalyzeImage(false)
-            Log.d(TAG,result.result.toString())
+            Log.d(TAG, result.result.toString())
             // 当初始化 WeChatScanningAnalyzer 时，如果是需要二维码的位置信息，则会返回 WeChatScanningAnalyzer.QRCodeAnalyzeResult
-            if(result is WeChatScanningAnalyzer.QRCodeAnalyzeResult){ // 如果需要处理结果二维码的位置信息
+            if (result is WeChatScanningAnalyzer.QRCodeAnalyzeResult) { // 如果需要处理结果二维码的位置信息
 
                 val buffer = StringBuilder()
-                val bitmap = result.bitmap.drawRect {canvas,paint ->
+                val bitmap = result.bitmap.drawRect { canvas, paint ->
                     // 扫码结果可能有多个
-                    for ((index,data) in result.result.withIndex()) {
+                    for ((index, data) in result.result.withIndex()) {
                         buffer.append("[$index] ").append(data).append("\n")
                         result.points?.forEach { mat ->
                             // 扫码结果二维码的四个点
@@ -221,15 +222,14 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
                     val imageView = getView<ImageView>(R.id.ivDialogContent)
                     imageView.setImageBitmap(bitmap)
                 }
-                AppDialog.INSTANCE.showDialog(config,false)
+                AppDialog.INSTANCE.showDialog(config, false)
 
             } else {
-
-                //一般需求都是识别一个码，所以这里取第0个就可以；有识别多个码的需求，可以取全部
+                // 一般需求都是识别一个码，所以这里取第0个就可以；有识别多个码的需求，可以取全部
                 val text = result.result[0]
                 val intent = Intent()
-                intent.putExtra(MainActivity.SCAN_RESULT,text)
-                setResult(RESULT_OK,intent)
+                intent.putExtra(CameraScan.SCAN_RESULT, text)
+                setResult(RESULT_OK, intent)
                 finish()
             }
 
@@ -243,19 +243,54 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
         return WeChatScanningAnalyzer(true)
     }
 
+    companion object {
+        const val TAG = "WeChatQRCodeActivity"
+    }
+
 }
 ```
    
 ### 特别说明
 
-因为 **wechat-qrcode-scanning** 依赖了 [MLKit](https://github.com/jenly1314/MLKit) 中的 **mlkit-camera-core**，所以布局在使用上完全遵循 **mlkit-camera-core** 的使用方式。    
-        
-#### 布局示例 （这里贴出部分 **[MLKit](https://github.com/jenly1314/MLKit)** 中的部分示例）
->  可自定义布局（覆写getLayoutId方法），布局内至少要保证有PreviewView，然后自己可根据需要添加的控件。
+因为 **wechat-qrcode-scanning** 依赖了 [MLKit](https://github.com/jenly1314/MLKit) 中的 **mlkit-camera-core**，
+所以关于 **CameraScan** 的和界面布局在使用上完全遵循 **mlkit-camera-core** 的使用方式。
 
-> PreviewView 用来预览，布局内至少要保证有PreviewView，如果是继承BaseCameraScanActivity或BaseCameraScanFragment，控件id可覆写getPreviewViewId方法自定义
+这里贴出一部分主要的使用示例：
 
-> 关于扫码框动画，你可以直接拷贝[MLKit](https://github.com/jenly1314/MLKit)中的[ViewfinderView](https://github.com/jenly1314/MLKit/blob/master/mlkit-barcode-scanning/src/main/java/com/king/mlkit/vision/barcode/ViewfinderView.java)来使用，也可以自定义实现。
+#### CameraScan配置示例
+
+**CameraScan** 里面包含部分支持链式调用的方法，即调用返回是 **CameraScan** 本身的一些配置建议在调用 **startCamera()** 方法之前调用。
+
+> 如果是通过继承 **BaseCameraScanActivity** 或者 **BaseCameraScanFragment** 或其子类实现的相机扫描，可以在
+**initCameraScan()** 方法中获取 **CameraScan** ，然后根据需要修改相关配置。
+
+```java
+// 获取CameraScan，根据需要修改相关配置
+getCameraScan().setPlayBeep(true)//设置是否播放音效，默认为false
+        .setVibrate(true)//设置是否震动，默认为false
+        .setCameraConfig(new CameraConfig())//设置相机配置信息，CameraConfig可覆写options方法自定义配置
+        .setNeedTouchZoom(true)//支持多指触摸捏合缩放，默认为true
+        .setDarkLightLux(45f)//设置光线足够暗的阈值（单位：lux），需要通过{@link #bindFlashlightView(View)}绑定手电筒才有效
+        .setBrightLightLux(100f)//设置光线足够明亮的阈值（单位：lux），需要通过{@link #bindFlashlightView(View)}绑定手电筒才有效
+        .bindFlashlightView(ivFlashlight)//绑定手电筒，绑定后可根据光线传感器，动态显示或隐藏手电筒按钮
+        .setOnScanResultCallback(this)//设置扫码结果回调，需要自己处理或者需要连扫时，可设置回调，自己去处理相关逻辑
+        .setAnalyzer(new BarcodeScanningAnalyzer())//设置分析器，如这里使用条码分析器，BarcodeScanningAnalyzer是mlkit-barcode-scanning中的
+        .setAnalyzeImage(true)//设置是否分析图片，默认为true。如果设置为false，相当于关闭了扫码识别功能
+
+        // 启动预览（如果是通过直接或间接继承BaseCameraScanActivity或BaseCameraScanFragment实现的则无需调用startCamera）
+        getCameraScan().startCamera();
+
+
+        // 设置闪光灯（手电筒）是否开启,需在startCamera之后调用才有效
+        getCameraScan().enableTorch(torch);
+```
+
+#### 布局示例
+
+**PreviewView** 用来预览，布局内至少要保证有 **PreviewView**；如果是继承 **BaseCameraScanActivity** 或
+**BaseCameraScanFragment** 或其子类实现的相机扫描；快速实现扫描功能；
+
+需自定义布局时，通过覆写getLayoutId方法即可；更多代码用法可直接查看 **BaseCameraScanActivity** 源码或参见下面的使用示例。
 
 ```Xml
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -269,15 +304,21 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 </FrameLayout>
 ```
 
+> 关于扫码框动画，你可以直接拷贝[MLKit](https://github.com/jenly1314/MLKit)中的[ViewfinderView](https://github.com/jenly1314/MLKit/blob/master/mlkit-barcode-scanning/src/main/java/com/king/mlkit/vision/barcode/ViewfinderView.java)来使用，也可以自定义实现。
+
+
 更多使用详情，请查看[app](app)中的源码使用示例或直接查看 [API帮助文档](https://jitpack.io/com/github/jenly1314/WeChatQRCode/latest/javadoc/)
 
-### 相关推荐
+## 相关推荐
 
 #### [MLKit](https://github.com/jenly1314/MLKit) 一个强大易用的工具包。通过ML Kit您可以很轻松的实现文字识别、条码识别、图像标记、人脸检测、对象检测等功能。    
 #### [ZXingLite](https://github.com/jenly1314/ZXingLite) 基于ZXing库优化扫码和生成二维码/条形码功能，扫码界面完全支持自定义。
 
 
 ## 版本记录
+
+#### v1.2.1：2023-2-27
+* 优化细节
 
 #### v1.2.0：2022-8-4
 * 更新OpenCV至v4.6.0
@@ -296,29 +337,28 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 ## 赞赏
 如果您喜欢WeChatQRCode，或感觉WeChatQRCode帮助到了您，可以点右上角“Star”支持一下，您的支持就是我的动力，谢谢 :smiley:<p>
 您也可以扫描下面的二维码，请作者喝杯咖啡 :coffee:
-    <div>
-        <img src="https://jenly1314.github.io/image/pay/wxpay.png" width="280" heght="350">
-        <img src="https://jenly1314.github.io/image/pay/alipay.png" width="280" heght="350">
-        <img src="https://jenly1314.github.io/image/pay/qqpay.png" width="280" heght="350">
-        <img src="https://jenly1314.github.io/image/alipay_red_envelopes.jpg" width="233" heght="350">
-    </div>
+<div>
+<img src="https://jenly1314.github.io/image/pay/sponsor.png" width="98%">
+</div>
 
 ## 关于我
-   Name: <a title="关于作者" href="https://about.me/jenly1314" target="_blank">Jenly</a>
 
-   Email: <a title="欢迎邮件与我交流" href="mailto:jenly1314@gmail.com" target="_blank">jenly1314#gmail.com</a> / <a title="给我发邮件" href="mailto:jenly1314@vip.qq.com" target="_blank">jenly1314#vip.qq.com</a>
+Name: <a title="关于作者" href="https://jenly1314.github.io" target="_blank">Jenly</a>
 
-   CSDN: <a title="CSDN博客" href="http://blog.csdn.net/jenly121" target="_blank">jenly121</a>
+Email: <a title="欢迎邮件与我交流" href="mailto:jenly1314@gmail.com" target="_blank">jenly1314#gmail.com</a>
+/ <a title="给我发邮件" href="mailto:jenly1314@vip.qq.com" target="_blank">jenly1314#vip.qq.com</a>
 
-   CNBlogs: <a title="博客园" href="https://www.cnblogs.com/jenly" target="_blank">jenly</a>
+CSDN: <a title="CSDN博客" href="http://blog.csdn.net/jenly121" target="_blank">jenly121</a>
 
-   GitHub: <a title="GitHub开源项目" href="https://github.com/jenly1314" target="_blank">jenly1314</a>
+CNBlogs: <a title="博客园" href="https://www.cnblogs.com/jenly" target="_blank">jenly</a>
 
-   Gitee: <a title="Gitee开源项目" href="https://gitee.com/jenly1314" target="_blank">jenly1314</a>
+GitHub: <a title="GitHub开源项目" href="https://github.com/jenly1314" target="_blank">jenly1314</a>
 
-   加入QQ群: <a title="点击加入QQ群" href="http://shang.qq.com/wpa/qunwpa?idkey=8fcc6a2f88552ea44b1411582c94fd124f7bb3ec227e2a400dbbfaad3dc2f5ad" target="_blank">20867961</a>
+Gitee: <a title="Gitee开源项目" href="https://gitee.com/jenly1314" target="_blank">jenly1314</a>
+
+加入QQ群: <a title="点击加入QQ群" href="http://shang.qq.com/wpa/qunwpa?idkey=8fcc6a2f88552ea44b1411582c94fd124f7bb3ec227e2a400dbbfaad3dc2f5ad" target="_blank">
+20867961</a>
    <div>
        <img src="https://jenly1314.github.io/image/jenly666.png">
        <img src="https://jenly1314.github.io/image/qqgourp.png">
    </div>
-

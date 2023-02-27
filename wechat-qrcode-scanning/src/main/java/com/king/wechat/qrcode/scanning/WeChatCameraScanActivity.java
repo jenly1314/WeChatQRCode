@@ -9,6 +9,10 @@ import java.util.List;
 import androidx.annotation.Nullable;
 
 /**
+ * 微信二维码扫描 - 相机扫描基类
+ * <p>
+ * 通过继承 {@link WeChatCameraScanActivity}或{@link WeChatCameraScanFragment}可快速实现二维码扫描
+ *
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
  */
 public abstract class WeChatCameraScanActivity extends BaseCameraScanActivity<List<String>> {
