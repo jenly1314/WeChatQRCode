@@ -20,7 +20,7 @@
 
 ## GIF 展示
 
-暂时没有录制GIF。
+暂时未录制GIF演示效果。
 
 > 你可以直接下载 [演示App](https://raw.githubusercontent.com/jenly1314/WeChatQRCode/master/app/release/app-release.apk) 体验效果
 
@@ -95,8 +95,6 @@ implementation 'com.github.jenly1314.MLKit:mlkit-camera-core:1.0.3'
 
 ```
 
-**ABI过滤：**
-
 根据需要选择支持的 SO 库架构
 ```gradle
 // OpenCV基础库（*必须）
@@ -118,6 +116,8 @@ implementation 'com.github.jenly1314.MLKit:mlkit-camera-core:1.0.3'
 
 ```
 
+**ABI过滤：**
+
 在Module的 **build.gradle** 里面的 android{} 中设置支持的 SO 库架构（可选，支持多个平台的 so， 支持的平台越多，APK体积越大）
 
 ```gradle
@@ -132,7 +132,7 @@ implementation 'com.github.jenly1314.MLKit:mlkit-camera-core:1.0.3'
     }
 ```
 
-## 使用说明
+## 使用
 
 ### 初始化
 
