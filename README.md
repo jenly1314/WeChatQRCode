@@ -304,8 +304,7 @@ getCameraScan().setPlayBeep(true)//设置是否播放音效，默认为false
 </FrameLayout>
 ```
 
-> 关于扫码框动画，你可以直接拷贝[MLKit](https://github.com/jenly1314/MLKit)中的[ViewfinderView](https://github.com/jenly1314/MLKit/blob/master/mlkit-barcode-scanning/src/main/java/com/king/mlkit/vision/barcode/ViewfinderView.java)来使用，也可以自定义实现。
-
+> 关于扫描框动画，你暂时可以直接使用[ViewfinderView](https://github.com/jenly1314/ViewfinderView)；（后续发布新版本时，计划自动依赖 **ViewfinderView**）
 
 更多使用详情，请查看[app](app)中的源码使用示例或直接查看 [API帮助文档](https://jitpack.io/com/github/jenly1314/WeChatQRCode/latest/javadoc/)
 
