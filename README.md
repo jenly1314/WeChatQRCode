@@ -131,13 +131,13 @@ implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:1.3.0'
 
 ### 温馨提示
 
-**关于WeChatQRCode版本与编译的SDK版本要求**
+#### 关于WeChatQRCode版本与编译的SDK版本要求
 
 > 使用 v1.3.x 以上版本时，要求 compileSdkVersion >= 33
 
 > 如果 compileSdkVersion < 33 请使用 v1.3.x 以前的版本（如：v1.2.1）
 
-**ABI过滤：**
+#### ABI过滤
 
 在Module的 **build.gradle** 里面的 android{} 中设置支持的 SO 库架构（可选，支持多个平台的 so， 支持的平台越多，APK体积越大）
 
@@ -152,22 +152,6 @@ implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:1.3.0'
         }
     }
 ```
-
-**opencv-qrcode与wechat-qrcode检测识别二维码对比**
-
-**opencv-qrcode**
-
-* 一次识别单个二维码速度一般；（一次识别多个二维码好像有点问题）
-* 二维码检测的位置信息是一个四边形。
-
-**wechat-qrcode**
-
-* 一次能识别多个二维码，识别速度更快；
-* 二维码检测的位置信息是一个矩形。
-
-总结成一句话来说就是：**wechat-qrcode** 识别速度更快，**opencv-qrcode** 二维码定位更准。
-
-> 以上观点纯属个人测试总结得出；随着版本的迭代，不保证观点与事实的一致性。你也可以直接下载 [演示App](https://raw.githubusercontent.com/jenly1314/WeChatQRCode/master/app/release/app-release.apk)进行测试比对。
 
 ## 使用
 
@@ -383,6 +367,24 @@ getCameraScan().setPlayBeep(true)//设置是否播放音效，默认为false
 > 关于扫描框动画：你暂时可以参考[app](app)中的源码示例，直接使用[ViewfinderView](https://github.com/jenly1314/ViewfinderView)；（后续发布新版本时，计划自动依赖 **ViewfinderView**）
 
 更多使用详情，请查看[app](app)中的源码使用示例或直接查看 [API帮助文档](https://jitpack.io/com/github/jenly1314/WeChatQRCode/latest/javadoc/)
+
+## 其他
+
+### opencv-qrcode与wechat-qrcode检测识别二维码对比
+
+**opencv-qrcode**
+
+* 一次识别单个二维码速度一般；（一次识别多个二维码时好像有点问题）
+* 二维码检测的位置信息是一个四边形。
+
+**wechat-qrcode**
+
+* 一次能识别多个二维码，识别速度更快；
+* 二维码检测的位置信息是一个矩形。
+
+总结成一句话来说就是：**wechat-qrcode** 识别速度更快，**opencv-qrcode** 二维码定位更准。
+
+> 以上观点纯属个人测试总结得出；随着版本的迭代，不保证观点与事实的一致性。你也可以直接下载 [演示App](https://raw.githubusercontent.com/jenly1314/WeChatQRCode/master/app/release/app-release.apk)进行测试比对。
 
 ## 相关推荐
 
