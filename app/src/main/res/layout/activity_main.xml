@@ -8,28 +8,60 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btnWeChatQRCode"
+        android:id="@+id/btnWeChatQRCodeScan"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="WeChatQRCode Scanning"
+        android:text="WeChat\nQRCode Scanning"
         android:textAllCaps="false"
         android:onClick="onClick"
         android:layout_marginTop="60dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <Button
-        android:id="@+id/btnPickPhoto"
+        android:id="@+id/btnWeChatMultiQRCodeScan"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="QRCode recognition from image"
+        android:text="WeChat\nMultiple QRCode Scanning"
         android:textAllCaps="false"
         android:onClick="onClick"
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnWeChatQRCode" />
+        app:layout_constraintTop_toBottomOf="@+id/btnWeChatQRCodeScan" />
+    <Button
+        android:id="@+id/btnWeChatQRCodeDecode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="WeChat\nQRCode recognition from image"
+        android:textAllCaps="false"
+        android:onClick="onClick"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnWeChatMultiQRCodeScan" />
+    <Button
+        android:id="@+id/btnOpenCVQRCodeScan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="OpenCV\nQRCode Scanning"
+        android:textAllCaps="false"
+        android:onClick="onClick"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnWeChatQRCodeDecode" />
 
+    <Button
+        android:id="@+id/btnOpenCVQRCodeDecode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="OpenCV\nQRCode recognition from image"
+        android:textAllCaps="false"
+        android:onClick="onClick"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnOpenCVQRCodeScan" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

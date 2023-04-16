@@ -1,3 +1,18 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
 rootProject.name = "WeChatQRCode"
 include ':app'
 include ':opencv'
@@ -5,5 +20,9 @@ include ':opencv-armv7a'
 include ':opencv-armv64'
 include ':opencv-x86'
 include ':opencv-x86_64'
+include ':opencv-qrcode'
+include ':opencv-qrcode-scanning'
 include ':wechat-qrcode'
 include ':wechat-qrcode-scanning'
+
+

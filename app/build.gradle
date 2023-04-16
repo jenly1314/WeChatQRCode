@@ -1,14 +1,15 @@
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    compileSdkVersion build_versions.compileSdk
+    namespace 'com.king.wechat.qrcode.app'
+    compileSdk build_versions.compileSdk
     defaultConfig {
         applicationId "com.king.wechat.qrcode.app"
-        minSdkVersion build_versions.minSdk
-        targetSdkVersion build_versions.targetSdk
+        minSdk build_versions.minSdk
+        targetSdk build_versions.targetSdk
         versionCode app_version.versionCode
         versionName app_version.versionName
 
@@ -27,16 +28,17 @@ android {
         }
     }
 
-    lintOptions {
-        abortOnError false
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
+    }
+
+    lintOptions {
+        abortOnError false
     }
 
     packagingOptions {
@@ -45,8 +47,6 @@ android {
 }
 
 dependencies {
-
-    implementation fileTree(dir: 'libs', include: ['*.aar','*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation "com.google.android.material:material:$versions.material"
@@ -59,7 +59,7 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycleKtx"
 
-    implementation "com.github.jenly1314.MLKit:mlkit-camera-core:$versions.mlkit"
+    implementation "com.github.jenly1314:viewfinderview:$versions.viewfinderview"
 
     implementation "com.github.jenly1314.AppUpdater:app-dialog:$versions.appDialog"
 
@@ -70,6 +70,8 @@ dependencies {
 //    implementation project(path: ':opencv-x86')
 //    implementation project(path: ':opencv-x86_64')
 
+    implementation project(path: ':opencv-qrcode')
+    implementation project(path: ':opencv-qrcode-scanning')
 
     implementation project(path: ':wechat-qrcode')
     implementation project(path: ':wechat-qrcode-scanning')

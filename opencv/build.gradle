@@ -94,19 +94,15 @@ plugins {
     id "com.vanniktech.maven.publish"
 }
 
-def openCVersionName = "4.6.0"
-def openCVersionCode = ((4 * 100 + 6) * 100 + 0) * 10 + 0
-
 android {
-    compileSdkVersion build_versions.compileSdk
-    buildToolsVersion build_versions.buildTools
+    namespace 'org.opencv'
+    compileSdk build_versions.compileSdk
 
     defaultConfig {
-        minSdkVersion build_versions.minSdk
-        targetSdkVersion build_versions.targetSdk
-
-        versionCode openCVersionCode
-        versionName openCVersionName
+        minSdk build_versions.minSdk
+        targetSdk build_versions.targetSdk
+        versionCode opencv_version.versionCode
+        versionName opencv_version.versionName
 
         externalNativeBuild {
             cmake {
@@ -130,6 +126,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     lintOptions {
