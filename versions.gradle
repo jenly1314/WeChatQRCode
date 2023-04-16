@@ -21,7 +21,7 @@ ext.build_versions = build_versions
 def versions = [:]
 
 versions.gradle = '7.4.2'
-versions.kotlin = "1.6.0"
+versions.kotlin = "1.8.0"
 
 versions.mavenPublish = '0.22.0'
 
