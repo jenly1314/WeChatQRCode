@@ -167,7 +167,7 @@ implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:1.3.0'
 
 总结成一句话来说就是：**wechat-qrcode** 识别速度更快，**opencv-qrcode** 二维码定位更准。
 
-> 以上纯属个人测试得出的观点；随着版本的迭代，不保证观点的准确性。你也可以直接下载 [演示App](https://raw.githubusercontent.com/jenly1314/WeChatQRCode/master/app/release/app-release.apk)进行测试比对。
+> 以上观点纯属个人测试总结得出；随着版本的迭代，不保证观点与事实的一致性。你也可以直接下载 [演示App](https://raw.githubusercontent.com/jenly1314/WeChatQRCode/master/app/release/app-release.apk)进行测试比对。
 
 ## 使用
 
