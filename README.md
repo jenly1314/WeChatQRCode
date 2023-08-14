@@ -320,7 +320,7 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 
 ### 二维码扫码识别
 
-下面就列一下OpenCVQRCode和WeChatQRCode实现扫二维码功能的核心类；主要包括实现扫描二维码的**Analyzer** 和便于快速实现扫描检测的 **BaseCameraScanActivity** 或 **BaseCameraScanFragment** 的子类。
+下面就列一下 **opencv-qrcode-scanning** 和 **wechat-qrcode-scanning** 实现扫二维码功能的核心类；主要包括实现扫描二维码的**Analyzer** 和便于快速实现扫描检测的 **BaseCameraScanActivity** 或 **BaseCameraScanFragment** 的子类。
 
 | 功能      | 所属子模块                  | 对应的Analyzer实现          | 对应的BaseCameraScanActivity子类                       |
 |:--------|:-----------------------|:-----------------------|:--------------------------------------------------|
