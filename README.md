@@ -55,9 +55,9 @@ OpenCV二维码识别：封装好的API，通过 **OpenCVQRCodeDetector** 你可
 
 ### [opencv-qrcode-scanning](opencv-qrcode-scanning)
 
-OpenCV二维码扫码：有了上面的OpenCV二维码识别功能，基本的扫码相关界面还是需要有个的，扫码加识别完美搭配，依赖[MLKit](https://github.com/jenly1314/MLKit)中的 **mlkit-camera-core**；
+OpenCV二维码扫码：有了上面的OpenCV二维码识别功能，基本的扫码相关界面还是需要有个的，扫码加识别完美搭配；
 
-**opencv-qrcode-scanning** 相当于[MLKit](https://github.com/jenly1314/MLKit)中的 **mlkit-camera-core**的衍生库。
+**opencv-qrcode-scanning** 相当于[CameraScan](https://github.com/jenly1314/CameraScan)的衍生库。
 
 ### [wechat-qrcode](wechat-qrcode)
 
@@ -65,25 +65,23 @@ OpenCV二维码扫码：有了上面的OpenCV二维码识别功能，基本的�
 
 ### [wechat-qrcode-scanning](wechat-qrcode-scanning)
 
-微信二维码扫码：有了上面的微信二维码识别功能，基本的扫码相关界面还是需要有个的，扫码加识别完美搭配，依赖[MLKit](https://github.com/jenly1314/MLKit)中的 **mlkit-camera-core**；
+微信二维码扫码：有了上面的微信二维码识别功能，基本的扫码相关界面还是需要有个的，扫码加识别完美搭配；
 
-**wechat-qrcode-scanning** 相当于[MLKit](https://github.com/jenly1314/MLKit)中的 **mlkit-camera-core**的衍生库。
+**wechat-qrcode-scanning** 相当于[CameraScan](https://github.com/jenly1314/CameraScan)的衍生库。
 
-### [Java版本（点击查看java分支）](https://github.com/jenly1314/WeChatQrCode/tree/java) 
-
+### [Java版本（点击查看java分支）](https://github.com/jenly1314/WeChatQrCode/tree/java)
 
 ## 引入
 
 ### Gradle:
 
-1. 在Project的 **build.gradle** 里面添加远程仓库  
-          
+1. 在Project的 **build.gradle** 或 **setting.gradle** 中添加远程仓库
+
 ```gradle
-allprojects {
-    repositories {
-        //...
-        mavenCentral()
-    }
+repositories {
+    //...
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 ```
 
@@ -91,41 +89,23 @@ allprojects {
 
 ```gradle
 // OpenCV基础库（*必须）
-implementation 'com.github.jenly1314.WeChatQRCode:opencv:1.3.0'
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:1.3.0'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv:2.0.0'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:2.0.0'
+
+// OpenCV的其他ABI（可选），根据你的需要选择想要支持的SO库架构
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv64:2.0.0'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86:2.0.0'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86_64:2.0.0'
 
 // OpenCV二维码识别功能（可选）
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-qrcode:1.3.0'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-qrcode:2.0.0'
 // OpenCV二维码扫码功能（可选）
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-qrcode-scanning:1.3.0'
+implementation 'com.github.jenly1314.WeChatQRCode:opencv-qrcode-scanning:2.0.0'
 
 // 微信二维码识别功能（可选）
-implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:1.3.0'
+implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:2.0.0'
 // 微信二维码扫码功能（可选）
-implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:1.3.0'
-
-```
-
-根据需要选择支持的 SO 库架构
-```gradle
-// OpenCV基础库（*必须）
-implementation 'com.github.jenly1314.WeChatQRCode:opencv:1.3.0'
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:1.3.0'
-
-// OpenCV的其他ABI（可选），根据你的需求选择想要的so支持
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv64:1.3.0'
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86:1.3.0'
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86_64:1.3.0'
-
-// OpenCV二维码识别功能（可选）
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-qrcode:1.3.0'
-// OpenCV二维码扫码功能（可选）
-implementation 'com.github.jenly1314.WeChatQRCode:opencv-qrcode-scanning:1.3.0'
-
-// 微信二维码识别功能（可选）
-implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:1.3.0'
-// 微信二维码扫码功能（可选）
-implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:1.3.0'
+implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:2.0.0'
 
 ```
 
@@ -135,7 +115,8 @@ implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:1.3.0'
 
 > 使用 v1.3.x 以上版本时，要求 compileSdkVersion >= 33
 
-> 如果 compileSdkVersion < 33 请使用 v1.3.x 以前的版本（如：v1.2.1）
+> 如果 **compileSdkVersion < 33** 请使用 [**v1.x版本**](https://github.com/jenly1314/WeChatQRCode/tree/1.x/)
+
 
 #### ABI过滤
 
@@ -232,7 +213,7 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
             if (result is WeChatScanningAnalyzer.QRCodeAnalyzeResult) { // 如果需要处理结果二维码的位置信息
 
                 val buffer = StringBuilder()
-                val bitmap = result.bitmap.drawRect { canvas, paint ->
+                val bitmap = result.bitmap?.drawRect { canvas, paint ->
                     // 扫码结果可能有多个
                     for ((index, data) in result.result.withIndex()) {
                         buffer.append("[$index] ").append(data).append("\n")
@@ -308,63 +289,43 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 **wechat-qrcode-scanning**
 
 扫描识别二维码实现示例：通过直接继承 OpenCVCameraScanActivity 实现的示例 [OpenCVQRCodeActivity](app/src/main/java/com/king/wechat/qrcode/app/OpenCVQRCodeActivity.kt)
-
-   
+ 
 ### 特别说明
 
-因为 **wechat-qrcode-scanning** 依赖了 [MLKit](https://github.com/jenly1314/MLKit) 中的 **mlkit-camera-core**，
-所以关于 **CameraScan** 的和界面布局在使用上完全遵循 **mlkit-camera-core** 的使用方式。
+因为 **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning** 都是以[CameraScan](https://github.com/jenly1314/CameraScan)作为基础库去实现具体的分析检测功能，所以关于 **CameraScan** 的使用和自定义扫码界面布局都完全遵循[CameraScan](https://github.com/jenly1314/CameraScan) 的使用方式。
 
-这里贴出一部分主要的使用示例：
+> 关于**CameraScan**的使用，你可以直接去看[CameraScan](https://github.com/jenly1314/CameraScan)的使用说明；
 
-#### CameraScan配置示例
+> 关于扫描框动画，你可以查看[ViewfinderView](https://github.com/jenly1314/ViewfinderView)的使用说明；
 
-**CameraScan** 里面包含部分支持链式调用的方法，即调用返回是 **CameraScan** 本身的一些配置建议在调用 **startCamera()** 方法之前调用。
+### 2.x版本的变化
 
-> 如果是通过继承 **BaseCameraScanActivity** 或者 **BaseCameraScanFragment** 或其子类实现的相机扫描，可以在
-**initCameraScan()** 方法中获取 **CameraScan** ，然后根据需要修改相关配置。
+从 **1.x** 到 **2.x** 主要变化如下：
+* 1.x版本中 **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning** 默认依赖的 **mlkit-camera-core** 被移除了；
+> 从2.0.0版本开始 **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning** 都改为依赖[CameraScan](https://github.com/jenly1314/CameraScan)；（[CameraScan](https://github.com/jenly1314/CameraScan)是一个独立的库，单独进行维护）
 
-```java
-// 获取CameraScan，根据需要修改相关配置
-getCameraScan().setPlayBeep(true)//设置是否播放音效，默认为false
-        .setVibrate(true)//设置是否震动，默认为false
-        .setCameraConfig(new ResolutionCameraConfig(this))//设置相机配置信息，CameraConfig可覆写options方法自定义配置
-        .setNeedTouchZoom(true)//支持多指触摸捏合缩放，默认为true
-        .setDarkLightLux(45f)//设置光线足够暗的阈值（单位：lux），需要通过{@link #bindFlashlightView(View)}绑定手电筒才有效
-        .setBrightLightLux(100f)//设置光线足够明亮的阈值（单位：lux），需要通过{@link #bindFlashlightView(View)}绑定手电筒才有效
-        .bindFlashlightView(ivFlashlight)//绑定手电筒，绑定后可根据光线传感器，动态显示或隐藏手电筒按钮
-        .setOnScanResultCallback(this)//设置扫码结果回调，需要自己处理或者需要连扫时，可设置回调，自己去处理相关逻辑
-        .setAnalyzer(new BarcodeScanningAnalyzer())//设置分析器，如这里使用条码分析器，BarcodeScanningAnalyzer是mlkit-barcode-scanning中的
-        .setAnalyzeImage(true)//设置是否分析图片，默认为true。如果设置为false，相当于关闭了扫码识别功能
+> 从2.0.0版本开始 **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning** 都已默认依赖 **ViewfinderView**[ViewfinderView](https://github.com/jenly1314/ViewfinderView)
 
-        // 启动预览（如果是通过直接或间接继承BaseCameraScanActivity或BaseCameraScanFragment实现的则无需调用startCamera）
-        getCameraScan().startCamera();
+> 从2.0.0版本开始默认布局包含了扫描动画 **ViewfinderView** 和手电筒按钮，集成步骤更简单。
 
+基于以上两点主要差异：2.x的主要使用方式和1.x基本类似，部分细节有所变更。
 
-        // 设置闪光灯（手电筒）是否开启,需在startCamera之后调用才有效
-        getCameraScan().enableTorch(torch);
-```
+> 如果你是从 **1.x** 版本升级至 **2.x** 版本，那么你需要知道上面所说的差异；特别是独立出去单独维护的库，其包名都有所变化，这一点需要注意一下，大部分变动只需变更导入的包名即可完成升级。
 
-#### 布局示例
+> 如果你使用的是1.x版本的话请直接[查看v1.x分支版本](https://github.com/jenly1314/WeChatQRCode/tree/1.x/)
 
-**PreviewView** 用来预览，布局内至少要保证有 **PreviewView**；如果是继承 **BaseCameraScanActivity** 或
-**BaseCameraScanFragment** 或其子类实现的相机扫描；快速实现扫描功能；
+### 2.x版本的使用
 
-需自定义布局时，通过覆写getLayoutId方法即可；更多代码用法可直接查看 **BaseCameraScanActivity** 源码或参见下面的使用示例。
+2.x版本的实现主要是以[CameraScan](https://github.com/jenly1314/CameraScan)作为基础库去实现具体的分析检测功能，所以你可以直接去看[CameraScan](https://github.com/jenly1314/CameraScan)的使用说明，只要知道了[CameraScan](https://github.com/jenly1314/CameraScan)的基本使用方式，自然就会使用 **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning**了。
 
-```Xml
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.camera.view.PreviewView
-        android:id="@+id/previewView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    <!-- 只需保证有布局内有PreviewView即可，然后自己可根据需要添加的控件 -->
-</FrameLayout>
-```
+### 二维码扫码识别
 
-> 关于扫描框动画：你暂时可以参考[app](app)中的源码示例，直接使用[ViewfinderView](https://github.com/jenly1314/ViewfinderView)；（后续发布新版本时，计划自动依赖 **ViewfinderView**）
+下面就列一下OpenCVQRCode和WeChatQRCode实现扫二维码功能的核心类；主要包括实现扫描二维码的**Analyzer** 和便于快速实现扫描检测的 **BaseCameraScanActivity** 或 **BaseCameraScanFragment** 的子类。
+
+| 功能      | 所属子模块                  | 对应的Analyzer实现          | 对应的BaseCameraScanActivity子类                       |
+|:--------|:-----------------------|:-----------------------|:--------------------------------------------------|
+| 二维码扫码识别 | opencv-qrcode-scanning | OpenCVScanningAnalyzer | OpenCVCameraScanActivity/OpenCVCameraScanFragment  |
+| 二维码扫码识别  | wechat-qrcode-scanning | WeChatScanningAnalyzer | WeChatCameraScanActivity/WeChatCameraScanFragment |
 
 更多使用详情，请查看[app](app)中的源码使用示例或直接查看 [API帮助文档](https://jitpack.io/com/github/jenly1314/WeChatQRCode/latest/javadoc/)
 
@@ -389,10 +350,16 @@ getCameraScan().setPlayBeep(true)//设置是否播放音效，默认为false
 ## 相关推荐
 
 #### [MLKit](https://github.com/jenly1314/MLKit) 一个强大易用的工具包。通过ML Kit您可以很轻松的实现文字识别、条码识别、图像标记、人脸检测、对象检测等功能。    
-#### [ZXingLite](https://github.com/jenly1314/ZXingLite) 基于ZXing库优化扫码和生成二维码/条形码功能，扫码界面完全支持自定义。
-
+#### [ZXingLite](https://github.com/jenly1314/ZXingLite) 基于zxing实现的扫码库，优化扫码和生成二维码/条形码功能。
+#### [CameraScan](https://github.com/jenly1314/CameraScan) 一个简化扫描识别流程的通用基础库。
+#### [ViewfinderView](https://github.com/jenly1314/ViewfinderView) ViewfinderView一个取景视图：主要用于渲染扫描相关的动画效果。
 
 ## 版本记录
+
+#### v2.0.0：2023-8-14
+* **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning** 中移除原依赖（**mlkit-camera-core**），现改为依赖[CameraScan](https://github.com/jenly1314/CameraScan)
+* **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning** 添加默认依赖[ViewfinderView](https://github.com/jenly1314/ViewfinderView)
+* 优化扫描分析过程的性能体验（优化帧数据分析过程）
 
 #### v1.3.0：2023-4-16
 * 新增OpenCV二维码扫码识别库（opencv-qrcode和opencv-qrcode-scanning）

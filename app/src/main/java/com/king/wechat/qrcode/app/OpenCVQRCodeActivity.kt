@@ -7,9 +7,9 @@ import android.view.View
 import android.widget.ImageView
 import com.king.app.dialog.AppDialog
 import com.king.app.dialog.AppDialogConfig
-import com.king.mlkit.vision.camera.AnalyzeResult
-import com.king.mlkit.vision.camera.CameraScan
-import com.king.mlkit.vision.camera.analyze.Analyzer
+import com.king.camera.scan.AnalyzeResult
+import com.king.camera.scan.CameraScan
+import com.king.camera.scan.analyze.Analyzer
 import com.king.opencv.qrcode.scanning.OpenCVCameraScanActivity
 import com.king.opencv.qrcode.scanning.analyze.OpenCVScanningAnalyzer
 
@@ -81,10 +81,6 @@ class OpenCVQRCodeActivity : OpenCVCameraScanActivity() {
     override fun createAnalyzer(): Analyzer<MutableList<String>>? {
         // 如果需要返回结果二维码位置信息，则初始化分析器时，参数传 true 即可
         return OpenCVScanningAnalyzer(true)
-    }
-
-    override fun getLayoutId(): Int {
-        return R.layout.activity_opencv_qrcode
     }
 
     companion object {

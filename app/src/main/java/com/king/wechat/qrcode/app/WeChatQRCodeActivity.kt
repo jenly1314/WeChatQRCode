@@ -4,10 +4,10 @@ import android.content.Intent
 import android.graphics.Point
 import android.util.Log
 import android.widget.ImageView
-import com.king.mlkit.vision.camera.AnalyzeResult
-import com.king.mlkit.vision.camera.CameraScan
-import com.king.mlkit.vision.camera.analyze.Analyzer
-import com.king.mlkit.vision.camera.util.PointUtils
+import com.king.camera.scan.AnalyzeResult
+import com.king.camera.scan.CameraScan
+import com.king.camera.scan.analyze.Analyzer
+import com.king.camera.scan.util.PointUtils
 import com.king.view.viewfinderview.ViewfinderView
 import com.king.wechat.qrcode.scanning.WeChatCameraScanActivity
 import com.king.wechat.qrcode.scanning.analyze.WeChatScanningAnalyzer
@@ -20,19 +20,23 @@ import com.king.wechat.qrcode.scanning.analyze.WeChatScanningAnalyzer
 class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 
     private lateinit var ivResult: ImageView
-    private lateinit var viewfinderView: ViewfinderView
 
     override fun initUI() {
         super.initUI()
         ivResult = findViewById(R.id.ivResult)
-        viewfinderView = findViewById(R.id.viewfinderView)
     }
 
     override fun onScanResultCallback(result: AnalyzeResult<List<String>>) {
         // 停止分析
         cameraScan.setAnalyzeImage(false)
         Log.d(TAG, result.result.toString())
-
+        val frameMetadata = result.frameMetadata
+        var width = frameMetadata.width
+        var height = frameMetadata.height
+        if(frameMetadata.rotation == 90 || frameMetadata.rotation == 270) {
+            width = frameMetadata.height
+            height = frameMetadata.width
+        }
         // 当初始化 WeChatScanningAnalyzer 时，如果是需要二维码的位置信息，则会返回 WeChatScanningAnalyzer.QRCodeAnalyzeResult
         if (result is WeChatScanningAnalyzer.QRCodeAnalyzeResult) { // 如果需要处理结果二维码的位置信息
             //取预览当前帧图片并显示，为结果点提供参照
@@ -57,8 +61,8 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
                 val point = PointUtils.transform(
                     centerX,
                     centerY,
-                    result.bitmap.width,
-                    result.bitmap.height,
+                    width,
+                    height,
                     viewfinderView.width,
                     viewfinderView.height
                 )

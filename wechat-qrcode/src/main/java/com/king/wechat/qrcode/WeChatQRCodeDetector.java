@@ -106,8 +106,11 @@ public final class WeChatQRCodeDetector {
         if (files != null && files.length > 0) {
             return files[0].getAbsolutePath();
         }
-        return context.getExternalFilesDir(path).getAbsolutePath();
-
+        File file = context.getExternalFilesDir(path);
+        if(file == null) {
+            file = new File(context.getFilesDir(), path);
+        }
+        return file.getAbsolutePath();
     }
 
     /**

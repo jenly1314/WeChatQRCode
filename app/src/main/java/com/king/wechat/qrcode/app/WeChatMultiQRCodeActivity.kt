@@ -1,5 +1,6 @@
 package com.king.wechat.qrcode.app
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Path
 import android.util.Log
@@ -7,9 +8,9 @@ import android.view.View
 import android.widget.ImageView
 import com.king.app.dialog.AppDialog
 import com.king.app.dialog.AppDialogConfig
-import com.king.mlkit.vision.camera.AnalyzeResult
-import com.king.mlkit.vision.camera.CameraScan
-import com.king.mlkit.vision.camera.analyze.Analyzer
+import com.king.camera.scan.AnalyzeResult
+import com.king.camera.scan.CameraScan
+import com.king.camera.scan.analyze.Analyzer
 import com.king.wechat.qrcode.scanning.WeChatCameraScanActivity
 import com.king.wechat.qrcode.scanning.analyze.WeChatScanningAnalyzer
 
@@ -20,6 +21,7 @@ import com.king.wechat.qrcode.scanning.analyze.WeChatScanningAnalyzer
  */
 class WeChatMultiQRCodeActivity : WeChatCameraScanActivity() {
 
+    @SuppressLint("LongLogTag")
     override fun onScanResultCallback(result: AnalyzeResult<List<String>>) {
         // 停止分析
         cameraScan.setAnalyzeImage(false)
@@ -28,7 +30,7 @@ class WeChatMultiQRCodeActivity : WeChatCameraScanActivity() {
         if (result is WeChatScanningAnalyzer.QRCodeAnalyzeResult) { // 如果需要处理结果二维码的位置信息
 
             val buffer = StringBuilder()
-            val bitmap = result.bitmap.drawRect { canvas, paint ->
+            val bitmap = result.bitmap?.drawRect { canvas, paint ->
                 // 扫码结果可能有多个
                 result.result.forEachIndexed { index, data ->
                     buffer.append("[$index] ").append(data).append("\n")
@@ -84,10 +86,6 @@ class WeChatMultiQRCodeActivity : WeChatCameraScanActivity() {
 //        return WeChatScanningAnalyzer()
         // 如果需要返回结果二维码位置信息，则初始化分析器时，参数传 true 即可
         return WeChatScanningAnalyzer(true)
-    }
-
-    override fun getLayoutId(): Int {
-        return R.layout.activity_wechat_multi_qrcode
     }
 
     companion object {

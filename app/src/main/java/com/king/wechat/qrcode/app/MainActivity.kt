@@ -10,9 +10,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.lifecycleScope
-import com.king.mlkit.vision.camera.CameraScan
-import com.king.mlkit.vision.camera.util.LogUtils
-import com.king.mlkit.vision.camera.util.PermissionUtils
+import com.king.camera.scan.CameraScan
+import com.king.camera.scan.util.LogUtils
+import com.king.camera.scan.util.PermissionUtils
 import com.king.opencv.qrcode.OpenCVQRCodeDetector
 import com.king.wechat.qrcode.WeChatQRCodeDetector
 import kotlinx.coroutines.Dispatchers

@@ -36,13 +36,15 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
-
-    lintOptions {
-        abortOnError false
+    packagingOptions {
+        resources {
+            excludes += ['META-INF/*.kotlin_module']
+        }
     }
 
-    packagingOptions {
-        exclude 'META-INF/*.kotlin_module'
+
+    lint {
+        abortOnError false
     }
 }
 
@@ -59,10 +61,7 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycleKtx"
 
-    implementation "com.github.jenly1314:viewfinderview:$versions.viewfinderview"
-
     implementation "com.github.jenly1314.AppUpdater:app-dialog:$versions.appDialog"
-
 
     implementation project(path: ':opencv')
     implementation project(path: ':opencv-armv7a')

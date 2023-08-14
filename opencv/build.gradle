@@ -101,8 +101,6 @@ android {
     defaultConfig {
         minSdk build_versions.minSdk
         targetSdk build_versions.targetSdk
-        versionCode opencv_version.versionCode
-        versionName opencv_version.versionName
 
         externalNativeBuild {
             cmake {
@@ -135,7 +133,6 @@ android {
 
     lintOptions {
         abortOnError false
-        warning 'InvalidPackage'
     }
 
     sourceSets {
@@ -155,6 +152,10 @@ android {
     }
 
     ndkVersion '22.1.7171670'
+    lint {
+        abortOnError false
+        warning 'InvalidPackage'
+    }
 }
 
 dependencies {
