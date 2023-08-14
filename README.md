@@ -306,7 +306,7 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 
 > 从2.0.0版本开始 **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning** 都已默认依赖 **ViewfinderView**[ViewfinderView](https://github.com/jenly1314/ViewfinderView)
 
-> 从2.0.0版本开始默认布局包含了扫描动画 **ViewfinderView** 和手电筒按钮，集成步骤更简单。
+> 从2.0.0版本开始 **OpenCVCameraScanActivity** 和 **WeChatCameraScanActivity** 默认布局包含了扫描动画 **ViewfinderView** 和手电筒按钮，集成步骤更简单。
 
 基于以上两点主要差异：2.x的主要使用方式和1.x基本类似，部分细节有所变更。
 
