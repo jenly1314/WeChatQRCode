@@ -292,7 +292,7 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
  
 ### 特别说明
 
-因为 **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning** 都是以[CameraScan](https://github.com/jenly1314/CameraScan)作为基础库去实现具体的分析检测功能，所以关于 **CameraScan** 的使用和自定义扫码界面布局都完全遵循[CameraScan](https://github.com/jenly1314/CameraScan) 的使用方式。
+从2.0.0版本开始 **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning** 都是以[CameraScan](https://github.com/jenly1314/CameraScan)作为基础库去实现具体的分析检测功能，所以关于 **CameraScan** 的使用和自定义扫码界面布局都完全遵循[CameraScan](https://github.com/jenly1314/CameraScan) 的使用方式。
 
 > 关于**CameraScan**的使用，你可以直接去看[CameraScan](https://github.com/jenly1314/CameraScan)的使用说明；
 
