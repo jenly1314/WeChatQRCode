@@ -81,7 +81,7 @@ class WeChatMultiQRCodeActivity : WeChatCameraScanActivity() {
         }
     }
 
-    override fun createAnalyzer(): Analyzer<MutableList<String>>? {
+    override fun createAnalyzer(): Analyzer<MutableList<String>> {
         // 分析器默认不会返回结果二维码的位置信息
 //        return WeChatScanningAnalyzer()
         // 如果需要返回结果二维码位置信息，则初始化分析器时，参数传 true 即可

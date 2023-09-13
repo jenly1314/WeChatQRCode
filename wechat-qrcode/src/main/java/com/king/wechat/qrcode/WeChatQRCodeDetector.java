@@ -19,15 +19,16 @@ import java.util.List;
  *
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
  */
+@SuppressWarnings("unused")
 public final class WeChatQRCodeDetector {
 
     private static final String TAG = "WeChatQRCodeDetector";
 
     private static final String MODEL_DIR = "models";
-    private static final String DETECT_PROTOTXT = "detect.prototxt";
-    private static final String DETECT_CAFFEMODEL = "detect.caffemodel";
-    private static final String SR_PROTOTXT = "sr.prototxt";
-    private static final String SR_CAFFEMODEL = "sr.caffemodel";
+    private static final String DETECT_PROTO_TXT = "detect.prototxt";
+    private static final String DETECT_CAFFE_MODEL = "detect.caffemodel";
+    private static final String SR_PROTO_TXT = "sr.prototxt";
+    private static final String SR_CAFFE_MODEL = "sr.caffemodel";
 
     private static WeChatQRCode sWeChatQRCode;
 
@@ -51,7 +52,7 @@ public final class WeChatQRCodeDetector {
     private static void initWeChatQRCode(Context context) {
         try {
             String saveDirPath = getExternalFilesDir(context, MODEL_DIR);
-            String[] models = new String[]{DETECT_PROTOTXT, DETECT_CAFFEMODEL, SR_PROTOTXT, SR_CAFFEMODEL};
+            String[] models = new String[]{DETECT_PROTO_TXT, DETECT_CAFFE_MODEL, SR_PROTO_TXT, SR_CAFFE_MODEL};
 
             File saveDir = new File(saveDirPath);
             boolean exists = saveDir.exists();
@@ -63,9 +64,8 @@ public final class WeChatQRCodeDetector {
                         break;
                     }
                 }
-            } else {
-                saveDir.mkdirs();
             }
+
             if (!exists) {
                 // 模型文件只要有一个不存在，则遍历拷贝
                 for (String model : models) {

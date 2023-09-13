@@ -13,6 +13,7 @@ import java.util.List;
  *
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
  */
+@SuppressWarnings("unused")
 public class OpenCVQRCodeDetector extends QRCodeDetector {
 
     /**

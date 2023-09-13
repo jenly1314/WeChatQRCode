@@ -92,7 +92,7 @@ public class WeChatScanningAnalyzer implements Analyzer<List<String>> {
      * 检测并识别二维码
      *
      * @param nv21
-     * @param isOutputVertices
+     * @param isOutputVertices 是否输出二维码顶点坐标
      * @return
      */
     @Nullable

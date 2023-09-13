@@ -10,7 +10,7 @@ import com.king.camera.scan.util.LogUtils
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
  */
 fun Bitmap.drawRect(block: (canvas: Canvas,paint: Paint) -> Unit): Bitmap {
-    var result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+    val result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
     try {
         val canvas = Canvas(result)
         canvas.drawBitmap(this, 0f, 0f, null)

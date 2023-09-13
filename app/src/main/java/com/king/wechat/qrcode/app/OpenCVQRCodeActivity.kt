@@ -78,7 +78,7 @@ class OpenCVQRCodeActivity : OpenCVCameraScanActivity() {
         }
     }
 
-    override fun createAnalyzer(): Analyzer<MutableList<String>>? {
+    override fun createAnalyzer(): Analyzer<MutableList<String>> {
         // 如果需要返回结果二维码位置信息，则初始化分析器时，参数传 true 即可
         return OpenCVScanningAnalyzer(true)
     }

@@ -39,7 +39,7 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$versions.androidExtJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
 
-    api "com.github.jenly1314:CameraScan:$versions.cameraScan"
+    api "com.github.jenly1314:camera-scan:$versions.cameraScan"
     api "com.github.jenly1314:viewfinderview:$versions.viewfinderview"
 
     compileOnly project(path: ':opencv')

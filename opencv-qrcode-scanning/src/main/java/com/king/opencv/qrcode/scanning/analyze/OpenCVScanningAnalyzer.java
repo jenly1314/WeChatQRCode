@@ -94,7 +94,7 @@ public class OpenCVScanningAnalyzer implements Analyzer<List<String>> {
      * 检测并识别二维码
      *
      * @param nv21
-     * @param isOutputVertices
+     * @param isOutputVertices 是否输出二维码顶点坐标
      * @return
      */
     @Nullable
@@ -111,7 +111,7 @@ public class OpenCVScanningAnalyzer implements Analyzer<List<String>> {
             String result = mDetector.detectAndDecode(bgrMat, points);
             bgrMat.release();
             if (result != null && !result.isEmpty()) {
-                List<String> list = new ArrayList();
+                List<String> list = new ArrayList<>();
                 list.add(result);
                 return new QRCodeAnalyzeResult<>(nv21, ImageFormat.NV21, frameMetadata, list, points);
             }
@@ -120,7 +120,7 @@ public class OpenCVScanningAnalyzer implements Analyzer<List<String>> {
             String result = mDetector.detectAndDecode(bgrMat);
             bgrMat.release();
             if (result != null && !result.isEmpty()) {
-                List<String> list = new ArrayList();
+                List<String> list = new ArrayList<>();
                 list.add(result);
                 return new QRCodeAnalyzeResult<>(nv21, ImageFormat.NV21, frameMetadata, list);
             }

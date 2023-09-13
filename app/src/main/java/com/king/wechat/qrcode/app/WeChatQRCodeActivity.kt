@@ -8,7 +8,6 @@ import com.king.camera.scan.AnalyzeResult
 import com.king.camera.scan.CameraScan
 import com.king.camera.scan.analyze.Analyzer
 import com.king.camera.scan.util.PointUtils
-import com.king.view.viewfinderview.ViewfinderView
 import com.king.wechat.qrcode.scanning.WeChatCameraScanActivity
 import com.king.wechat.qrcode.scanning.analyze.WeChatScanningAnalyzer
 
@@ -30,13 +29,9 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
         // 停止分析
         cameraScan.setAnalyzeImage(false)
         Log.d(TAG, result.result.toString())
-        val frameMetadata = result.frameMetadata
-        var width = frameMetadata.width
-        var height = frameMetadata.height
-        if(frameMetadata.rotation == 90 || frameMetadata.rotation == 270) {
-            width = frameMetadata.height
-            height = frameMetadata.width
-        }
+        val width = result.bitmapWidth
+        val height = result.bitmapHeight
+
         // 当初始化 WeChatScanningAnalyzer 时，如果是需要二维码的位置信息，则会返回 WeChatScanningAnalyzer.QRCodeAnalyzeResult
         if (result is WeChatScanningAnalyzer.QRCodeAnalyzeResult) { // 如果需要处理结果二维码的位置信息
             //取预览当前帧图片并显示，为结果点提供参照
@@ -94,7 +89,7 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
         }
     }
 
-    override fun createAnalyzer(): Analyzer<MutableList<String>>? {
+    override fun createAnalyzer(): Analyzer<MutableList<String>> {
         // 分析器默认不会返回结果二维码的位置信息
 //        return WeChatScanningAnalyzer()
         // 如果需要返回结果二维码位置信息，则初始化分析器时，参数传 true 即可
