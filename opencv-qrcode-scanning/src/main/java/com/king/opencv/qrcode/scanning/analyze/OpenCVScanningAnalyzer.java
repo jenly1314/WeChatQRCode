@@ -5,6 +5,7 @@ import android.graphics.ImageFormat;
 import com.king.camera.scan.AnalyzeResult;
 import com.king.camera.scan.FrameMetadata;
 import com.king.camera.scan.analyze.Analyzer;
+import com.king.camera.scan.util.ImageUtils;
 import com.king.camera.scan.util.LogUtils;
 import com.king.opencv.qrcode.OpenCVQRCodeDetector;
 
@@ -13,7 +14,6 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
@@ -59,7 +59,7 @@ public class OpenCVScanningAnalyzer implements Analyzer<List<String>> {
     }
 
     @Override
-    public void analyze(@NonNull ImageProxy imageProxy, @NonNull Analyzer.OnAnalyzeListener<AnalyzeResult<List<String>>> listener) {
+    public void analyze(@NonNull ImageProxy imageProxy, @NonNull Analyzer.OnAnalyzeListener<List<String>> listener) {
         if (!joinQueue.get()) {
             int imageSize = imageProxy.getWidth() * imageProxy.getHeight();
             byte[] bytes = new byte[imageSize + 2 * (imageSize / 4)];
@@ -72,7 +72,7 @@ public class OpenCVScanningAnalyzer implements Analyzer<List<String>> {
         final byte[] nv21Data = queue.poll();
         AnalyzeResult<List<String>> result = null;
         try {
-            yuv_420_888toNv21(imageProxy, nv21Data);
+            ImageUtils.yuv_420_888toNv21(imageProxy, nv21Data);
             FrameMetadata frameMetadata = new FrameMetadata(
                     imageProxy.getWidth(),
                     imageProxy.getHeight(),
@@ -126,60 +126,6 @@ public class OpenCVScanningAnalyzer implements Analyzer<List<String>> {
             }
         }
         return null;
-    }
-
-    /**
-     * YUV420_888转NV21
-     *
-     * @param image
-     * @param nv21
-     */
-    private void yuv_420_888toNv21(@NonNull ImageProxy image, byte[] nv21) {
-        ImageProxy.PlaneProxy yPlane = image.getPlanes()[0];
-        ImageProxy.PlaneProxy uPlane = image.getPlanes()[1];
-        ImageProxy.PlaneProxy vPlane = image.getPlanes()[2];
-
-        ByteBuffer yBuffer = yPlane.getBuffer();
-        ByteBuffer uBuffer = uPlane.getBuffer();
-        ByteBuffer vBuffer = vPlane.getBuffer();
-        yBuffer.rewind();
-        uBuffer.rewind();
-        vBuffer.rewind();
-
-        int ySize = yBuffer.remaining();
-
-        int position = 0;
-
-        // Add the full y buffer to the array. If rowStride > 1, some padding may be skipped.
-        for (int row = 0; row < image.getHeight(); row++) {
-            yBuffer.get(nv21, position, image.getWidth());
-            position += image.getWidth();
-            yBuffer.position(Math.min(ySize, yBuffer.position() - image.getWidth() + yPlane.getRowStride()));
-        }
-
-        int chromaHeight = image.getHeight() / 2;
-        int chromaWidth = image.getWidth() / 2;
-        int vRowStride = vPlane.getRowStride();
-        int uRowStride = uPlane.getRowStride();
-        int vPixelStride = vPlane.getPixelStride();
-        int uPixelStride = uPlane.getPixelStride();
-
-        // Interleave the u and v frames, filling up the rest of the buffer. Use two line buffers to
-        // perform faster bulk gets from the byte buffers.
-        byte[] vLineBuffer = new byte[vRowStride];
-        byte[] uLineBuffer = new byte[uRowStride];
-        for (int row = 0; row < chromaHeight; row++) {
-            vBuffer.get(vLineBuffer, 0, Math.min(vRowStride, vBuffer.remaining()));
-            uBuffer.get(uLineBuffer, 0, Math.min(uRowStride, uBuffer.remaining()));
-            int vLineBufferPosition = 0;
-            int uLineBufferPosition = 0;
-            for (int col = 0; col < chromaWidth; col++) {
-                nv21[position++] = vLineBuffer[vLineBufferPosition];
-                nv21[position++] = uLineBuffer[uLineBufferPosition];
-                vLineBufferPosition += vPixelStride;
-                uLineBufferPosition += uPixelStride;
-            }
-        }
     }
 
     /**

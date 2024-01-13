@@ -215,7 +215,7 @@ public:
     template<int l> Matx(const Matx<_Tp, m, l>& a, const Matx<_Tp, l, n>& b, Matx_MatMulOp);
     Matx(const Matx<_Tp, n, m>& a, Matx_TOp);
 
-    _Tp val[m*n]; //< matrix elements
+    _Tp val[m*n]; ///< matrix elements
 };
 
 typedef Matx<float, 1, 2> Matx12f;
@@ -675,11 +675,19 @@ Matx<_Tp,m,n>::Matx(_Tp v0, _Tp v1, _Tp v2, _Tp v3, _Tp v4, _Tp v5, _Tp v6, _Tp 
     for(int i = 16; i < channels; i++) val[i] = _Tp(0);
 }
 
+// WARNING: unreachable code using Ninja
+#if defined _MSC_VER && _MSC_VER >= 1920
+#pragma warning(push)
+#pragma warning(disable: 4702)
+#endif
 template<typename _Tp, int m, int n> inline
 Matx<_Tp, m, n>::Matx(const _Tp* values)
 {
     for( int i = 0; i < channels; i++ ) val[i] = values[i];
 }
+#if defined _MSC_VER && _MSC_VER >= 1920
+#pragma warning(pop)
+#endif
 
 template<typename _Tp, int m, int n> inline
 Matx<_Tp, m, n>::Matx(std::initializer_list<_Tp> list)
@@ -757,7 +765,7 @@ inline Matx<_Tp, m, n>::operator Matx<T2, m, n>() const
 template<typename _Tp, int m, int n> template<int m1, int n1> inline
 Matx<_Tp, m1, n1> Matx<_Tp, m, n>::reshape() const
 {
-    CV_StaticAssert(m1*n1 == m*n, "Input and destnarion matrices must have the same number of elements");
+    CV_StaticAssert(m1*n1 == m*n, "Input and destination matrices must have the same number of elements");
     return (const Matx<_Tp, m1, n1>&)*this;
 }
 

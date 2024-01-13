@@ -8,6 +8,7 @@ import java.util.List;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.core.MatOfInt;
+import org.opencv.core.Range;
 import org.opencv.utils.Converters;
 
 // C++: class Imgcodecs
@@ -59,19 +60,40 @@ public class Imgcodecs {
             IMWRITE_JPEG_RST_INTERVAL = 4,
             IMWRITE_JPEG_LUMA_QUALITY = 5,
             IMWRITE_JPEG_CHROMA_QUALITY = 6,
+            IMWRITE_JPEG_SAMPLING_FACTOR = 7,
             IMWRITE_PNG_COMPRESSION = 16,
             IMWRITE_PNG_STRATEGY = 17,
             IMWRITE_PNG_BILEVEL = 18,
             IMWRITE_PXM_BINARY = 32,
             IMWRITE_EXR_TYPE = (3 << 4) + 0,
             IMWRITE_EXR_COMPRESSION = (3 << 4) + 1,
+            IMWRITE_EXR_DWA_COMPRESSION_LEVEL = (3 << 4) + 2,
             IMWRITE_WEBP_QUALITY = 64,
+            IMWRITE_HDR_COMPRESSION = (5 << 4) + 0,
             IMWRITE_PAM_TUPLETYPE = 128,
             IMWRITE_TIFF_RESUNIT = 256,
             IMWRITE_TIFF_XDPI = 257,
             IMWRITE_TIFF_YDPI = 258,
             IMWRITE_TIFF_COMPRESSION = 259,
-            IMWRITE_JPEG2000_COMPRESSION_X1000 = 272;
+            IMWRITE_JPEG2000_COMPRESSION_X1000 = 272,
+            IMWRITE_AVIF_QUALITY = 512,
+            IMWRITE_AVIF_DEPTH = 513,
+            IMWRITE_AVIF_SPEED = 514;
+
+
+    // C++: enum ImwriteHDRCompressionFlags (cv.ImwriteHDRCompressionFlags)
+    public static final int
+            IMWRITE_HDR_COMPRESSION_NONE = 0,
+            IMWRITE_HDR_COMPRESSION_RLE = 1;
+
+
+    // C++: enum ImwriteJPEGSamplingFactorParams (cv.ImwriteJPEGSamplingFactorParams)
+    public static final int
+            IMWRITE_JPEG_SAMPLING_FACTOR_411 = 0x411111,
+            IMWRITE_JPEG_SAMPLING_FACTOR_420 = 0x221111,
+            IMWRITE_JPEG_SAMPLING_FACTOR_422 = 0x211111,
+            IMWRITE_JPEG_SAMPLING_FACTOR_440 = 0x121111,
+            IMWRITE_JPEG_SAMPLING_FACTOR_444 = 0x111111;
 
 
     // C++: enum ImwritePAMFlags (cv.ImwritePAMFlags)
@@ -123,6 +145,9 @@ public class Imgcodecs {
      *   </li>
      *   <li>
      *    WebP - \*.webp (see the *Note* section)
+     *   </li>
+     *   <li>
+     *    AVIF - \*.avif (see the *Note* section)
      *   </li>
      *   <li>
      *    Portable image format - \*.pbm, \*.pgm, \*.ppm \*.pxm, \*.pnm (always supported)
@@ -226,6 +251,9 @@ public class Imgcodecs {
      *   </li>
      *   <li>
      *    WebP - \*.webp (see the *Note* section)
+     *   </li>
+     *   <li>
+     *    AVIF - \*.avif (see the *Note* section)
      *   </li>
      *   <li>
      *    Portable image format - \*.pbm, \*.pgm, \*.ppm \*.pxm, \*.pnm (always supported)
@@ -423,30 +451,59 @@ public class Imgcodecs {
      * Saves an image to a specified file.
      *
      * The function imwrite saves the image to the specified file. The image format is chosen based on the
-     * filename extension (see cv::imread for the list of extensions). In general, only 8-bit
+     * filename extension (see cv::imread for the list of extensions). In general, only 8-bit unsigned (CV_8U)
      * single-channel or 3-channel (with 'BGR' channel order) images
      * can be saved using this function, with these exceptions:
      *
      * <ul>
      *   <li>
-     *  16-bit unsigned (CV_16U) images can be saved in the case of PNG, JPEG 2000, and TIFF formats
+     *  With OpenEXR encoder, only 32-bit float (CV_32F) images can be saved.
+     *   <ul>
+     *     <li>
+     *    8-bit unsigned (CV_8U) images are not supported.
+     *     </li>
+     *   </ul>
+     *   <li>
+     *  With Radiance HDR encoder, non 64-bit float (CV_64F) images can be saved.
+     *   <ul>
+     *     <li>
+     *    All images will be converted to 32-bit float (CV_32F).
+     *     </li>
+     *   </ul>
+     *   <li>
+     *  With JPEG 2000 encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.
      *   </li>
      *   <li>
-     *  32-bit float (CV_32F) images can be saved in PFM, TIFF, OpenEXR, and Radiance HDR formats;
-     *   3-channel (CV_32FC3) TIFF images will be saved using the LogLuv high dynamic range encoding
-     *   (4 bytes per pixel)
+     *  With PAM encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.
      *   </li>
      *   <li>
-     *  PNG images with an alpha channel can be saved using this function. To do this, create
-     * 8-bit (or 16-bit) 4-channel image BGRA, where the alpha channel goes last. Fully transparent pixels
-     * should have alpha set to 0, fully opaque pixels should have alpha set to 255/65535 (see the code sample below).
+     *  With PNG encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.
+     *   <ul>
+     *     <li>
+     *    PNG images with an alpha channel can be saved using this function. To do this, create
+     *     8-bit (or 16-bit) 4-channel image BGRA, where the alpha channel goes last. Fully transparent pixels
+     *     should have alpha set to 0, fully opaque pixels should have alpha set to 255/65535 (see the code sample below).
+     *     </li>
+     *   </ul>
+     *   <li>
+     *  With PGM/PPM encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.
      *   </li>
      *   <li>
-     *  Multiple images (vector of Mat) can be saved in TIFF format (see the code sample below).
-     *   </li>
-     * </ul>
+     *  With TIFF encoder, 8-bit unsigned (CV_8U), 16-bit unsigned (CV_16U),
+     *                      32-bit float (CV_32F) and 64-bit float (CV_64F) images can be saved.
+     *   <ul>
+     *     <li>
+     *    Multiple images (vector of Mat) can be saved in TIFF format (see the code sample below).
+     *     </li>
+     *     <li>
+     *    32-bit float 3-channel (CV_32FC3) TIFF images will be saved
+     *     using the LogLuv high dynamic range encoding (4 bytes per pixel)
+     *     </li>
+     *   </ul>
      *
      * If the image format is not supported, the image will be converted to 8-bit unsigned (CV_8U) and saved that way.
+     *   </li>
+     * </ul>
      *
      * If the format, depth or channel order is different, use
      * Mat::convertTo and cv::cvtColor to convert it before saving. Or, use the universal FileStorage I/O
@@ -469,30 +526,59 @@ public class Imgcodecs {
      * Saves an image to a specified file.
      *
      * The function imwrite saves the image to the specified file. The image format is chosen based on the
-     * filename extension (see cv::imread for the list of extensions). In general, only 8-bit
+     * filename extension (see cv::imread for the list of extensions). In general, only 8-bit unsigned (CV_8U)
      * single-channel or 3-channel (with 'BGR' channel order) images
      * can be saved using this function, with these exceptions:
      *
      * <ul>
      *   <li>
-     *  16-bit unsigned (CV_16U) images can be saved in the case of PNG, JPEG 2000, and TIFF formats
+     *  With OpenEXR encoder, only 32-bit float (CV_32F) images can be saved.
+     *   <ul>
+     *     <li>
+     *    8-bit unsigned (CV_8U) images are not supported.
+     *     </li>
+     *   </ul>
+     *   <li>
+     *  With Radiance HDR encoder, non 64-bit float (CV_64F) images can be saved.
+     *   <ul>
+     *     <li>
+     *    All images will be converted to 32-bit float (CV_32F).
+     *     </li>
+     *   </ul>
+     *   <li>
+     *  With JPEG 2000 encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.
      *   </li>
      *   <li>
-     *  32-bit float (CV_32F) images can be saved in PFM, TIFF, OpenEXR, and Radiance HDR formats;
-     *   3-channel (CV_32FC3) TIFF images will be saved using the LogLuv high dynamic range encoding
-     *   (4 bytes per pixel)
+     *  With PAM encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.
      *   </li>
      *   <li>
-     *  PNG images with an alpha channel can be saved using this function. To do this, create
-     * 8-bit (or 16-bit) 4-channel image BGRA, where the alpha channel goes last. Fully transparent pixels
-     * should have alpha set to 0, fully opaque pixels should have alpha set to 255/65535 (see the code sample below).
+     *  With PNG encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.
+     *   <ul>
+     *     <li>
+     *    PNG images with an alpha channel can be saved using this function. To do this, create
+     *     8-bit (or 16-bit) 4-channel image BGRA, where the alpha channel goes last. Fully transparent pixels
+     *     should have alpha set to 0, fully opaque pixels should have alpha set to 255/65535 (see the code sample below).
+     *     </li>
+     *   </ul>
+     *   <li>
+     *  With PGM/PPM encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.
      *   </li>
      *   <li>
-     *  Multiple images (vector of Mat) can be saved in TIFF format (see the code sample below).
-     *   </li>
-     * </ul>
+     *  With TIFF encoder, 8-bit unsigned (CV_8U), 16-bit unsigned (CV_16U),
+     *                      32-bit float (CV_32F) and 64-bit float (CV_64F) images can be saved.
+     *   <ul>
+     *     <li>
+     *    Multiple images (vector of Mat) can be saved in TIFF format (see the code sample below).
+     *     </li>
+     *     <li>
+     *    32-bit float 3-channel (CV_32FC3) TIFF images will be saved
+     *     using the LogLuv high dynamic range encoding (4 bytes per pixel)
+     *     </li>
+     *   </ul>
      *
      * If the image format is not supported, the image will be converted to 8-bit unsigned (CV_8U) and saved that way.
+     *   </li>
+     * </ul>
      *
      * If the format, depth or channel order is different, use
      * Mat::convertTo and cv::cvtColor to convert it before saving. Or, use the universal FileStorage I/O
@@ -545,6 +631,56 @@ public class Imgcodecs {
      */
     public static Mat imdecode(Mat buf, int flags) {
         return new Mat(imdecode_0(buf.nativeObj, flags));
+    }
+
+
+    //
+    // C++:  bool cv::imdecodemulti(Mat buf, int flags, vector_Mat& mats, Range range = Range::all())
+    //
+
+    /**
+     * Reads a multi-page image from a buffer in memory.
+     *
+     * The function imdecodemulti reads a multi-page image from the specified buffer in the memory. If the buffer is too short or
+     * contains invalid data, the function returns false.
+     *
+     * See cv::imreadmulti for the list of supported formats and flags description.
+     *
+     * <b>Note:</b> In the case of color images, the decoded images will have the channels stored in <b>B G R</b> order.
+     * @param buf Input array or vector of bytes.
+     * @param flags The same flags as in cv::imread, see cv::ImreadModes.
+     * @param mats A vector of Mat objects holding each page, if more than one.
+     * @param range A continuous selection of pages.
+     * @return automatically generated
+     */
+    public static boolean imdecodemulti(Mat buf, int flags, List<Mat> mats, Range range) {
+        Mat mats_mat = new Mat();
+        boolean retVal = imdecodemulti_0(buf.nativeObj, flags, mats_mat.nativeObj, range.start, range.end);
+        Converters.Mat_to_vector_Mat(mats_mat, mats);
+        mats_mat.release();
+        return retVal;
+    }
+
+    /**
+     * Reads a multi-page image from a buffer in memory.
+     *
+     * The function imdecodemulti reads a multi-page image from the specified buffer in the memory. If the buffer is too short or
+     * contains invalid data, the function returns false.
+     *
+     * See cv::imreadmulti for the list of supported formats and flags description.
+     *
+     * <b>Note:</b> In the case of color images, the decoded images will have the channels stored in <b>B G R</b> order.
+     * @param buf Input array or vector of bytes.
+     * @param flags The same flags as in cv::imread, see cv::ImreadModes.
+     * @param mats A vector of Mat objects holding each page, if more than one.
+     * @return automatically generated
+     */
+    public static boolean imdecodemulti(Mat buf, int flags, List<Mat> mats) {
+        Mat mats_mat = new Mat();
+        boolean retVal = imdecodemulti_1(buf.nativeObj, flags, mats_mat.nativeObj);
+        Converters.Mat_to_vector_Mat(mats_mat, mats);
+        mats_mat.release();
+        return retVal;
     }
 
 
@@ -645,6 +781,10 @@ public class Imgcodecs {
 
     // C++:  Mat cv::imdecode(Mat buf, int flags)
     private static native long imdecode_0(long buf_nativeObj, int flags);
+
+    // C++:  bool cv::imdecodemulti(Mat buf, int flags, vector_Mat& mats, Range range = Range::all())
+    private static native boolean imdecodemulti_0(long buf_nativeObj, int flags, long mats_mat_nativeObj, int range_start, int range_end);
+    private static native boolean imdecodemulti_1(long buf_nativeObj, int flags, long mats_mat_nativeObj);
 
     // C++:  bool cv::imencode(String ext, Mat img, vector_uchar& buf, vector_int params = std::vector<int>())
     private static native boolean imencode_0(String ext, long img_nativeObj, long buf_mat_nativeObj, long params_mat_nativeObj);

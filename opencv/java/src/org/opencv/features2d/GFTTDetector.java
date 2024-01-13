@@ -140,6 +140,24 @@ public class GFTTDetector extends Feature2D {
 
 
     //
+    // C++:  void cv::GFTTDetector::setGradientSize(int gradientSize_)
+    //
+
+    public void setGradientSize(int gradientSize_) {
+        setGradientSize_0(nativeObj, gradientSize_);
+    }
+
+
+    //
+    // C++:  int cv::GFTTDetector::getGradientSize()
+    //
+
+    public int getGradientSize() {
+        return getGradientSize_0(nativeObj);
+    }
+
+
+    //
     // C++:  void cv::GFTTDetector::setHarrisDetector(bool val)
     //
 
@@ -228,6 +246,12 @@ public class GFTTDetector extends Feature2D {
 
     // C++:  int cv::GFTTDetector::getBlockSize()
     private static native int getBlockSize_0(long nativeObj);
+
+    // C++:  void cv::GFTTDetector::setGradientSize(int gradientSize_)
+    private static native void setGradientSize_0(long nativeObj, int gradientSize_);
+
+    // C++:  int cv::GFTTDetector::getGradientSize()
+    private static native int getGradientSize_0(long nativeObj);
 
     // C++:  void cv::GFTTDetector::setHarrisDetector(bool val)
     private static native void setHarrisDetector_0(long nativeObj, boolean val);

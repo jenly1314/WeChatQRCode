@@ -104,7 +104,10 @@ public final class WeChatQRCodeDetector {
     private static String getExternalFilesDir(Context context, String path) {
         File[] files = context.getExternalFilesDirs(path);
         if (files != null && files.length > 0) {
-            return files[0].getAbsolutePath();
+            File file = files[0];
+            if(file != null) {
+                return file.getAbsolutePath();
+            }
         }
         File file = context.getExternalFilesDir(path);
         if(file == null) {

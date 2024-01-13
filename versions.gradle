@@ -1,34 +1,27 @@
 //App
 def app_version = [:]
-app_version.versionCode = 9
-app_version.versionName = "2.0.1"
+app_version.versionCode = 10
+app_version.versionName = "2.1.0"
 ext.app_version = app_version
 
 def opencv_version = [:]
-opencv_version.versionCode = 406000
-opencv_version.versionName = "4.6.0"
+opencv_version.versionCode = 409000
+opencv_version.versionName = "4.9.0"
 ext.opencv_version = opencv_version
 
 //build version
 def build_versions = [:]
 build_versions.minSdk = 21
-build_versions.targetSdk = 33
-build_versions.compileSdk = 33
-build_versions.buildTools = "33.0.0"
+build_versions.targetSdk = 34
+build_versions.compileSdk = 34
+build_versions.buildTools = "34.0.0"
 ext.build_versions = build_versions
 
 // App dependencies
 def versions = [:]
 
-versions.gradle = '7.4.2'
-versions.kotlin = "1.8.0"
-
-versions.mavenPublish = '0.22.0'
-
-versions.dokka = "1.5.0"
-
 versions.appcompat = "1.2.0"
-versions.coreKtx = "1.7.0"
+versions.coreKtx = "1.9.0"
 versions.material = "1.2.1"
 versions.constraintlayout = "2.0.4"
 versions.junit = "4.13.2"
@@ -37,8 +30,8 @@ versions.espressoCore = "3.4.0"
 
 versions.lifecycleKtx="2.3.1"
 versions.viewfinderview="1.1.0"
-versions.cameraScan="1.0.1"
+versions.cameraScan="1.1.0"
 
-versions.appDialog="1.1.4"
+versions.appDialog="1.2.0"
 
 ext.versions = versions

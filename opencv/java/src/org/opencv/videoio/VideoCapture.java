@@ -87,10 +87,10 @@ public class VideoCapture {
      *      or GStreamer pipeline string in gst-launch tool format in case if GStreamer is used as backend
      *       Note that each video stream or IP camera feed has its own URL scheme. Please refer to the
      *       documentation of source stream to know the right URL.
-     *     @param apiPreference preferred Capture API backends to use. Can be used to enforce a specific reader
-     *     implementation if multiple are available: e.g. cv::CAP_FFMPEG or cv::CAP_IMAGES or cv::CAP_DSHOW.
      *   </li>
      * </ul>
+     *     @param apiPreference preferred Capture API backends to use. Can be used to enforce a specific reader
+     *     implementation if multiple are available: e.g. cv::CAP_FFMPEG or cv::CAP_IMAGES or cv::CAP_DSHOW.
      *
      *     SEE: cv::VideoCaptureAPIs
      */
@@ -117,9 +117,9 @@ public class VideoCapture {
      *      or GStreamer pipeline string in gst-launch tool format in case if GStreamer is used as backend
      *       Note that each video stream or IP camera feed has its own URL scheme. Please refer to the
      *       documentation of source stream to know the right URL.
-     *     implementation if multiple are available: e.g. cv::CAP_FFMPEG or cv::CAP_IMAGES or cv::CAP_DSHOW.
      *   </li>
      * </ul>
+     *     implementation if multiple are available: e.g. cv::CAP_FFMPEG or cv::CAP_IMAGES or cv::CAP_DSHOW.
      *
      *     SEE: cv::VideoCaptureAPIs
      */
@@ -538,6 +538,13 @@ public class VideoCapture {
     public boolean getExceptionMode() {
         return getExceptionMode_0(nativeObj);
     }
+
+
+    //
+    // C++: static bool cv::VideoCapture::waitAny(vector_VideoCapture streams, vector_int& readyIndex, int64 timeoutNs = 0)
+    //
+
+    // Unknown type 'vector_VideoCapture' (I), skipping the function
 
 
     @Override

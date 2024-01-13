@@ -42,14 +42,14 @@ android {
         }
     }
 
-
     lint {
         abortOnError false
     }
+
 }
 
+
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation "com.google.android.material:material:$versions.material"
     implementation "androidx.core:core-ktx:$versions.coreKtx"

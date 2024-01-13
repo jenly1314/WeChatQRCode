@@ -295,6 +295,29 @@ public class BRISK extends Feature2D {
     }
 
 
+    //
+    // C++:  void cv::BRISK::setPatternScale(float patternScale)
+    //
+
+    /**
+     * Set detection patternScale.
+     *     @param patternScale apply this scale to the pattern used for sampling the neighbourhood of a
+     *     keypoint.
+     */
+    public void setPatternScale(float patternScale) {
+        setPatternScale_0(nativeObj, patternScale);
+    }
+
+
+    //
+    // C++:  float cv::BRISK::getPatternScale()
+    //
+
+    public float getPatternScale() {
+        return getPatternScale_0(nativeObj);
+    }
+
+
     @Override
     protected void finalize() throws Throwable {
         delete(nativeObj);
@@ -334,6 +357,12 @@ public class BRISK extends Feature2D {
 
     // C++:  int cv::BRISK::getOctaves()
     private static native int getOctaves_0(long nativeObj);
+
+    // C++:  void cv::BRISK::setPatternScale(float patternScale)
+    private static native void setPatternScale_0(long nativeObj, float patternScale);
+
+    // C++:  float cv::BRISK::getPatternScale()
+    private static native float getPatternScale_0(long nativeObj);
 
     // native support for java finalize()
     private static native void delete(long nativeObj);

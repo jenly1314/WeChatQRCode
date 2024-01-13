@@ -21,6 +21,7 @@ import kotlinx.coroutines.withContext
 import org.opencv.OpenCV
 
 /**
+ * 示例
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
  */
 class MainActivity : AppCompatActivity() {
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         // 初始化OpenCV
-        OpenCV.initAsync(this)
+        OpenCV.initOpenCV()
         // 初始化WeChatQRCodeDetector
         WeChatQRCodeDetector.init(this)
     }

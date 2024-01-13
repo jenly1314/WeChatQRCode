@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfKeyPoint;
+import org.opencv.features2d.DescriptorMatcher;
+import org.opencv.features2d.Feature2D;
 import org.opencv.utils.Converters;
 
 // C++: class BOWImgDescriptorExtractor
@@ -32,10 +34,20 @@ public class BOWImgDescriptorExtractor {
     public static BOWImgDescriptorExtractor __fromPtr__(long addr) { return new BOWImgDescriptorExtractor(addr); }
 
     //
-    // C++:   cv::BOWImgDescriptorExtractor::BOWImgDescriptorExtractor(Ptr_DescriptorExtractor dextractor, Ptr_DescriptorMatcher dmatcher)
+    // C++:   cv::BOWImgDescriptorExtractor::BOWImgDescriptorExtractor(Ptr_Feature2D dextractor, Ptr_DescriptorMatcher dmatcher)
     //
 
-    // Unknown type 'Ptr_DescriptorExtractor' (I), skipping the function
+    /**
+     * The constructor.
+     *
+     *     @param dextractor Descriptor extractor that is used to compute descriptors for an input image and
+     *     its keypoints.
+     *     @param dmatcher Descriptor matcher that is used to find the nearest word of the trained vocabulary
+     *     for each keypoint descriptor of the image.
+     */
+    public BOWImgDescriptorExtractor(Feature2D dextractor, DescriptorMatcher dmatcher) {
+        nativeObj = BOWImgDescriptorExtractor_0(dextractor.getNativeObjAddr(), dmatcher.getNativeObjAddr());
+    }
 
 
     //
@@ -116,6 +128,9 @@ public class BOWImgDescriptorExtractor {
     }
 
 
+
+    // C++:   cv::BOWImgDescriptorExtractor::BOWImgDescriptorExtractor(Ptr_Feature2D dextractor, Ptr_DescriptorMatcher dmatcher)
+    private static native long BOWImgDescriptorExtractor_0(long dextractor_nativeObj, long dmatcher_nativeObj);
 
     // C++:  void cv::BOWImgDescriptorExtractor::setVocabulary(Mat vocabulary)
     private static native void setVocabulary_0(long nativeObj, long vocabulary_nativeObj);

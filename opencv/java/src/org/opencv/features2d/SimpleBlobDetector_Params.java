@@ -364,6 +364,24 @@ public class SimpleBlobDetector_Params {
     }
 
 
+    //
+    // C++: bool SimpleBlobDetector_Params::collectContours
+    //
+
+    public boolean get_collectContours() {
+        return get_collectContours_0(nativeObj);
+    }
+
+
+    //
+    // C++: void SimpleBlobDetector_Params::collectContours
+    //
+
+    public void set_collectContours(boolean collectContours) {
+        set_collectContours_0(nativeObj, collectContours);
+    }
+
+
     @Override
     protected void finalize() throws Throwable {
         delete(nativeObj);
@@ -481,6 +499,12 @@ public class SimpleBlobDetector_Params {
 
     // C++: void SimpleBlobDetector_Params::maxConvexity
     private static native void set_maxConvexity_0(long nativeObj, float maxConvexity);
+
+    // C++: bool SimpleBlobDetector_Params::collectContours
+    private static native boolean get_collectContours_0(long nativeObj);
+
+    // C++: void SimpleBlobDetector_Params::collectContours
+    private static native void set_collectContours_0(long nativeObj, boolean collectContours);
 
     // native support for java finalize()
     private static native void delete(long nativeObj);

@@ -58,7 +58,7 @@
 //
 // - Use find_package() in app/CMakeLists.txt:
 //
-//   find_package(OpenCV 4.6 REQUIRED java)
+//   find_package(OpenCV 4.9 REQUIRED java)
 //   ...
 //   target_link_libraries(native-lib ${OpenCV_LIBRARIES})
 //
@@ -90,7 +90,7 @@
 
 plugins {
     id 'com.android.library'
-    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.android'
     id "com.vanniktech.maven.publish"
 }
 
@@ -102,13 +102,13 @@ android {
         minSdk build_versions.minSdk
         targetSdk build_versions.targetSdk
 
-        externalNativeBuild {
-            cmake {
-                cppFlags "-std=c++11"
-                arguments "-DANDROID_STL=c++_shared"
-                targets "opencv_jni_shared"
-            }
-        }
+//        externalNativeBuild {
+//            cmake {
+//                cppFlags "-std=c++11"
+//                arguments "-DANDROID_STL=c++_shared"
+//                targets "opencv_jni_shared"
+//            }
+//        }
     }
 
     buildTypes {
@@ -126,13 +126,15 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+    buildFeatures {
+        aidl true
+        prefabPublishing true
+        buildConfig true
     }
-
-    lintOptions {
-        abortOnError false
+    prefab {
+        opencv_jni_shared {
+            headers "native/jni/include"
+        }
     }
 
     sourceSets {
@@ -151,12 +153,18 @@ android {
         }
     }
 
-    ndkVersion '22.1.7171670'
-    lint {
+    ndkVersion '26.0.10792818'
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11.toString()
+    }
+    lintOptions {
         abortOnError false
-        warning 'InvalidPackage'
     }
 }
 
-dependencies {
-}

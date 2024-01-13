@@ -125,6 +125,37 @@ public class WeChatQRCode {
     }
 
 
+    //
+    // C++:  void cv::wechat_qrcode::WeChatQRCode::setScaleFactor(float _scalingFactor)
+    //
+
+    /**
+     * set scale factor
+     * QR code detector use neural network to detect QR.
+     * Before running the neural network, the input image is pre-processed by scaling.
+     * By default, the input image is scaled to an image with an area of 160000 pixels.
+     * The scale factor allows to use custom scale the input image:
+     * width = scaleFactor*width
+     * height = scaleFactor*width
+     *
+     * scaleFactor valuse must be &gt; 0 and &lt;= 1, otherwise the scaleFactor value is set to -1
+     * and use default scaled to an image with an area of 160000 pixels.
+     * @param _scalingFactor automatically generated
+     */
+    public void setScaleFactor(float _scalingFactor) {
+        setScaleFactor_0(nativeObj, _scalingFactor);
+    }
+
+
+    //
+    // C++:  float cv::wechat_qrcode::WeChatQRCode::getScaleFactor()
+    //
+
+    public float getScaleFactor() {
+        return getScaleFactor_0(nativeObj);
+    }
+
+
     @Override
     protected void finalize() throws Throwable {
         delete(nativeObj);
@@ -142,6 +173,12 @@ public class WeChatQRCode {
     // C++:  vector_string cv::wechat_qrcode::WeChatQRCode::detectAndDecode(Mat img, vector_Mat& points = vector_Mat())
     private static native List<String> detectAndDecode_0(long nativeObj, long img_nativeObj, long points_mat_nativeObj);
     private static native List<String> detectAndDecode_1(long nativeObj, long img_nativeObj);
+
+    // C++:  void cv::wechat_qrcode::WeChatQRCode::setScaleFactor(float _scalingFactor)
+    private static native void setScaleFactor_0(long nativeObj, float _scalingFactor);
+
+    // C++:  float cv::wechat_qrcode::WeChatQRCode::getScaleFactor()
+    private static native float getScaleFactor_0(long nativeObj);
 
     // native support for java finalize()
     private static native void delete(long nativeObj);

@@ -72,11 +72,11 @@
 #define HAVE_OPENJPEG
 /* #undef HAVE_JASPER */
 
+/* AVIF codec */
+/* #undef HAVE_AVIF */
+
 /* IJG JPEG codec */
 #define HAVE_JPEG
-
-/* libpng/png.h needs to be included */
-/* #undef HAVE_LIBPNG_PNG_H */
 
 /* GDCM DICOM codec */
 /* #undef HAVE_GDCM */
@@ -98,13 +98,16 @@
 /* #undef HAVE_OPENCL_D3D11_NV */
 
 /* OpenEXR codec */
-#define HAVE_OPENEXR
+/* #undef HAVE_OPENEXR */
 
 /* OpenGL support*/
 /* #undef HAVE_OPENGL */
 
 /* PNG codec */
 #define HAVE_PNG
+
+/* PNG codec */
+/* #undef HAVE_SPNG */
 
 /* Posix threads (pthreads) */
 #define HAVE_PTHREAD
@@ -113,7 +116,7 @@
 #define HAVE_PTHREADS_PF
 
 /* Intel Threading Building Blocks */
-#define HAVE_TBB
+/* #undef HAVE_TBB */
 
 /* Ste||ar Group High Performance ParallelX */
 /* #undef HAVE_HPX */
@@ -144,6 +147,6 @@
 #define OPENCV_TRACE
 
 /* Library QR-code decoding */
-#define HAVE_QUIRC
+/* #undef HAVE_QUIRC */
 
 #endif // OPENCV_CVCONFIG_H_INCLUDED

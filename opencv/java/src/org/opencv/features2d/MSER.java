@@ -267,6 +267,114 @@ public class MSER extends Feature2D {
 
 
     //
+    // C++:  void cv::MSER::setMaxVariation(double maxVariation)
+    //
+
+    public void setMaxVariation(double maxVariation) {
+        setMaxVariation_0(nativeObj, maxVariation);
+    }
+
+
+    //
+    // C++:  double cv::MSER::getMaxVariation()
+    //
+
+    public double getMaxVariation() {
+        return getMaxVariation_0(nativeObj);
+    }
+
+
+    //
+    // C++:  void cv::MSER::setMinDiversity(double minDiversity)
+    //
+
+    public void setMinDiversity(double minDiversity) {
+        setMinDiversity_0(nativeObj, minDiversity);
+    }
+
+
+    //
+    // C++:  double cv::MSER::getMinDiversity()
+    //
+
+    public double getMinDiversity() {
+        return getMinDiversity_0(nativeObj);
+    }
+
+
+    //
+    // C++:  void cv::MSER::setMaxEvolution(int maxEvolution)
+    //
+
+    public void setMaxEvolution(int maxEvolution) {
+        setMaxEvolution_0(nativeObj, maxEvolution);
+    }
+
+
+    //
+    // C++:  int cv::MSER::getMaxEvolution()
+    //
+
+    public int getMaxEvolution() {
+        return getMaxEvolution_0(nativeObj);
+    }
+
+
+    //
+    // C++:  void cv::MSER::setAreaThreshold(double areaThreshold)
+    //
+
+    public void setAreaThreshold(double areaThreshold) {
+        setAreaThreshold_0(nativeObj, areaThreshold);
+    }
+
+
+    //
+    // C++:  double cv::MSER::getAreaThreshold()
+    //
+
+    public double getAreaThreshold() {
+        return getAreaThreshold_0(nativeObj);
+    }
+
+
+    //
+    // C++:  void cv::MSER::setMinMargin(double min_margin)
+    //
+
+    public void setMinMargin(double min_margin) {
+        setMinMargin_0(nativeObj, min_margin);
+    }
+
+
+    //
+    // C++:  double cv::MSER::getMinMargin()
+    //
+
+    public double getMinMargin() {
+        return getMinMargin_0(nativeObj);
+    }
+
+
+    //
+    // C++:  void cv::MSER::setEdgeBlurSize(int edge_blur_size)
+    //
+
+    public void setEdgeBlurSize(int edge_blur_size) {
+        setEdgeBlurSize_0(nativeObj, edge_blur_size);
+    }
+
+
+    //
+    // C++:  int cv::MSER::getEdgeBlurSize()
+    //
+
+    public int getEdgeBlurSize() {
+        return getEdgeBlurSize_0(nativeObj);
+    }
+
+
+    //
     // C++:  void cv::MSER::setPass2Only(bool f)
     //
 
@@ -332,6 +440,42 @@ public class MSER extends Feature2D {
 
     // C++:  int cv::MSER::getMaxArea()
     private static native int getMaxArea_0(long nativeObj);
+
+    // C++:  void cv::MSER::setMaxVariation(double maxVariation)
+    private static native void setMaxVariation_0(long nativeObj, double maxVariation);
+
+    // C++:  double cv::MSER::getMaxVariation()
+    private static native double getMaxVariation_0(long nativeObj);
+
+    // C++:  void cv::MSER::setMinDiversity(double minDiversity)
+    private static native void setMinDiversity_0(long nativeObj, double minDiversity);
+
+    // C++:  double cv::MSER::getMinDiversity()
+    private static native double getMinDiversity_0(long nativeObj);
+
+    // C++:  void cv::MSER::setMaxEvolution(int maxEvolution)
+    private static native void setMaxEvolution_0(long nativeObj, int maxEvolution);
+
+    // C++:  int cv::MSER::getMaxEvolution()
+    private static native int getMaxEvolution_0(long nativeObj);
+
+    // C++:  void cv::MSER::setAreaThreshold(double areaThreshold)
+    private static native void setAreaThreshold_0(long nativeObj, double areaThreshold);
+
+    // C++:  double cv::MSER::getAreaThreshold()
+    private static native double getAreaThreshold_0(long nativeObj);
+
+    // C++:  void cv::MSER::setMinMargin(double min_margin)
+    private static native void setMinMargin_0(long nativeObj, double min_margin);
+
+    // C++:  double cv::MSER::getMinMargin()
+    private static native double getMinMargin_0(long nativeObj);
+
+    // C++:  void cv::MSER::setEdgeBlurSize(int edge_blur_size)
+    private static native void setEdgeBlurSize_0(long nativeObj, int edge_blur_size);
+
+    // C++:  int cv::MSER::getEdgeBlurSize()
+    private static native int getEdgeBlurSize_0(long nativeObj);
 
     // C++:  void cv::MSER::setPass2Only(bool f)
     private static native void setPass2Only_0(long nativeObj, boolean f);

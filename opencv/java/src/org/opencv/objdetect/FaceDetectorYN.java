@@ -3,9 +3,13 @@
 //
 package org.opencv.objdetect;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfByte;
 import org.opencv.core.Size;
 import org.opencv.objdetect.FaceDetectorYN;
+import org.opencv.utils.Converters;
 
 // C++: class FaceDetectorYN
 /**
@@ -120,10 +124,20 @@ public class FaceDetectorYN {
     //
 
     /**
-     * A simple interface to detect face from given image
+     * Detects faces in the input image. Following is an example output.
+     *
+     * ![image](pics/lena-face-detection.jpg)
      *
      * @param image an image to detect
-     * @param faces detection results stored in a cv::Mat
+     * @param faces detection results stored in a 2D cv::Mat of shape [num_faces, 15]
+     * - 0-1: x, y of bbox top left corner
+     * - 2-3: width, height of bbox
+     * - 4-5: x, y of right eye (blue point in the example image)
+     * - 6-7: x, y of left eye (red point in the example image)
+     * - 8-9: x, y of nose tip (green point in the example image)
+     * - 10-11: x, y of right corner of mouth (pink point in the example image)
+     * - 12-13: x, y of left corner of mouth (yellow point in the example image)
+     * - 14: face score
      * @return automatically generated
      */
     public int detect(Mat image, Mat faces) {
@@ -136,7 +150,7 @@ public class FaceDetectorYN {
     //
 
     /**
-     * Creates an instance of this class with given parameters
+     * Creates an instance of face detector class with given parameters
      *
      * @param model the path to the requested model
      * @param config the path to the config file for compability, which is not requested for ONNX models
@@ -153,7 +167,7 @@ public class FaceDetectorYN {
     }
 
     /**
-     * Creates an instance of this class with given parameters
+     * Creates an instance of face detector class with given parameters
      *
      * @param model the path to the requested model
      * @param config the path to the config file for compability, which is not requested for ONNX models
@@ -169,7 +183,7 @@ public class FaceDetectorYN {
     }
 
     /**
-     * Creates an instance of this class with given parameters
+     * Creates an instance of face detector class with given parameters
      *
      * @param model the path to the requested model
      * @param config the path to the config file for compability, which is not requested for ONNX models
@@ -184,7 +198,7 @@ public class FaceDetectorYN {
     }
 
     /**
-     * Creates an instance of this class with given parameters
+     * Creates an instance of face detector class with given parameters
      *
      * @param model the path to the requested model
      * @param config the path to the config file for compability, which is not requested for ONNX models
@@ -198,7 +212,7 @@ public class FaceDetectorYN {
     }
 
     /**
-     * Creates an instance of this class with given parameters
+     * Creates an instance of face detector class with given parameters
      *
      * @param model the path to the requested model
      * @param config the path to the config file for compability, which is not requested for ONNX models
@@ -211,7 +225,7 @@ public class FaceDetectorYN {
     }
 
     /**
-     * Creates an instance of this class with given parameters
+     * Creates an instance of face detector class with given parameters
      *
      * @param model the path to the requested model
      * @param config the path to the config file for compability, which is not requested for ONNX models
@@ -220,6 +234,116 @@ public class FaceDetectorYN {
      */
     public static FaceDetectorYN create(String model, String config, Size input_size) {
         return FaceDetectorYN.__fromPtr__(create_5(model, config, input_size.width, input_size.height));
+    }
+
+
+    //
+    // C++: static Ptr_FaceDetectorYN cv::FaceDetectorYN::create(String framework, vector_uchar bufferModel, vector_uchar bufferConfig, Size input_size, float score_threshold = 0.9f, float nms_threshold = 0.3f, int top_k = 5000, int backend_id = 0, int target_id = 0)
+    //
+
+    /**
+     *
+     *
+     * @param framework Name of origin framework
+     * @param bufferModel A buffer with a content of binary file with weights
+     * @param bufferConfig A buffer with a content of text file contains network configuration
+     * @param input_size the size of the input image
+     * @param score_threshold the threshold to filter out bounding boxes of score smaller than the given value
+     * @param nms_threshold the threshold to suppress bounding boxes of IoU bigger than the given value
+     * @param top_k keep top K bboxes before NMS
+     * @param backend_id the id of backend
+     * @param target_id the id of target device
+     * @return automatically generated
+     */
+    public static FaceDetectorYN create(String framework, MatOfByte bufferModel, MatOfByte bufferConfig, Size input_size, float score_threshold, float nms_threshold, int top_k, int backend_id, int target_id) {
+        Mat bufferModel_mat = bufferModel;
+        Mat bufferConfig_mat = bufferConfig;
+        return FaceDetectorYN.__fromPtr__(create_6(framework, bufferModel_mat.nativeObj, bufferConfig_mat.nativeObj, input_size.width, input_size.height, score_threshold, nms_threshold, top_k, backend_id, target_id));
+    }
+
+    /**
+     *
+     *
+     * @param framework Name of origin framework
+     * @param bufferModel A buffer with a content of binary file with weights
+     * @param bufferConfig A buffer with a content of text file contains network configuration
+     * @param input_size the size of the input image
+     * @param score_threshold the threshold to filter out bounding boxes of score smaller than the given value
+     * @param nms_threshold the threshold to suppress bounding boxes of IoU bigger than the given value
+     * @param top_k keep top K bboxes before NMS
+     * @param backend_id the id of backend
+     * @return automatically generated
+     */
+    public static FaceDetectorYN create(String framework, MatOfByte bufferModel, MatOfByte bufferConfig, Size input_size, float score_threshold, float nms_threshold, int top_k, int backend_id) {
+        Mat bufferModel_mat = bufferModel;
+        Mat bufferConfig_mat = bufferConfig;
+        return FaceDetectorYN.__fromPtr__(create_7(framework, bufferModel_mat.nativeObj, bufferConfig_mat.nativeObj, input_size.width, input_size.height, score_threshold, nms_threshold, top_k, backend_id));
+    }
+
+    /**
+     *
+     *
+     * @param framework Name of origin framework
+     * @param bufferModel A buffer with a content of binary file with weights
+     * @param bufferConfig A buffer with a content of text file contains network configuration
+     * @param input_size the size of the input image
+     * @param score_threshold the threshold to filter out bounding boxes of score smaller than the given value
+     * @param nms_threshold the threshold to suppress bounding boxes of IoU bigger than the given value
+     * @param top_k keep top K bboxes before NMS
+     * @return automatically generated
+     */
+    public static FaceDetectorYN create(String framework, MatOfByte bufferModel, MatOfByte bufferConfig, Size input_size, float score_threshold, float nms_threshold, int top_k) {
+        Mat bufferModel_mat = bufferModel;
+        Mat bufferConfig_mat = bufferConfig;
+        return FaceDetectorYN.__fromPtr__(create_8(framework, bufferModel_mat.nativeObj, bufferConfig_mat.nativeObj, input_size.width, input_size.height, score_threshold, nms_threshold, top_k));
+    }
+
+    /**
+     *
+     *
+     * @param framework Name of origin framework
+     * @param bufferModel A buffer with a content of binary file with weights
+     * @param bufferConfig A buffer with a content of text file contains network configuration
+     * @param input_size the size of the input image
+     * @param score_threshold the threshold to filter out bounding boxes of score smaller than the given value
+     * @param nms_threshold the threshold to suppress bounding boxes of IoU bigger than the given value
+     * @return automatically generated
+     */
+    public static FaceDetectorYN create(String framework, MatOfByte bufferModel, MatOfByte bufferConfig, Size input_size, float score_threshold, float nms_threshold) {
+        Mat bufferModel_mat = bufferModel;
+        Mat bufferConfig_mat = bufferConfig;
+        return FaceDetectorYN.__fromPtr__(create_9(framework, bufferModel_mat.nativeObj, bufferConfig_mat.nativeObj, input_size.width, input_size.height, score_threshold, nms_threshold));
+    }
+
+    /**
+     *
+     *
+     * @param framework Name of origin framework
+     * @param bufferModel A buffer with a content of binary file with weights
+     * @param bufferConfig A buffer with a content of text file contains network configuration
+     * @param input_size the size of the input image
+     * @param score_threshold the threshold to filter out bounding boxes of score smaller than the given value
+     * @return automatically generated
+     */
+    public static FaceDetectorYN create(String framework, MatOfByte bufferModel, MatOfByte bufferConfig, Size input_size, float score_threshold) {
+        Mat bufferModel_mat = bufferModel;
+        Mat bufferConfig_mat = bufferConfig;
+        return FaceDetectorYN.__fromPtr__(create_10(framework, bufferModel_mat.nativeObj, bufferConfig_mat.nativeObj, input_size.width, input_size.height, score_threshold));
+    }
+
+    /**
+     *
+     *
+     * @param framework Name of origin framework
+     * @param bufferModel A buffer with a content of binary file with weights
+     * @param bufferConfig A buffer with a content of text file contains network configuration
+     * @param input_size the size of the input image
+     * @return automatically generated
+     */
+    public static FaceDetectorYN create(String framework, MatOfByte bufferModel, MatOfByte bufferConfig, Size input_size) {
+        Mat bufferModel_mat = bufferModel;
+        Mat bufferConfig_mat = bufferConfig;
+        return FaceDetectorYN.__fromPtr__(create_11(framework, bufferModel_mat.nativeObj, bufferConfig_mat.nativeObj, input_size.width, input_size.height));
     }
 
 
@@ -264,6 +388,14 @@ public class FaceDetectorYN {
     private static native long create_3(String model, String config, double input_size_width, double input_size_height, float score_threshold, float nms_threshold);
     private static native long create_4(String model, String config, double input_size_width, double input_size_height, float score_threshold);
     private static native long create_5(String model, String config, double input_size_width, double input_size_height);
+
+    // C++: static Ptr_FaceDetectorYN cv::FaceDetectorYN::create(String framework, vector_uchar bufferModel, vector_uchar bufferConfig, Size input_size, float score_threshold = 0.9f, float nms_threshold = 0.3f, int top_k = 5000, int backend_id = 0, int target_id = 0)
+    private static native long create_6(String framework, long bufferModel_mat_nativeObj, long bufferConfig_mat_nativeObj, double input_size_width, double input_size_height, float score_threshold, float nms_threshold, int top_k, int backend_id, int target_id);
+    private static native long create_7(String framework, long bufferModel_mat_nativeObj, long bufferConfig_mat_nativeObj, double input_size_width, double input_size_height, float score_threshold, float nms_threshold, int top_k, int backend_id);
+    private static native long create_8(String framework, long bufferModel_mat_nativeObj, long bufferConfig_mat_nativeObj, double input_size_width, double input_size_height, float score_threshold, float nms_threshold, int top_k);
+    private static native long create_9(String framework, long bufferModel_mat_nativeObj, long bufferConfig_mat_nativeObj, double input_size_width, double input_size_height, float score_threshold, float nms_threshold);
+    private static native long create_10(String framework, long bufferModel_mat_nativeObj, long bufferConfig_mat_nativeObj, double input_size_width, double input_size_height, float score_threshold);
+    private static native long create_11(String framework, long bufferModel_mat_nativeObj, long bufferConfig_mat_nativeObj, double input_size_width, double input_size_height);
 
     // native support for java finalize()
     private static native void delete(long nativeObj);

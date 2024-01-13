@@ -14,6 +14,7 @@ import org.opencv.core.MatOfRect2d;
 import org.opencv.core.MatOfRotatedRect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
+import org.opencv.dnn.Image2BlobParams;
 import org.opencv.dnn.Net;
 import org.opencv.utils.Converters;
 
@@ -30,7 +31,26 @@ public class Dnn {
             DNN_BACKEND_VKCOM = 0+4,
             DNN_BACKEND_CUDA = 0+5,
             DNN_BACKEND_WEBNN = 0+6,
-            DNN_BACKEND_TIMVX = 0+7;
+            DNN_BACKEND_TIMVX = 0+7,
+            DNN_BACKEND_CANN = 0+8;
+
+
+    // C++: enum DataLayout (cv.dnn.DataLayout)
+    public static final int
+            DNN_LAYOUT_UNKNOWN = 0,
+            DNN_LAYOUT_ND = 1,
+            DNN_LAYOUT_NCHW = 2,
+            DNN_LAYOUT_NCDHW = 3,
+            DNN_LAYOUT_NHWC = 4,
+            DNN_LAYOUT_NDHWC = 5,
+            DNN_LAYOUT_PLANAR = 6;
+
+
+    // C++: enum ImagePaddingMode (cv.dnn.ImagePaddingMode)
+    public static final int
+            DNN_PMODE_NULL = 0,
+            DNN_PMODE_CROP_CENTER = 1,
+            DNN_PMODE_LETTERBOX = 2;
 
 
     // C++: enum SoftNMSMethod (cv.dnn.SoftNMSMethod)
@@ -50,7 +70,8 @@ public class Dnn {
             DNN_TARGET_CUDA = 0+6,
             DNN_TARGET_CUDA_FP16 = 0+7,
             DNN_TARGET_HDDL = 0+8,
-            DNN_TARGET_NPU = 0+9;
+            DNN_TARGET_NPU = 0+9,
+            DNN_TARGET_CPU_FP16 = 0+10;
 
 
     //
@@ -71,7 +92,6 @@ public class Dnn {
      * @param cfgFile      path to the .cfg file with text description of the network architecture.
      * @param darknetModel path to the .weights file with learned network.
      * @return Network object that ready to do forward, throw an exception in failure cases.
-     * @return Net object.
      */
     public static Net readNetFromDarknet(String cfgFile, String darknetModel) {
         return new Net(readNetFromDarknet_0(cfgFile, darknetModel));
@@ -81,7 +101,6 @@ public class Dnn {
      * Reads a network model stored in &lt;a href="https://pjreddie.com/darknet/"&gt;Darknet&lt;/a&gt; model files.
      * @param cfgFile      path to the .cfg file with text description of the network architecture.
      * @return Network object that ready to do forward, throw an exception in failure cases.
-     * @return Net object.
      */
     public static Net readNetFromDarknet(String cfgFile) {
         return new Net(readNetFromDarknet_1(cfgFile));
@@ -222,6 +241,35 @@ public class Dnn {
 
 
     //
+    // C++:  Net cv::dnn::readNetFromTFLite(String model)
+    //
+
+    /**
+     * Reads a network model stored in &lt;a href="https://www.tensorflow.org/lite"&gt;TFLite&lt;/a&gt; framework's format.
+     * @param model  path to the .tflite file with binary flatbuffers description of the network architecture
+     * @return Net object.
+     */
+    public static Net readNetFromTFLite(String model) {
+        return new Net(readNetFromTFLite_0(model));
+    }
+
+
+    //
+    // C++:  Net cv::dnn::readNetFromTFLite(vector_uchar bufferModel)
+    //
+
+    /**
+     * Reads a network model stored in &lt;a href="https://www.tensorflow.org/lite"&gt;TFLite&lt;/a&gt; framework's format.
+     * @param bufferModel buffer containing the content of the tflite file
+     * @return Net object.
+     */
+    public static Net readNetFromTFLite(MatOfByte bufferModel) {
+        Mat bufferModel_mat = bufferModel;
+        return new Net(readNetFromTFLite_1(bufferModel_mat.nativeObj));
+    }
+
+
+    //
     // C++:  Net cv::dnn::readNetFromTorch(String model, bool isBinary = true, bool evaluate = true)
     //
 
@@ -325,14 +373,14 @@ public class Dnn {
      * * {@code *.pb} (TensorFlow, https://www.tensorflow.org/)
      * * {@code *.t7} | {@code *.net} (Torch, http://torch.ch/)
      * * {@code *.weights} (Darknet, https://pjreddie.com/darknet/)
-     * * {@code *.bin} (DLDT, https://software.intel.com/openvino-toolkit)
+     * * {@code *.bin} | {@code *.onnx} (OpenVINO, https://software.intel.com/openvino-toolkit)
      * * {@code *.onnx} (ONNX, https://onnx.ai/)
      * @param config Text file contains network configuration. It could be a
      * file with the following extensions:
      * * {@code *.prototxt} (Caffe, http://caffe.berkeleyvision.org/)
      * * {@code *.pbtxt} (TensorFlow, https://www.tensorflow.org/)
      * * {@code *.cfg} (Darknet, https://pjreddie.com/darknet/)
-     * * {@code *.xml} (DLDT, https://software.intel.com/openvino-toolkit)
+     * * {@code *.xml} (OpenVINO, https://software.intel.com/openvino-toolkit)
      * @param framework Explicit framework name tag to determine a format.
      * @return Net object.
      *
@@ -353,14 +401,14 @@ public class Dnn {
      * * {@code *.pb} (TensorFlow, https://www.tensorflow.org/)
      * * {@code *.t7} | {@code *.net} (Torch, http://torch.ch/)
      * * {@code *.weights} (Darknet, https://pjreddie.com/darknet/)
-     * * {@code *.bin} (DLDT, https://software.intel.com/openvino-toolkit)
+     * * {@code *.bin} | {@code *.onnx} (OpenVINO, https://software.intel.com/openvino-toolkit)
      * * {@code *.onnx} (ONNX, https://onnx.ai/)
      * @param config Text file contains network configuration. It could be a
      * file with the following extensions:
      * * {@code *.prototxt} (Caffe, http://caffe.berkeleyvision.org/)
      * * {@code *.pbtxt} (TensorFlow, https://www.tensorflow.org/)
      * * {@code *.cfg} (Darknet, https://pjreddie.com/darknet/)
-     * * {@code *.xml} (DLDT, https://software.intel.com/openvino-toolkit)
+     * * {@code *.xml} (OpenVINO, https://software.intel.com/openvino-toolkit)
      * @return Net object.
      *
      * This function automatically detects an origin framework of trained model
@@ -380,13 +428,13 @@ public class Dnn {
      * * {@code *.pb} (TensorFlow, https://www.tensorflow.org/)
      * * {@code *.t7} | {@code *.net} (Torch, http://torch.ch/)
      * * {@code *.weights} (Darknet, https://pjreddie.com/darknet/)
-     * * {@code *.bin} (DLDT, https://software.intel.com/openvino-toolkit)
+     * * {@code *.bin} | {@code *.onnx} (OpenVINO, https://software.intel.com/openvino-toolkit)
      * * {@code *.onnx} (ONNX, https://onnx.ai/)
      * file with the following extensions:
      * * {@code *.prototxt} (Caffe, http://caffe.berkeleyvision.org/)
      * * {@code *.pbtxt} (TensorFlow, https://www.tensorflow.org/)
      * * {@code *.cfg} (Darknet, https://pjreddie.com/darknet/)
-     * * {@code *.xml} (DLDT, https://software.intel.com/openvino-toolkit)
+     * * {@code *.xml} (OpenVINO, https://software.intel.com/openvino-toolkit)
      * @return Net object.
      *
      * This function automatically detects an origin framework of trained model
@@ -459,7 +507,7 @@ public class Dnn {
 
 
     //
-    // C++:  Net cv::dnn::readNetFromModelOptimizer(String xml, String bin)
+    // C++:  Net cv::dnn::readNetFromModelOptimizer(String xml, String bin = "")
     //
 
     /**
@@ -472,6 +520,17 @@ public class Dnn {
      */
     public static Net readNetFromModelOptimizer(String xml, String bin) {
         return new Net(readNetFromModelOptimizer_0(xml, bin));
+    }
+
+    /**
+     * Load a network from Intel's Model Optimizer intermediate representation.
+     * @param xml XML configuration file with network's topology.
+     * @return Net object.
+     * Networks imported from Intel's Model Optimizer are launched in Intel's Inference Engine
+     * backend.
+     */
+    public static Net readNetFromModelOptimizer(String xml) {
+        return new Net(readNetFromModelOptimizer_1(xml));
     }
 
 
@@ -490,7 +549,7 @@ public class Dnn {
     public static Net readNetFromModelOptimizer(MatOfByte bufferModelConfig, MatOfByte bufferWeights) {
         Mat bufferModelConfig_mat = bufferModelConfig;
         Mat bufferWeights_mat = bufferWeights;
-        return new Net(readNetFromModelOptimizer_1(bufferModelConfig_mat.nativeObj, bufferWeights_mat.nativeObj));
+        return new Net(readNetFromModelOptimizer_2(bufferModelConfig_mat.nativeObj, bufferWeights_mat.nativeObj));
     }
 
 
@@ -547,10 +606,10 @@ public class Dnn {
      * Creates 4-dimensional blob from image. Optionally resizes and crops {@code image} from center,
      * subtract {@code mean} values, scales values by {@code scalefactor}, swap Blue and Red channels.
      * @param image input image (with 1-, 3- or 4-channels).
+     * @param scalefactor multiplier for {@code images} values.
      * @param size spatial size for output image
      * @param mean scalar with mean values which are subtracted from channels. Values are intended
      * to be in (mean-R, mean-G, mean-B) order if {@code image} has BGR ordering and {@code swapRB} is true.
-     * @param scalefactor multiplier for {@code image} values.
      * @param swapRB flag which indicates that swap first and last channels
      * in 3-channel image is necessary.
      * @param crop flag which indicates whether image will be cropped after resize or not
@@ -559,6 +618,9 @@ public class Dnn {
      * dimension in {@code size} and another one is equal or larger. Then, crop from the center is performed.
      * If {@code crop} is false, direct resize without cropping and preserving aspect ratio is performed.
      * @return 4-dimensional Mat with NCHW dimensions order.
+     *
+     * <b>Note:</b>
+     * The order and usage of {@code scalefactor} and {@code mean} are (input - mean) * scalefactor.
      */
     public static Mat blobFromImage(Mat image, double scalefactor, Size size, Scalar mean, boolean swapRB, boolean crop, int ddepth) {
         return new Mat(blobFromImage_0(image.nativeObj, scalefactor, size.width, size.height, mean.val[0], mean.val[1], mean.val[2], mean.val[3], swapRB, crop, ddepth));
@@ -568,10 +630,10 @@ public class Dnn {
      * Creates 4-dimensional blob from image. Optionally resizes and crops {@code image} from center,
      * subtract {@code mean} values, scales values by {@code scalefactor}, swap Blue and Red channels.
      * @param image input image (with 1-, 3- or 4-channels).
+     * @param scalefactor multiplier for {@code images} values.
      * @param size spatial size for output image
      * @param mean scalar with mean values which are subtracted from channels. Values are intended
      * to be in (mean-R, mean-G, mean-B) order if {@code image} has BGR ordering and {@code swapRB} is true.
-     * @param scalefactor multiplier for {@code image} values.
      * @param swapRB flag which indicates that swap first and last channels
      * in 3-channel image is necessary.
      * @param crop flag which indicates whether image will be cropped after resize or not
@@ -579,6 +641,9 @@ public class Dnn {
      * dimension in {@code size} and another one is equal or larger. Then, crop from the center is performed.
      * If {@code crop} is false, direct resize without cropping and preserving aspect ratio is performed.
      * @return 4-dimensional Mat with NCHW dimensions order.
+     *
+     * <b>Note:</b>
+     * The order and usage of {@code scalefactor} and {@code mean} are (input - mean) * scalefactor.
      */
     public static Mat blobFromImage(Mat image, double scalefactor, Size size, Scalar mean, boolean swapRB, boolean crop) {
         return new Mat(blobFromImage_1(image.nativeObj, scalefactor, size.width, size.height, mean.val[0], mean.val[1], mean.val[2], mean.val[3], swapRB, crop));
@@ -588,16 +653,19 @@ public class Dnn {
      * Creates 4-dimensional blob from image. Optionally resizes and crops {@code image} from center,
      * subtract {@code mean} values, scales values by {@code scalefactor}, swap Blue and Red channels.
      * @param image input image (with 1-, 3- or 4-channels).
+     * @param scalefactor multiplier for {@code images} values.
      * @param size spatial size for output image
      * @param mean scalar with mean values which are subtracted from channels. Values are intended
      * to be in (mean-R, mean-G, mean-B) order if {@code image} has BGR ordering and {@code swapRB} is true.
-     * @param scalefactor multiplier for {@code image} values.
      * @param swapRB flag which indicates that swap first and last channels
      * in 3-channel image is necessary.
      * if {@code crop} is true, input image is resized so one side after resize is equal to corresponding
      * dimension in {@code size} and another one is equal or larger. Then, crop from the center is performed.
      * If {@code crop} is false, direct resize without cropping and preserving aspect ratio is performed.
      * @return 4-dimensional Mat with NCHW dimensions order.
+     *
+     * <b>Note:</b>
+     * The order and usage of {@code scalefactor} and {@code mean} are (input - mean) * scalefactor.
      */
     public static Mat blobFromImage(Mat image, double scalefactor, Size size, Scalar mean, boolean swapRB) {
         return new Mat(blobFromImage_2(image.nativeObj, scalefactor, size.width, size.height, mean.val[0], mean.val[1], mean.val[2], mean.val[3], swapRB));
@@ -607,15 +675,18 @@ public class Dnn {
      * Creates 4-dimensional blob from image. Optionally resizes and crops {@code image} from center,
      * subtract {@code mean} values, scales values by {@code scalefactor}, swap Blue and Red channels.
      * @param image input image (with 1-, 3- or 4-channels).
+     * @param scalefactor multiplier for {@code images} values.
      * @param size spatial size for output image
      * @param mean scalar with mean values which are subtracted from channels. Values are intended
      * to be in (mean-R, mean-G, mean-B) order if {@code image} has BGR ordering and {@code swapRB} is true.
-     * @param scalefactor multiplier for {@code image} values.
      * in 3-channel image is necessary.
      * if {@code crop} is true, input image is resized so one side after resize is equal to corresponding
      * dimension in {@code size} and another one is equal or larger. Then, crop from the center is performed.
      * If {@code crop} is false, direct resize without cropping and preserving aspect ratio is performed.
      * @return 4-dimensional Mat with NCHW dimensions order.
+     *
+     * <b>Note:</b>
+     * The order and usage of {@code scalefactor} and {@code mean} are (input - mean) * scalefactor.
      */
     public static Mat blobFromImage(Mat image, double scalefactor, Size size, Scalar mean) {
         return new Mat(blobFromImage_3(image.nativeObj, scalefactor, size.width, size.height, mean.val[0], mean.val[1], mean.val[2], mean.val[3]));
@@ -625,14 +696,17 @@ public class Dnn {
      * Creates 4-dimensional blob from image. Optionally resizes and crops {@code image} from center,
      * subtract {@code mean} values, scales values by {@code scalefactor}, swap Blue and Red channels.
      * @param image input image (with 1-, 3- or 4-channels).
+     * @param scalefactor multiplier for {@code images} values.
      * @param size spatial size for output image
      * to be in (mean-R, mean-G, mean-B) order if {@code image} has BGR ordering and {@code swapRB} is true.
-     * @param scalefactor multiplier for {@code image} values.
      * in 3-channel image is necessary.
      * if {@code crop} is true, input image is resized so one side after resize is equal to corresponding
      * dimension in {@code size} and another one is equal or larger. Then, crop from the center is performed.
      * If {@code crop} is false, direct resize without cropping and preserving aspect ratio is performed.
      * @return 4-dimensional Mat with NCHW dimensions order.
+     *
+     * <b>Note:</b>
+     * The order and usage of {@code scalefactor} and {@code mean} are (input - mean) * scalefactor.
      */
     public static Mat blobFromImage(Mat image, double scalefactor, Size size) {
         return new Mat(blobFromImage_4(image.nativeObj, scalefactor, size.width, size.height));
@@ -642,13 +716,16 @@ public class Dnn {
      * Creates 4-dimensional blob from image. Optionally resizes and crops {@code image} from center,
      * subtract {@code mean} values, scales values by {@code scalefactor}, swap Blue and Red channels.
      * @param image input image (with 1-, 3- or 4-channels).
+     * @param scalefactor multiplier for {@code images} values.
      * to be in (mean-R, mean-G, mean-B) order if {@code image} has BGR ordering and {@code swapRB} is true.
-     * @param scalefactor multiplier for {@code image} values.
      * in 3-channel image is necessary.
      * if {@code crop} is true, input image is resized so one side after resize is equal to corresponding
      * dimension in {@code size} and another one is equal or larger. Then, crop from the center is performed.
      * If {@code crop} is false, direct resize without cropping and preserving aspect ratio is performed.
      * @return 4-dimensional Mat with NCHW dimensions order.
+     *
+     * <b>Note:</b>
+     * The order and usage of {@code scalefactor} and {@code mean} are (input - mean) * scalefactor.
      */
     public static Mat blobFromImage(Mat image, double scalefactor) {
         return new Mat(blobFromImage_5(image.nativeObj, scalefactor));
@@ -664,6 +741,9 @@ public class Dnn {
      * dimension in {@code size} and another one is equal or larger. Then, crop from the center is performed.
      * If {@code crop} is false, direct resize without cropping and preserving aspect ratio is performed.
      * @return 4-dimensional Mat with NCHW dimensions order.
+     *
+     * <b>Note:</b>
+     * The order and usage of {@code scalefactor} and {@code mean} are (input - mean) * scalefactor.
      */
     public static Mat blobFromImage(Mat image) {
         return new Mat(blobFromImage_6(image.nativeObj));
@@ -691,6 +771,9 @@ public class Dnn {
      * dimension in {@code size} and another one is equal or larger. Then, crop from the center is performed.
      * If {@code crop} is false, direct resize without cropping and preserving aspect ratio is performed.
      * @return 4-dimensional Mat with NCHW dimensions order.
+     *
+     * <b>Note:</b>
+     * The order and usage of {@code scalefactor} and {@code mean} are (input - mean) * scalefactor.
      */
     public static Mat blobFromImages(List<Mat> images, double scalefactor, Size size, Scalar mean, boolean swapRB, boolean crop, int ddepth) {
         Mat images_mat = Converters.vector_Mat_to_Mat(images);
@@ -713,6 +796,9 @@ public class Dnn {
      * dimension in {@code size} and another one is equal or larger. Then, crop from the center is performed.
      * If {@code crop} is false, direct resize without cropping and preserving aspect ratio is performed.
      * @return 4-dimensional Mat with NCHW dimensions order.
+     *
+     * <b>Note:</b>
+     * The order and usage of {@code scalefactor} and {@code mean} are (input - mean) * scalefactor.
      */
     public static Mat blobFromImages(List<Mat> images, double scalefactor, Size size, Scalar mean, boolean swapRB, boolean crop) {
         Mat images_mat = Converters.vector_Mat_to_Mat(images);
@@ -734,6 +820,9 @@ public class Dnn {
      * dimension in {@code size} and another one is equal or larger. Then, crop from the center is performed.
      * If {@code crop} is false, direct resize without cropping and preserving aspect ratio is performed.
      * @return 4-dimensional Mat with NCHW dimensions order.
+     *
+     * <b>Note:</b>
+     * The order and usage of {@code scalefactor} and {@code mean} are (input - mean) * scalefactor.
      */
     public static Mat blobFromImages(List<Mat> images, double scalefactor, Size size, Scalar mean, boolean swapRB) {
         Mat images_mat = Converters.vector_Mat_to_Mat(images);
@@ -754,6 +843,9 @@ public class Dnn {
      * dimension in {@code size} and another one is equal or larger. Then, crop from the center is performed.
      * If {@code crop} is false, direct resize without cropping and preserving aspect ratio is performed.
      * @return 4-dimensional Mat with NCHW dimensions order.
+     *
+     * <b>Note:</b>
+     * The order and usage of {@code scalefactor} and {@code mean} are (input - mean) * scalefactor.
      */
     public static Mat blobFromImages(List<Mat> images, double scalefactor, Size size, Scalar mean) {
         Mat images_mat = Converters.vector_Mat_to_Mat(images);
@@ -773,6 +865,9 @@ public class Dnn {
      * dimension in {@code size} and another one is equal or larger. Then, crop from the center is performed.
      * If {@code crop} is false, direct resize without cropping and preserving aspect ratio is performed.
      * @return 4-dimensional Mat with NCHW dimensions order.
+     *
+     * <b>Note:</b>
+     * The order and usage of {@code scalefactor} and {@code mean} are (input - mean) * scalefactor.
      */
     public static Mat blobFromImages(List<Mat> images, double scalefactor, Size size) {
         Mat images_mat = Converters.vector_Mat_to_Mat(images);
@@ -791,6 +886,9 @@ public class Dnn {
      * dimension in {@code size} and another one is equal or larger. Then, crop from the center is performed.
      * If {@code crop} is false, direct resize without cropping and preserving aspect ratio is performed.
      * @return 4-dimensional Mat with NCHW dimensions order.
+     *
+     * <b>Note:</b>
+     * The order and usage of {@code scalefactor} and {@code mean} are (input - mean) * scalefactor.
      */
     public static Mat blobFromImages(List<Mat> images, double scalefactor) {
         Mat images_mat = Converters.vector_Mat_to_Mat(images);
@@ -808,10 +906,107 @@ public class Dnn {
      * dimension in {@code size} and another one is equal or larger. Then, crop from the center is performed.
      * If {@code crop} is false, direct resize without cropping and preserving aspect ratio is performed.
      * @return 4-dimensional Mat with NCHW dimensions order.
+     *
+     * <b>Note:</b>
+     * The order and usage of {@code scalefactor} and {@code mean} are (input - mean) * scalefactor.
      */
     public static Mat blobFromImages(List<Mat> images) {
         Mat images_mat = Converters.vector_Mat_to_Mat(images);
         return new Mat(blobFromImages_6(images_mat.nativeObj));
+    }
+
+
+    //
+    // C++:  Mat cv::dnn::blobFromImageWithParams(Mat image, Image2BlobParams param = Image2BlobParams())
+    //
+
+    /**
+     * Creates 4-dimensional blob from image with given params.
+     *
+     * This function is an extension of REF: blobFromImage to meet more image preprocess needs.
+     * Given input image and preprocessing parameters, and function outputs the blob.
+     *
+     * @param image input image (all with 1-, 3- or 4-channels).
+     * @param param struct of Image2BlobParams, contains all parameters needed by processing of image to blob.
+     * @return 4-dimensional Mat.
+     */
+    public static Mat blobFromImageWithParams(Mat image, Image2BlobParams param) {
+        return new Mat(blobFromImageWithParams_0(image.nativeObj, param.nativeObj));
+    }
+
+    /**
+     * Creates 4-dimensional blob from image with given params.
+     *
+     * This function is an extension of REF: blobFromImage to meet more image preprocess needs.
+     * Given input image and preprocessing parameters, and function outputs the blob.
+     *
+     * @param image input image (all with 1-, 3- or 4-channels).
+     * @return 4-dimensional Mat.
+     */
+    public static Mat blobFromImageWithParams(Mat image) {
+        return new Mat(blobFromImageWithParams_1(image.nativeObj));
+    }
+
+
+    //
+    // C++:  void cv::dnn::blobFromImageWithParams(Mat image, Mat& blob, Image2BlobParams param = Image2BlobParams())
+    //
+
+    public static void blobFromImageWithParams(Mat image, Mat blob, Image2BlobParams param) {
+        blobFromImageWithParams_2(image.nativeObj, blob.nativeObj, param.nativeObj);
+    }
+
+    public static void blobFromImageWithParams(Mat image, Mat blob) {
+        blobFromImageWithParams_3(image.nativeObj, blob.nativeObj);
+    }
+
+
+    //
+    // C++:  Mat cv::dnn::blobFromImagesWithParams(vector_Mat images, Image2BlobParams param = Image2BlobParams())
+    //
+
+    /**
+     * Creates 4-dimensional blob from series of images with given params.
+     *
+     * This function is an extension of REF: blobFromImages to meet more image preprocess needs.
+     * Given input image and preprocessing parameters, and function outputs the blob.
+     *
+     * @param images input image (all with 1-, 3- or 4-channels).
+     * @param param struct of Image2BlobParams, contains all parameters needed by processing of image to blob.
+     * @return 4-dimensional Mat.
+     */
+    public static Mat blobFromImagesWithParams(List<Mat> images, Image2BlobParams param) {
+        Mat images_mat = Converters.vector_Mat_to_Mat(images);
+        return new Mat(blobFromImagesWithParams_0(images_mat.nativeObj, param.nativeObj));
+    }
+
+    /**
+     * Creates 4-dimensional blob from series of images with given params.
+     *
+     * This function is an extension of REF: blobFromImages to meet more image preprocess needs.
+     * Given input image and preprocessing parameters, and function outputs the blob.
+     *
+     * @param images input image (all with 1-, 3- or 4-channels).
+     * @return 4-dimensional Mat.
+     */
+    public static Mat blobFromImagesWithParams(List<Mat> images) {
+        Mat images_mat = Converters.vector_Mat_to_Mat(images);
+        return new Mat(blobFromImagesWithParams_1(images_mat.nativeObj));
+    }
+
+
+    //
+    // C++:  void cv::dnn::blobFromImagesWithParams(vector_Mat images, Mat& blob, Image2BlobParams param = Image2BlobParams())
+    //
+
+    public static void blobFromImagesWithParams(List<Mat> images, Mat blob, Image2BlobParams param) {
+        Mat images_mat = Converters.vector_Mat_to_Mat(images);
+        blobFromImagesWithParams_2(images_mat.nativeObj, blob.nativeObj, param.nativeObj);
+    }
+
+    public static void blobFromImagesWithParams(List<Mat> images, Mat blob) {
+        Mat images_mat = Converters.vector_Mat_to_Mat(images);
+        blobFromImagesWithParams_3(images_mat.nativeObj, blob.nativeObj);
     }
 
 
@@ -971,6 +1166,68 @@ public class Dnn {
         Mat scores_mat = scores;
         Mat indices_mat = indices;
         NMSBoxesRotated_2(bboxes_mat.nativeObj, scores_mat.nativeObj, score_threshold, nms_threshold, indices_mat.nativeObj);
+    }
+
+
+    //
+    // C++:  void cv::dnn::NMSBoxesBatched(vector_Rect2d bboxes, vector_float scores, vector_int class_ids, float score_threshold, float nms_threshold, vector_int& indices, float eta = 1.f, int top_k = 0)
+    //
+
+    /**
+     * Performs batched non maximum suppression on given boxes and corresponding scores across different classes.
+     *
+     * @param bboxes a set of bounding boxes to apply NMS.
+     * @param scores a set of corresponding confidences.
+     * @param class_ids a set of corresponding class ids. Ids are integer and usually start from 0.
+     * @param score_threshold a threshold used to filter boxes by score.
+     * @param nms_threshold a threshold used in non maximum suppression.
+     * @param indices the kept indices of bboxes after NMS.
+     * @param eta a coefficient in adaptive threshold formula: \(nms\_threshold_{i+1}=eta\cdot nms\_threshold_i\).
+     * @param top_k if {@code &gt;0}, keep at most {@code top_k} picked indices.
+     */
+    public static void NMSBoxesBatched(MatOfRect2d bboxes, MatOfFloat scores, MatOfInt class_ids, float score_threshold, float nms_threshold, MatOfInt indices, float eta, int top_k) {
+        Mat bboxes_mat = bboxes;
+        Mat scores_mat = scores;
+        Mat class_ids_mat = class_ids;
+        Mat indices_mat = indices;
+        NMSBoxesBatched_0(bboxes_mat.nativeObj, scores_mat.nativeObj, class_ids_mat.nativeObj, score_threshold, nms_threshold, indices_mat.nativeObj, eta, top_k);
+    }
+
+    /**
+     * Performs batched non maximum suppression on given boxes and corresponding scores across different classes.
+     *
+     * @param bboxes a set of bounding boxes to apply NMS.
+     * @param scores a set of corresponding confidences.
+     * @param class_ids a set of corresponding class ids. Ids are integer and usually start from 0.
+     * @param score_threshold a threshold used to filter boxes by score.
+     * @param nms_threshold a threshold used in non maximum suppression.
+     * @param indices the kept indices of bboxes after NMS.
+     * @param eta a coefficient in adaptive threshold formula: \(nms\_threshold_{i+1}=eta\cdot nms\_threshold_i\).
+     */
+    public static void NMSBoxesBatched(MatOfRect2d bboxes, MatOfFloat scores, MatOfInt class_ids, float score_threshold, float nms_threshold, MatOfInt indices, float eta) {
+        Mat bboxes_mat = bboxes;
+        Mat scores_mat = scores;
+        Mat class_ids_mat = class_ids;
+        Mat indices_mat = indices;
+        NMSBoxesBatched_1(bboxes_mat.nativeObj, scores_mat.nativeObj, class_ids_mat.nativeObj, score_threshold, nms_threshold, indices_mat.nativeObj, eta);
+    }
+
+    /**
+     * Performs batched non maximum suppression on given boxes and corresponding scores across different classes.
+     *
+     * @param bboxes a set of bounding boxes to apply NMS.
+     * @param scores a set of corresponding confidences.
+     * @param class_ids a set of corresponding class ids. Ids are integer and usually start from 0.
+     * @param score_threshold a threshold used to filter boxes by score.
+     * @param nms_threshold a threshold used in non maximum suppression.
+     * @param indices the kept indices of bboxes after NMS.
+     */
+    public static void NMSBoxesBatched(MatOfRect2d bboxes, MatOfFloat scores, MatOfInt class_ids, float score_threshold, float nms_threshold, MatOfInt indices) {
+        Mat bboxes_mat = bboxes;
+        Mat scores_mat = scores;
+        Mat class_ids_mat = class_ids;
+        Mat indices_mat = indices;
+        NMSBoxesBatched_2(bboxes_mat.nativeObj, scores_mat.nativeObj, class_ids_mat.nativeObj, score_threshold, nms_threshold, indices_mat.nativeObj);
     }
 
 
@@ -1165,6 +1422,12 @@ public class Dnn {
     private static native long readNetFromTensorflow_2(long bufferModel_mat_nativeObj, long bufferConfig_mat_nativeObj);
     private static native long readNetFromTensorflow_3(long bufferModel_mat_nativeObj);
 
+    // C++:  Net cv::dnn::readNetFromTFLite(String model)
+    private static native long readNetFromTFLite_0(String model);
+
+    // C++:  Net cv::dnn::readNetFromTFLite(vector_uchar bufferModel)
+    private static native long readNetFromTFLite_1(long bufferModel_mat_nativeObj);
+
     // C++:  Net cv::dnn::readNetFromTorch(String model, bool isBinary = true, bool evaluate = true)
     private static native long readNetFromTorch_0(String model, boolean isBinary, boolean evaluate);
     private static native long readNetFromTorch_1(String model, boolean isBinary);
@@ -1183,11 +1446,12 @@ public class Dnn {
     private static native long readTorchBlob_0(String filename, boolean isBinary);
     private static native long readTorchBlob_1(String filename);
 
-    // C++:  Net cv::dnn::readNetFromModelOptimizer(String xml, String bin)
+    // C++:  Net cv::dnn::readNetFromModelOptimizer(String xml, String bin = "")
     private static native long readNetFromModelOptimizer_0(String xml, String bin);
+    private static native long readNetFromModelOptimizer_1(String xml);
 
     // C++:  Net cv::dnn::readNetFromModelOptimizer(vector_uchar bufferModelConfig, vector_uchar bufferWeights)
-    private static native long readNetFromModelOptimizer_1(long bufferModelConfig_mat_nativeObj, long bufferWeights_mat_nativeObj);
+    private static native long readNetFromModelOptimizer_2(long bufferModelConfig_mat_nativeObj, long bufferWeights_mat_nativeObj);
 
     // C++:  Net cv::dnn::readNetFromONNX(String onnxFile)
     private static native long readNetFromONNX_0(String onnxFile);
@@ -1216,6 +1480,22 @@ public class Dnn {
     private static native long blobFromImages_5(long images_mat_nativeObj, double scalefactor);
     private static native long blobFromImages_6(long images_mat_nativeObj);
 
+    // C++:  Mat cv::dnn::blobFromImageWithParams(Mat image, Image2BlobParams param = Image2BlobParams())
+    private static native long blobFromImageWithParams_0(long image_nativeObj, long param_nativeObj);
+    private static native long blobFromImageWithParams_1(long image_nativeObj);
+
+    // C++:  void cv::dnn::blobFromImageWithParams(Mat image, Mat& blob, Image2BlobParams param = Image2BlobParams())
+    private static native void blobFromImageWithParams_2(long image_nativeObj, long blob_nativeObj, long param_nativeObj);
+    private static native void blobFromImageWithParams_3(long image_nativeObj, long blob_nativeObj);
+
+    // C++:  Mat cv::dnn::blobFromImagesWithParams(vector_Mat images, Image2BlobParams param = Image2BlobParams())
+    private static native long blobFromImagesWithParams_0(long images_mat_nativeObj, long param_nativeObj);
+    private static native long blobFromImagesWithParams_1(long images_mat_nativeObj);
+
+    // C++:  void cv::dnn::blobFromImagesWithParams(vector_Mat images, Mat& blob, Image2BlobParams param = Image2BlobParams())
+    private static native void blobFromImagesWithParams_2(long images_mat_nativeObj, long blob_nativeObj, long param_nativeObj);
+    private static native void blobFromImagesWithParams_3(long images_mat_nativeObj, long blob_nativeObj);
+
     // C++:  void cv::dnn::imagesFromBlob(Mat blob_, vector_Mat& images_)
     private static native void imagesFromBlob_0(long blob__nativeObj, long images__mat_nativeObj);
 
@@ -1235,6 +1515,11 @@ public class Dnn {
     private static native void NMSBoxesRotated_0(long bboxes_mat_nativeObj, long scores_mat_nativeObj, float score_threshold, float nms_threshold, long indices_mat_nativeObj, float eta, int top_k);
     private static native void NMSBoxesRotated_1(long bboxes_mat_nativeObj, long scores_mat_nativeObj, float score_threshold, float nms_threshold, long indices_mat_nativeObj, float eta);
     private static native void NMSBoxesRotated_2(long bboxes_mat_nativeObj, long scores_mat_nativeObj, float score_threshold, float nms_threshold, long indices_mat_nativeObj);
+
+    // C++:  void cv::dnn::NMSBoxesBatched(vector_Rect2d bboxes, vector_float scores, vector_int class_ids, float score_threshold, float nms_threshold, vector_int& indices, float eta = 1.f, int top_k = 0)
+    private static native void NMSBoxesBatched_0(long bboxes_mat_nativeObj, long scores_mat_nativeObj, long class_ids_mat_nativeObj, float score_threshold, float nms_threshold, long indices_mat_nativeObj, float eta, int top_k);
+    private static native void NMSBoxesBatched_1(long bboxes_mat_nativeObj, long scores_mat_nativeObj, long class_ids_mat_nativeObj, float score_threshold, float nms_threshold, long indices_mat_nativeObj, float eta);
+    private static native void NMSBoxesBatched_2(long bboxes_mat_nativeObj, long scores_mat_nativeObj, long class_ids_mat_nativeObj, float score_threshold, float nms_threshold, long indices_mat_nativeObj);
 
     // C++:  void cv::dnn::softNMSBoxes(vector_Rect bboxes, vector_float scores, vector_float& updated_scores, float score_threshold, float nms_threshold, vector_int& indices, size_t top_k = 0, float sigma = 0.5, SoftNMSMethod method = SoftNMSMethod::SOFTNMS_GAUSSIAN)
     private static native void softNMSBoxes_0(long bboxes_mat_nativeObj, long scores_mat_nativeObj, long updated_scores_mat_nativeObj, float score_threshold, float nms_threshold, long indices_mat_nativeObj, long top_k, float sigma);

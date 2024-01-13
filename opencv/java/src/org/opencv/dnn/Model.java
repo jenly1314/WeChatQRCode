@@ -112,7 +112,7 @@ public class Model {
 
 
     //
-    // C++:  Model cv::dnn::Model::setInputScale(double scale)
+    // C++:  Model cv::dnn::Model::setInputScale(Scalar scale)
     //
 
     /**
@@ -120,8 +120,8 @@ public class Model {
      * @param scale Multiplier for frame values.
      * @return automatically generated
      */
-    public Model setInputScale(double scale) {
-        return new Model(setInputScale_0(nativeObj, scale));
+    public Model setInputScale(Scalar scale) {
+        return new Model(setInputScale_0(nativeObj, scale.val[0], scale.val[1], scale.val[2], scale.val[3]));
     }
 
 
@@ -256,6 +256,15 @@ public class Model {
     }
 
 
+    //
+    // C++:  Model cv::dnn::Model::enableWinograd(bool useWinograd)
+    //
+
+    public Model enableWinograd(boolean useWinograd) {
+        return new Model(enableWinograd_0(nativeObj, useWinograd));
+    }
+
+
     @Override
     protected void finalize() throws Throwable {
         delete(nativeObj);
@@ -279,8 +288,8 @@ public class Model {
     // C++:  Model cv::dnn::Model::setInputMean(Scalar mean)
     private static native long setInputMean_0(long nativeObj, double mean_val0, double mean_val1, double mean_val2, double mean_val3);
 
-    // C++:  Model cv::dnn::Model::setInputScale(double scale)
-    private static native long setInputScale_0(long nativeObj, double scale);
+    // C++:  Model cv::dnn::Model::setInputScale(Scalar scale)
+    private static native long setInputScale_0(long nativeObj, double scale_val0, double scale_val1, double scale_val2, double scale_val3);
 
     // C++:  Model cv::dnn::Model::setInputCrop(bool crop)
     private static native long setInputCrop_0(long nativeObj, boolean crop);
@@ -304,6 +313,9 @@ public class Model {
 
     // C++:  Model cv::dnn::Model::setPreferableTarget(dnn_Target targetId)
     private static native long setPreferableTarget_0(long nativeObj, int targetId);
+
+    // C++:  Model cv::dnn::Model::enableWinograd(bool useWinograd)
+    private static native long enableWinograd_0(long nativeObj, boolean useWinograd);
 
     // native support for java finalize()
     private static native void delete(long nativeObj);

@@ -333,7 +333,7 @@ public class Net {
 
 
     //
-    // C++:  Net cv::dnn::Net::quantize(vector_Mat calibData, int inputsDtype, int outputsDtype)
+    // C++:  Net cv::dnn::Net::quantize(vector_Mat calibData, int inputsDtype, int outputsDtype, bool perChannel = true)
     //
 
     /**
@@ -341,11 +341,26 @@ public class Net {
      * @param calibData Calibration data to compute the quantization parameters.
      * @param inputsDtype Datatype of quantized net's inputs. Can be CV_32F or CV_8S.
      * @param outputsDtype Datatype of quantized net's outputs. Can be CV_32F or CV_8S.
+     * @param perChannel Quantization granularity of quantized Net. The default is true, that means quantize model
+     * in per-channel way (channel-wise). Set it false to quantize model in per-tensor way (or tensor-wise).
+     * @return automatically generated
+     */
+    public Net quantize(List<Mat> calibData, int inputsDtype, int outputsDtype, boolean perChannel) {
+        Mat calibData_mat = Converters.vector_Mat_to_Mat(calibData);
+        return new Net(quantize_0(nativeObj, calibData_mat.nativeObj, inputsDtype, outputsDtype, perChannel));
+    }
+
+    /**
+     * Returns a quantized Net from a floating-point Net.
+     * @param calibData Calibration data to compute the quantization parameters.
+     * @param inputsDtype Datatype of quantized net's inputs. Can be CV_32F or CV_8S.
+     * @param outputsDtype Datatype of quantized net's outputs. Can be CV_32F or CV_8S.
+     * in per-channel way (channel-wise). Set it false to quantize model in per-tensor way (or tensor-wise).
      * @return automatically generated
      */
     public Net quantize(List<Mat> calibData, int inputsDtype, int outputsDtype) {
         Mat calibData_mat = Converters.vector_Mat_to_Mat(calibData);
-        return new Net(quantize_0(nativeObj, calibData_mat.nativeObj, inputsDtype, outputsDtype));
+        return new Net(quantize_1(nativeObj, calibData_mat.nativeObj, inputsDtype, outputsDtype));
     }
 
 
@@ -407,9 +422,6 @@ public class Net {
      * Ask network to use specific computation backend where it supported.
      * @param backendId backend identifier.
      * SEE: Backend
-     *
-     * If OpenCV is compiled with Intel's Inference Engine library, DNN_BACKEND_DEFAULT
-     * means DNN_BACKEND_INFERENCE_ENGINE. Otherwise it equals to DNN_BACKEND_OPENCV.
      */
     public void setPreferableBackend(int backendId) {
         setPreferableBackend_0(nativeObj, backendId);
@@ -740,6 +752,20 @@ public class Net {
 
 
     //
+    // C++:  void cv::dnn::Net::enableWinograd(bool useWinograd)
+    //
+
+    /**
+     * Enables or disables the Winograd compute branch. The Winograd compute branch can speed up
+     * 3x3 Convolution at a small loss of accuracy.
+     * @param useWinograd true to enable the Winograd compute branch. The default is true.
+     */
+    public void enableWinograd(boolean useWinograd) {
+        enableWinograd_0(nativeObj, useWinograd);
+    }
+
+
+    //
     // C++:  int64 cv::dnn::Net::getPerfProfile(vector_double& timings)
     //
 
@@ -818,8 +844,9 @@ public class Net {
     // C++:  void cv::dnn::Net::forward(vector_Mat& outputBlobs, vector_String outBlobNames)
     private static native void forward_4(long nativeObj, long outputBlobs_mat_nativeObj, List<String> outBlobNames);
 
-    // C++:  Net cv::dnn::Net::quantize(vector_Mat calibData, int inputsDtype, int outputsDtype)
-    private static native long quantize_0(long nativeObj, long calibData_mat_nativeObj, int inputsDtype, int outputsDtype);
+    // C++:  Net cv::dnn::Net::quantize(vector_Mat calibData, int inputsDtype, int outputsDtype, bool perChannel = true)
+    private static native long quantize_0(long nativeObj, long calibData_mat_nativeObj, int inputsDtype, int outputsDtype, boolean perChannel);
+    private static native long quantize_1(long nativeObj, long calibData_mat_nativeObj, int inputsDtype, int outputsDtype);
 
     // C++:  void cv::dnn::Net::getInputDetails(vector_float& scales, vector_int& zeropoints)
     private static native void getInputDetails_0(long nativeObj, long scales_mat_nativeObj, long zeropoints_mat_nativeObj);
@@ -891,6 +918,9 @@ public class Net {
 
     // C++:  void cv::dnn::Net::enableFusion(bool fusion)
     private static native void enableFusion_0(long nativeObj, boolean fusion);
+
+    // C++:  void cv::dnn::Net::enableWinograd(bool useWinograd)
+    private static native void enableWinograd_0(long nativeObj, boolean useWinograd);
 
     // C++:  int64 cv::dnn::Net::getPerfProfile(vector_double& timings)
     private static native long getPerfProfile_0(long nativeObj, long timings_mat_nativeObj);

@@ -241,10 +241,10 @@ public class Feature2D extends Algorithm {
 
 
     //
-    // C++:  void cv::Feature2D::write(Ptr_FileStorage fs, String name = String())
+    // C++:  void cv::Feature2D::write(FileStorage fs, String name)
     //
 
-    // Unknown type 'Ptr_FileStorage' (I), skipping the function
+    // Unknown type 'FileStorage' (I), skipping the function
 
 
     @Override

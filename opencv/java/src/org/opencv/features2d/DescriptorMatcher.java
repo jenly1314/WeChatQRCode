@@ -589,10 +589,10 @@ public class DescriptorMatcher extends Algorithm {
 
 
     //
-    // C++:  void cv::DescriptorMatcher::write(Ptr_FileStorage fs, String name = String())
+    // C++:  void cv::DescriptorMatcher::write(FileStorage fs, String name)
     //
 
-    // Unknown type 'Ptr_FileStorage' (I), skipping the function
+    // Unknown type 'FileStorage' (I), skipping the function
 
 
     @Override

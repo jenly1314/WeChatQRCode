@@ -8,11 +8,6 @@ package org.opencv.objdetect;
 // C++: class Params
 /**
  * QR code encoder parameters.
- *      version The optional version of QR code (by default - maximum possible depending on
- *                     the length of the string).
- *      correction_level The optional level of error correction (by default - the lowest).
- *      mode The optional encoding mode - Numeric, Alphanumeric, Byte, Kanji, ECI or Structured Append.
- *      structure_number The optional number of QR codes to generate in Structured Append mode.
  */
 public class QRCodeEncoder_Params {
 

@@ -81,7 +81,6 @@ OpenCV二维码扫码：有了上面的OpenCV二维码识别功能，基本的�
     repositories {
         //...
         mavenCentral()
-        maven { url 'https://jitpack.io' }
     }
     ```
 
@@ -89,23 +88,23 @@ OpenCV二维码扫码：有了上面的OpenCV二维码识别功能，基本的�
 
     ```gradle
     // OpenCV基础库（*必须）
-    implementation 'com.github.jenly1314.WeChatQRCode:opencv:2.0.1'
-    implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:2.0.1'
+    implementation 'com.github.jenly1314.WeChatQRCode:opencv:2.1.0'
+    implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:2.1.0'
     
     // OpenCV的其他ABI（可选），根据你的需要选择想要支持的SO库架构
-    implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv64:2.0.1'
-    implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86:2.0.1'
-    implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86_64:2.0.1'
+    implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv64:2.1.0'
+    implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86:2.1.0'
+    implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86_64:2.1.0'
     
     // OpenCV二维码识别功能（可选）
-    implementation 'com.github.jenly1314.WeChatQRCode:opencv-qrcode:2.0.1'
+    implementation 'com.github.jenly1314.WeChatQRCode:opencv-qrcode:2.1.0'
     // OpenCV二维码扫码功能（可选）
-    implementation 'com.github.jenly1314.WeChatQRCode:opencv-qrcode-scanning:2.0.1'
+    implementation 'com.github.jenly1314.WeChatQRCode:opencv-qrcode-scanning:2.1.0'
     
     // 微信二维码识别功能（可选）
-    implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:2.0.1'
+    implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:2.1.0'
     // 微信二维码扫码功能（可选）
-    implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:2.0.1'
+    implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:2.1.0'
     
     ```
 
@@ -113,7 +112,9 @@ OpenCV二维码扫码：有了上面的OpenCV二维码识别功能，基本的�
 
 #### 关于WeChatQRCode版本与编译的SDK版本要求
 
-> 使用 v2.x 以上版本时，要求 compileSdkVersion >= 33
+> 使用 v2.1.x 以上版本时，要求 compileSdkVersion >= 34
+
+> 使用 v2.0.x 以上版本时，要求 compileSdkVersion >= 33
 
 > 如果 **compileSdkVersion < 33** 请使用 [**v1.x版本**](https://github.com/jenly1314/WeChatQRCode/tree/1.x/)
 
@@ -139,13 +140,29 @@ OpenCV二维码扫码：有了上面的OpenCV二维码识别功能，基本的�
 ### 初始化
 
 初始化 **OpenCV** 和 **WeChatQRCodeDetector** （建议在 **MainActivity** 的 **onCreate** 方法中初始化）
-```kotlin
-        //初始化OpenCV
-        OpenCV.initAsync(context)
 
-        //初始化WeChatQRCodeDetector
-        WeChatQRCodeDetector.init(context)
-```   
+#### 初始化OpenCV
+
+使用版本 >= v2.1.0时，初始化OpenCV方式
+```kotlin
+     //初始化OpenCV
+     OpenCV.initOpenCV()
+```
+
+使用版本 < v2.1.0时，初始化OpenCV方式
+```kotlin
+     //初始化OpenCV
+     OpenCV.initAsync(context)
+```
+
+#### 初始化WeChatQRCodeDetector
+
+在初始化OpenCV后，就可以初始化WeChatQRCodeDetector了。
+```kotlin
+     //初始化WeChatQRCodeDetector
+     WeChatQRCodeDetector.init(context)
+```  
+
 ### 识别二维码
 
 #### WeChat QRCode
@@ -335,7 +352,7 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 
 **opencv-qrcode**
 
-* 一次识别单个二维码速度一般；（一次识别多个二维码时好像有点问题）
+* 一次识别单个二维码速度一般；（一次识别多个二维码时有点小问题）
 * 二维码检测的位置信息是一个四边形。
 
 **wechat-qrcode**
@@ -344,6 +361,8 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 * 二维码检测的位置信息是一个矩形。
 
 总结成一句话来说就是：**wechat-qrcode** 识别速度更快，**opencv-qrcode** 二维码定位更准。
+
+> 就目前而言：**wechat-qrcode** 的优势基本秒杀 **opencv-qrcode**。
 
 > 以上观点纯属个人测试总结得出；随着版本的迭代，不保证观点与事实的一致性。你也可以直接下载 [演示App](https://raw.githubusercontent.com/jenly1314/WeChatQRCode/master/app/release/app-release.apk)进行测试比对。
 
@@ -355,6 +374,12 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 #### [ViewfinderView](https://github.com/jenly1314/ViewfinderView) ViewfinderView一个取景视图：主要用于渲染扫描相关的动画效果。
 
 ## 版本记录
+
+#### v2.1.0：2024-1-13
+* 更新OpenCV至v4.9.0
+* 更新CameraScan至v1.1.0
+* 更新compileSdkVersion至34
+* 更新Gradle至v8.0
 
 #### v2.0.1：2023-9-13
 * 更新CameraScan至v1.0.1

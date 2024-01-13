@@ -20,9 +20,9 @@
 #      - OpenCV_LIBS                     : The list of all imported targets for OpenCV modules.
 #      - OpenCV_INCLUDE_DIRS             : The OpenCV include directories.
 #      - OpenCV_ANDROID_NATIVE_API_LEVEL : Minimum required level of Android API.
-#      - OpenCV_VERSION                  : The version of this OpenCV build: "4.6.0"
+#      - OpenCV_VERSION                  : The version of this OpenCV build: "4.9.0"
 #      - OpenCV_VERSION_MAJOR            : Major version part of OpenCV_VERSION: "4"
-#      - OpenCV_VERSION_MINOR            : Minor version part of OpenCV_VERSION: "6"
+#      - OpenCV_VERSION_MINOR            : Minor version part of OpenCV_VERSION: "9"
 #      - OpenCV_VERSION_PATCH            : Patch version part of OpenCV_VERSION: "0"
 #      - OpenCV_VERSION_STATUS           : Development status of this build: ""
 #

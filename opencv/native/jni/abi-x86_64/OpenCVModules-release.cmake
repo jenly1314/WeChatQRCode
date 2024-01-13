@@ -18,7 +18,7 @@ list(APPEND _IMPORT_CHECK_FILES_FOR_libcpufeatures "${_IMPORT_PREFIX}/sdk/native
 # Import target "libjpeg-turbo" for configuration "Release"
 set_property(TARGET libjpeg-turbo APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
 set_target_properties(libjpeg-turbo PROPERTIES
-  IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "C"
+  IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "ASM_NASM;C"
   IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/sdk/native/3rdparty/libs/x86_64/liblibjpeg-turbo.a"
   )
 
@@ -65,26 +65,6 @@ set_target_properties(libpng PROPERTIES
 list(APPEND _IMPORT_CHECK_TARGETS libpng )
 list(APPEND _IMPORT_CHECK_FILES_FOR_libpng "${_IMPORT_PREFIX}/sdk/native/3rdparty/libs/x86_64/liblibpng.a" )
 
-# Import target "IlmImf" for configuration "Release"
-set_property(TARGET IlmImf APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
-set_target_properties(IlmImf PROPERTIES
-  IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "CXX"
-  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/sdk/native/3rdparty/libs/x86_64/libIlmImf.a"
-  )
-
-list(APPEND _IMPORT_CHECK_TARGETS IlmImf )
-list(APPEND _IMPORT_CHECK_FILES_FOR_IlmImf "${_IMPORT_PREFIX}/sdk/native/3rdparty/libs/x86_64/libIlmImf.a" )
-
-# Import target "tbb" for configuration "Release"
-set_property(TARGET tbb APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
-set_target_properties(tbb PROPERTIES
-  IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "CXX"
-  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/sdk/native/3rdparty/libs/x86_64/libtbb.a"
-  )
-
-list(APPEND _IMPORT_CHECK_TARGETS tbb )
-list(APPEND _IMPORT_CHECK_FILES_FOR_tbb "${_IMPORT_PREFIX}/sdk/native/3rdparty/libs/x86_64/libtbb.a" )
-
 # Import target "libprotobuf" for configuration "Release"
 set_property(TARGET libprotobuf APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
 set_target_properties(libprotobuf PROPERTIES
@@ -94,16 +74,6 @@ set_target_properties(libprotobuf PROPERTIES
 
 list(APPEND _IMPORT_CHECK_TARGETS libprotobuf )
 list(APPEND _IMPORT_CHECK_FILES_FOR_libprotobuf "${_IMPORT_PREFIX}/sdk/native/3rdparty/libs/x86_64/liblibprotobuf.a" )
-
-# Import target "quirc" for configuration "Release"
-set_property(TARGET quirc APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
-set_target_properties(quirc PROPERTIES
-  IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "C"
-  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/sdk/native/3rdparty/libs/x86_64/libquirc.a"
-  )
-
-list(APPEND _IMPORT_CHECK_TARGETS quirc )
-list(APPEND _IMPORT_CHECK_FILES_FOR_quirc "${_IMPORT_PREFIX}/sdk/native/3rdparty/libs/x86_64/libquirc.a" )
 
 # Import target "ittnotify" for configuration "Release"
 set_property(TARGET ittnotify APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
@@ -155,26 +125,6 @@ set_target_properties(opencv_imgproc PROPERTIES
 list(APPEND _IMPORT_CHECK_TARGETS opencv_imgproc )
 list(APPEND _IMPORT_CHECK_FILES_FOR_opencv_imgproc "${_IMPORT_PREFIX}/sdk/native/staticlibs/x86_64/libopencv_imgproc.a" )
 
-# Import target "opencv_ml" for configuration "Release"
-set_property(TARGET opencv_ml APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
-set_target_properties(opencv_ml PROPERTIES
-  IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "CXX"
-  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/sdk/native/staticlibs/x86_64/libopencv_ml.a"
-  )
-
-list(APPEND _IMPORT_CHECK_TARGETS opencv_ml )
-list(APPEND _IMPORT_CHECK_FILES_FOR_opencv_ml "${_IMPORT_PREFIX}/sdk/native/staticlibs/x86_64/libopencv_ml.a" )
-
-# Import target "opencv_photo" for configuration "Release"
-set_property(TARGET opencv_photo APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
-set_target_properties(opencv_photo PROPERTIES
-  IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "CXX"
-  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/sdk/native/staticlibs/x86_64/libopencv_photo.a"
-  )
-
-list(APPEND _IMPORT_CHECK_TARGETS opencv_photo )
-list(APPEND _IMPORT_CHECK_FILES_FOR_opencv_photo "${_IMPORT_PREFIX}/sdk/native/staticlibs/x86_64/libopencv_photo.a" )
-
 # Import target "opencv_dnn" for configuration "Release"
 set_property(TARGET opencv_dnn APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
 set_target_properties(opencv_dnn PROPERTIES
@@ -215,16 +165,6 @@ set_target_properties(opencv_videoio PROPERTIES
 list(APPEND _IMPORT_CHECK_TARGETS opencv_videoio )
 list(APPEND _IMPORT_CHECK_FILES_FOR_opencv_videoio "${_IMPORT_PREFIX}/sdk/native/staticlibs/x86_64/libopencv_videoio.a" )
 
-# Import target "opencv_wechat_qrcode" for configuration "Release"
-set_property(TARGET opencv_wechat_qrcode APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
-set_target_properties(opencv_wechat_qrcode PROPERTIES
-  IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "CXX"
-  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/sdk/native/staticlibs/x86_64/libopencv_wechat_qrcode.a"
-  )
-
-list(APPEND _IMPORT_CHECK_TARGETS opencv_wechat_qrcode )
-list(APPEND _IMPORT_CHECK_FILES_FOR_opencv_wechat_qrcode "${_IMPORT_PREFIX}/sdk/native/staticlibs/x86_64/libopencv_wechat_qrcode.a" )
-
 # Import target "opencv_calib3d" for configuration "Release"
 set_property(TARGET opencv_calib3d APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
 set_target_properties(opencv_calib3d PROPERTIES
@@ -255,16 +195,6 @@ set_target_properties(opencv_objdetect PROPERTIES
 list(APPEND _IMPORT_CHECK_TARGETS opencv_objdetect )
 list(APPEND _IMPORT_CHECK_FILES_FOR_opencv_objdetect "${_IMPORT_PREFIX}/sdk/native/staticlibs/x86_64/libopencv_objdetect.a" )
 
-# Import target "opencv_stitching" for configuration "Release"
-set_property(TARGET opencv_stitching APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
-set_target_properties(opencv_stitching PROPERTIES
-  IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "CXX"
-  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/sdk/native/staticlibs/x86_64/libopencv_stitching.a"
-  )
-
-list(APPEND _IMPORT_CHECK_TARGETS opencv_stitching )
-list(APPEND _IMPORT_CHECK_FILES_FOR_opencv_stitching "${_IMPORT_PREFIX}/sdk/native/staticlibs/x86_64/libopencv_stitching.a" )
-
 # Import target "opencv_video" for configuration "Release"
 set_property(TARGET opencv_video APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
 set_target_properties(opencv_video PROPERTIES
@@ -275,15 +205,15 @@ set_target_properties(opencv_video PROPERTIES
 list(APPEND _IMPORT_CHECK_TARGETS opencv_video )
 list(APPEND _IMPORT_CHECK_FILES_FOR_opencv_video "${_IMPORT_PREFIX}/sdk/native/staticlibs/x86_64/libopencv_video.a" )
 
-# Import target "opencv_gapi" for configuration "Release"
-set_property(TARGET opencv_gapi APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
-set_target_properties(opencv_gapi PROPERTIES
+# Import target "opencv_wechat_qrcode" for configuration "Release"
+set_property(TARGET opencv_wechat_qrcode APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+set_target_properties(opencv_wechat_qrcode PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "CXX"
-  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/sdk/native/staticlibs/x86_64/libopencv_gapi.a"
+  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/sdk/native/staticlibs/x86_64/libopencv_wechat_qrcode.a"
   )
 
-list(APPEND _IMPORT_CHECK_TARGETS opencv_gapi )
-list(APPEND _IMPORT_CHECK_FILES_FOR_opencv_gapi "${_IMPORT_PREFIX}/sdk/native/staticlibs/x86_64/libopencv_gapi.a" )
+list(APPEND _IMPORT_CHECK_TARGETS opencv_wechat_qrcode )
+list(APPEND _IMPORT_CHECK_FILES_FOR_opencv_wechat_qrcode "${_IMPORT_PREFIX}/sdk/native/staticlibs/x86_64/libopencv_wechat_qrcode.a" )
 
 # Import target "opencv_java" for configuration "Release"
 set_property(TARGET opencv_java APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
