@@ -80,6 +80,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * 处理选择图片后，从图片中检测二维码结果
      */
+    @Suppress("DEPRECATION")
     private fun processPickPhotoResult(data: Intent?) {
         data?.let {
             try {

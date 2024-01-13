@@ -107,7 +107,6 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
             cameraScan.setAnalyzeImage(true)
             return
         }
-        super.onBackPressed()
     }
 
     companion object {
