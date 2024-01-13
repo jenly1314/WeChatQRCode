@@ -128,14 +128,13 @@ android {
 
     buildFeatures {
         aidl true
-        prefabPublishing true
         buildConfig true
     }
-    prefab {
-        opencv_jni_shared {
-            headers "native/jni/include"
-        }
-    }
+//    prefab {
+//        opencv_jni_shared {
+//            headers "native/jni/include"
+//        }
+//    }
 
     sourceSets {
         main {
@@ -147,13 +146,13 @@ android {
         }
     }
 
-    externalNativeBuild {
-        cmake {
-            path (project.projectDir.toString() + '/libcxx_helper/CMakeLists.txt')
-        }
-    }
-
-    ndkVersion '26.0.10792818'
+//    externalNativeBuild {
+//        cmake {
+//            path (project.projectDir.toString() + '/libcxx_helper/CMakeLists.txt')
+//        }
+//    }
+//
+//    ndkVersion '26.0.10792818'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
