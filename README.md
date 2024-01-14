@@ -14,7 +14,7 @@
 
 ## Java版本
 
-[WeChatQRCode-for-Java-2.0.0.zip](https://raw.githubusercontent.com/jenly1314/WeChatQRCode/java/release/WeChatQRCode-for-Java-2.0.0.zip)
+[WeChatQRCode-for-Java-2.1.0.zip](https://raw.githubusercontent.com/jenly1314/WeChatQRCode/java/release/WeChatQRCode-for-Java-2.1.0.zip)
 
 ## 使用步骤
 
@@ -29,12 +29,22 @@
     OpenCV.init();
     //初始化 WeChatQRCode
     WeChatQRCodeDetector.init();
+    
     //检测并识别二维码 （同一张图片可能有多个二维码）
     List<String> results = WeChatQRCodeDetector.detectAndDecode("image/WeChatQRCode.png");
     System.out.println("results:" + results);
 ```   
 
+## 版本记录
 
+#### v2.1.0：2024-1-14
+* 基于OpenCV-4.9.0
+
+#### v2.0.0：2022-1-24
+* 基于OpenCV-4.5.5
+
+#### v1.0.0：2021-9-26
+* 基于OpenCV-4.5.2
 
 ## 赞赏
 如果您喜欢WeChatQRCode，或感觉WeChatQRCode帮助到了您，可以点右上角“Star”支持一下，您的支持就是我的动力，谢谢 :smiley:<p>

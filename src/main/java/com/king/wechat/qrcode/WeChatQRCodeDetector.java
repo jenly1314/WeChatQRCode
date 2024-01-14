@@ -10,29 +10,34 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * 微信二维码检测器
+ *
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
+ * <p>
+ * <a href="https://github.com/jenly1314">Follow me</a>
  */
 public final class WeChatQRCodeDetector {
 
     private static WeChatQRCode sWeChatQRCode;
 
-    private WeChatQRCodeDetector(){
+    private WeChatQRCodeDetector() {
         throw new AssertionError();
     }
 
     /**
      * 初始化 WeChatQRCode
      */
-    public static void init() throws Exception{
+    public static void init() throws Exception {
         init("models");
     }
 
     /**
      * 初始化 WeChatQRCode
+     *
      * @param modelDirPath WeChatQRCode 相关模型文件所在的文件夹
      * @throws Exception
      */
-    public static void init(String modelDirPath) throws Exception{
+    public static void init(String modelDirPath) throws Exception {
         //初始化 WeChatQRCode
         initWeChatQRCode(modelDirPath);
     }
@@ -40,14 +45,15 @@ public final class WeChatQRCodeDetector {
 
     /**
      * 初始化 WeChatQRCode
+     *
      * @throws Exception
      */
-    private static void initWeChatQRCode(String modelDirPath) throws Exception{
+    private static void initWeChatQRCode(String modelDirPath) throws Exception {
         //WeChatQRCode 相关的模型文件
-        File detect = new File(modelDirPath,"detect.prototxt");
-        File detectModel = new File(modelDirPath,"detect.caffemodel");
-        File resolution = new File(modelDirPath,"sr.prototxt");
-        File resolutionModel = new File(modelDirPath,"sr.caffemodel");
+        File detect = new File(modelDirPath, "detect.prototxt");
+        File detectModel = new File(modelDirPath, "detect.caffemodel");
+        File resolution = new File(modelDirPath, "sr.prototxt");
+        File resolutionModel = new File(modelDirPath, "sr.caffemodel");
         //实例化 WeChatQRCode
         sWeChatQRCode = new WeChatQRCode(
                 detect.getAbsolutePath(),
@@ -55,7 +61,7 @@ public final class WeChatQRCodeDetector {
                 resolution.getAbsolutePath(),
                 resolutionModel.getAbsolutePath());
 
-        Logger.getLogger(WeChatQRCodeDetector.class.getName()).log(Level.INFO,"Initialization WeChatQRCode.");
+        Logger.getLogger(WeChatQRCodeDetector.class.getName()).log(Level.INFO, "Initialization WeChatQRCode.");
     }
 
 
@@ -66,7 +72,7 @@ public final class WeChatQRCodeDetector {
      * @param filename
      * @return list of decoded string.
      */
-    public static List<String> detectAndDecode(String filename){
+    public static List<String> detectAndDecode(String filename) {
         return detectAndDecode(Imgcodecs.imread(filename));
     }
 
@@ -75,10 +81,10 @@ public final class WeChatQRCodeDetector {
      * To simplify the usage, there is a only API: detectAndDecode
      *
      * @param img supports grayscale or color (BGR) image.
-     * empty if not found.
+     *            empty if not found.
      * @return list of decoded string.
      */
-    public static List<String> detectAndDecode(Mat img){
+    public static List<String> detectAndDecode(Mat img) {
         return sWeChatQRCode.detectAndDecode(img);
     }
 
@@ -86,13 +92,13 @@ public final class WeChatQRCodeDetector {
      * Both detects and decodes QR code.
      * To simplify the usage, there is a only API: detectAndDecode
      *
-     * @param img supports grayscale or color (BGR) image.
+     * @param img    supports grayscale or color (BGR) image.
      * @param points optional output array of vertices of the found QR code quadrangle. Will be
-     * empty if not found.
+     *               empty if not found.
      * @return list of decoded string.
      */
-    public static List<String> detectAndDecode(Mat img, List<Mat> points){
-        return sWeChatQRCode.detectAndDecode(img,points);
+    public static List<String> detectAndDecode(Mat img, List<Mat> points) {
+        return sWeChatQRCode.detectAndDecode(img, points);
     }
 
 }
