@@ -11,18 +11,21 @@
 
 基于OpenCV开源的微信二维码引擎移植的封装库。（此分支为 **Java** 版本；支持 **Windows** 和 **Linux** ）
 
-
 ## Java版本
 
 [WeChatQRCode-for-Java-2.1.0.zip](https://raw.githubusercontent.com/jenly1314/WeChatQRCode/java/release/WeChatQRCode-for-Java-2.1.0.zip)
 
-## 使用步骤
+> 通过上面的链接下载Java版本的WeChatQRCode，然后按照下面的 [使用说明](#使用说明) 进行集成即可。
+
+## 使用说明
+
+### 使用步骤
 
 1. 将 **lib** 和 **models** 文件夹拷贝到项目的根目录；
 2. 项目引入 **lib** 文件夹中相关的 **jar**；
 3. 初始化 **OpenCV** 和 **WeChatQRCode**。
 
-## 示例
+### 代码示例
 
 ```java
     //初始化 OpenCV；也可以指定路径；windows加载dll，linux加载so库文件
