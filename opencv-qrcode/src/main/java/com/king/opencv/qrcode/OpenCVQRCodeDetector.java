@@ -24,8 +24,12 @@ public class OpenCVQRCodeDetector extends QRCodeDetector {
      */
     public String detectAndDecode(Bitmap bitmap) {
         Mat mat = new Mat();
-        Utils.bitmapToMat(bitmap, mat);
-        return detectAndDecode(mat);
+        try {
+            Utils.bitmapToMat(bitmap, mat);
+            return detectAndDecode(mat);
+        } finally {
+            mat.release();
+        }
     }
 
     /**
@@ -37,8 +41,12 @@ public class OpenCVQRCodeDetector extends QRCodeDetector {
      */
     public String detectAndDecode(Bitmap bitmap, Mat points) {
         Mat mat = new Mat();
-        Utils.bitmapToMat(bitmap, mat);
-        return detectAndDecode(mat, points);
+        try {
+            Utils.bitmapToMat(bitmap, mat);
+            return detectAndDecode(mat, points);
+        } finally {
+            mat.release();
+        }
     }
 
     /**
@@ -50,8 +58,12 @@ public class OpenCVQRCodeDetector extends QRCodeDetector {
      */
     public boolean detectAndDecodeMulti(Bitmap bitmap, List<String> decodedInfo) {
         Mat mat = new Mat();
-        Utils.bitmapToMat(bitmap, mat);
-        return detectAndDecodeMulti(mat, decodedInfo);
+        try {
+            Utils.bitmapToMat(bitmap, mat);
+            return detectAndDecodeMulti(mat, decodedInfo);
+        } finally {
+            mat.release();
+        }
     }
 
     /**
@@ -64,8 +76,12 @@ public class OpenCVQRCodeDetector extends QRCodeDetector {
      */
     public boolean detectAndDecodeMulti(Bitmap bitmap, List<String> decodedInfo, Mat points) {
         Mat mat = new Mat();
-        Utils.bitmapToMat(bitmap, mat);
-        return detectAndDecodeMulti(mat, decodedInfo, points);
+        try {
+            Utils.bitmapToMat(bitmap, mat);
+            return detectAndDecodeMulti(mat, decodedInfo, points);
+        } finally {
+            mat.release();
+        }
     }
 
 }

@@ -124,43 +124,43 @@ OpenCV二维码扫码：有了上面的OpenCV二维码识别功能，基本的�
 在Module的 **build.gradle** 里面的 android{} 中设置支持的 SO 库架构（可选，支持多个平台的 so， 支持的平台越多，APK体积越大）
 
 ```gradle
-    defaultConfig {
-    
-        //...
-        
-        ndk {
-            //设置支持的 SO 库架构（开发者可以根据需要，选择一个或多个平台的 so）
-            abiFilters 'armeabi-v7a' // , 'arm64-v8a', 'x86', 'x86_64'
-        }
-    }
+ defaultConfig {
+ 
+     //...
+     
+     ndk {
+         //设置支持的 SO 库架构（开发者可以根据需要，选择一个或多个平台的 so）
+         abiFilters 'armeabi-v7a' // , 'arm64-v8a', 'x86', 'x86_64'
+     }
+ }
 ```
 
 ## 使用
 
 ### 初始化
 
-初始化 **OpenCV** 和 **WeChatQRCodeDetector** （建议在 **MainActivity** 的 **onCreate** 方法中初始化）
+初始化 **OpenCV** 和 **WeChatQRCodeDetector** （建议在 **MainActivity** 的 **onCreate** 方法中进行初始化）
 
 #### 初始化OpenCV
 
 使用版本 >= `v2.1.0`时，初始化OpenCV方式
 ```kotlin
-     //初始化OpenCV
-     OpenCV.initOpenCV()
+//初始化OpenCV
+OpenCV.initOpenCV()
 ```
 
 使用版本 < `v2.1.0`时，初始化OpenCV方式
 ```kotlin
-     //初始化OpenCV
-     OpenCV.initAsync(context)
+//初始化OpenCV
+OpenCV.initAsync(context)
 ```
 
 #### 初始化WeChatQRCodeDetector
 
-在初始化OpenCV后，就可以初始化WeChatQRCodeDetector了。
+在初始化OpenCV后，就可以立即初始化WeChatQRCodeDetector了。
 ```kotlin
-     //初始化WeChatQRCodeDetector
-     WeChatQRCodeDetector.init(context)
+//初始化WeChatQRCodeDetector
+WeChatQRCodeDetector.init(context)
 ```  
 
 ### 识别二维码
@@ -169,24 +169,24 @@ OpenCV二维码扫码：有了上面的OpenCV二维码识别功能，基本的�
 
 识别二维码 （**wechat-qrcode**中的WeChatQRCodeDetector）
 ```kotlin
-    //识别二维码；results是一个List<String>集合，可能会有多个结果，如果只识别一个码，可以取List中第0个就可以
-    val results = WeChatQRCodeDetector.detectAndDecode(bitmap)
+//识别二维码；results是一个List<String>集合，可能会有多个结果，如果只识别一个码，可以取List中第0个就可以
+val results = WeChatQRCodeDetector.detectAndDecode(bitmap)
 
 ``` 
 
 识别二维码并返回二维码位置信息 （**wechat-qrcode**中的WeChatQRCodeDetector）
 ```kotlin
-    // 检测结果：二维码的位置信息
-    val points = ArrayList<Mat>()
-    //通过WeChatQRCodeDetector识别图片中的二维码并返回二维码的位置信息
-    val result = WeChatQRCodeDetector.detectAndDecode(bitmap, points)
-    points.forEach { mat ->
-        // 扫码结果二维码的四个点（一个矩形）
-        Log.d(TAG, "point0: ${mat[0, 0][0]}, ${mat[0, 1][0]}")
-        Log.d(TAG, "point1: ${mat[1, 0][0]}, ${mat[1, 1][0]}")
-        Log.d(TAG, "point2: ${mat[2, 0][0]}, ${mat[2, 1][0]}")
-        Log.d(TAG, "point3: ${mat[3, 0][0]}, ${mat[3, 1][0]}")
-    }
+// 检测结果：二维码的位置信息
+val points = ArrayList<Mat>()
+//通过WeChatQRCodeDetector识别图片中的二维码并返回二维码的位置信息
+val result = WeChatQRCodeDetector.detectAndDecode(bitmap, points)
+points.forEach { mat ->
+  // 扫码结果二维码的四个点（一个矩形）
+  Log.d(TAG, "point0: ${mat[0, 0][0]}, ${mat[0, 1][0]}")
+  Log.d(TAG, "point1: ${mat[1, 0][0]}, ${mat[1, 1][0]}")
+  Log.d(TAG, "point2: ${mat[2, 0][0]}, ${mat[2, 1][0]}")
+  Log.d(TAG, "point3: ${mat[3, 0][0]}, ${mat[3, 1][0]}")
+}
 
 ```
 
@@ -194,23 +194,23 @@ OpenCV二维码扫码：有了上面的OpenCV二维码识别功能，基本的�
 
 识别二维码 （**opencv-qrcode**中的OpenCVQRCodeDetector）
 ```kotlin
-    val openCVQRCodeDetector = OpenCVQRCodeDetector()
-    //识别二维码
-    val results = openCVQRCodeDetector.detectAndDecode(bitmap)
+val openCVQRCodeDetector = OpenCVQRCodeDetector()
+//识别二维码
+val results = openCVQRCodeDetector.detectAndDecode(bitmap)
 
 ``` 
 
 识别二维码并返回二维码位置信息 （**opencv-qrcode**中的OpenCVQRCodeDetector）
 ```kotlin
-    // 检测结果：二维码的位置信息
-    val points = Mat()
-    //通过WeChatQRCodeDetector识别图片中的二维码并返回二维码的位置信息
-    val result = openCVQRCodeDetector.detectAndDecode(bitmap, points)
-    // 扫码结果二维码的四个点（一个四边形）；需要注意的是：OpenCVQRCode识别的二维码和WeChatQRCode的识别的二维码记录在Mat中的点位方式是不一样的
-    Log.d(TAG, "point0: ${points[0, 0][0]}, ${points[0, 0][1]}")
-    Log.d(TAG, "point1: ${points[0, 1][0]}, ${points[0, 1][1]}")
-    Log.d(TAG, "point2: ${points[0, 2][0]}, ${points[0, 2][1]}")
-    Log.d(TAG, "point3: ${points[0, 3][0]}, ${points[0, 3][1]}")
+// 检测结果：二维码的位置信息
+val points = Mat()
+//通过WeChatQRCodeDetector识别图片中的二维码并返回二维码的位置信息
+val result = openCVQRCodeDetector.detectAndDecode(bitmap, points)
+// 扫码结果二维码的四个点（一个四边形）；需要注意的是：OpenCVQRCode识别的二维码和WeChatQRCode的识别的二维码记录在Mat中的点位方式是不一样的
+Log.d(TAG, "point0: ${points[0, 0][0]}, ${points[0, 0][1]}")
+Log.d(TAG, "point1: ${points[0, 1][0]}, ${points[0, 1][1]}")
+Log.d(TAG, "point2: ${points[0, 2][0]}, ${points[0, 2][1]}")
+Log.d(TAG, "point3: ${points[0, 3][0]}, ${points[0, 3][1]}")
 
 ```
 

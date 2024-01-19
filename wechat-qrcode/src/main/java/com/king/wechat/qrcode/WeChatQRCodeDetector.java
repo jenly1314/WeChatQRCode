@@ -125,8 +125,12 @@ public final class WeChatQRCodeDetector {
      */
     public static List<String> detectAndDecode(Bitmap bitmap) {
         Mat mat = new Mat();
-        Utils.bitmapToMat(bitmap, mat);
-        return detectAndDecode(mat);
+        try {
+            Utils.bitmapToMat(bitmap, mat);
+            return detectAndDecode(mat);
+        } finally {
+            mat.release();
+        }
     }
 
     /**
@@ -140,8 +144,12 @@ public final class WeChatQRCodeDetector {
      */
     public static List<String> detectAndDecode(Bitmap bitmap, List<Mat> points) {
         Mat mat = new Mat();
-        Utils.bitmapToMat(bitmap, mat);
-        return detectAndDecode(mat, points);
+        try {
+            Utils.bitmapToMat(bitmap, mat);
+            return detectAndDecode(mat, points);
+        } finally {
+            mat.release();
+        }
     }
 
     /**
