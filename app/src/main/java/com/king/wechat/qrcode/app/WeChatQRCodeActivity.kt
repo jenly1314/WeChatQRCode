@@ -32,7 +32,7 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
         val width = result.bitmapWidth
         val height = result.bitmapHeight
 
-        // 当初始化 WeChatScanningAnalyzer 时，如果是需要二维码的位置信息，则会返回 WeChatScanningAnalyzer.QRCodeAnalyzeResult
+        // 当初始化 WeChatScanningAnalyzer 时，如果是需要二维码的位置信息，则可通过 WeChatScanningAnalyzer.QRCodeAnalyzeResult 获取
         if (result is WeChatScanningAnalyzer.QRCodeAnalyzeResult) { // 如果需要处理结果二维码的位置信息
             //取预览当前帧图片并显示，为结果点提供参照
             ivResult.setImageBitmap(previewView.bitmap)

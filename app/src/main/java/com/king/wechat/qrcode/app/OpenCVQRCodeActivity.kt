@@ -23,7 +23,7 @@ class OpenCVQRCodeActivity : OpenCVCameraScanActivity() {
         // 停止分析
         cameraScan.setAnalyzeImage(false)
         Log.d(TAG, result.result.toString())
-        // 当初始化 OpenCVScanningAnalyzer 时，如果是需要二维码的位置信息，则会返回 OpenCVAnalyzeResult
+        // 当初始化 OpenCVScanningAnalyzer 时，如果是需要二维码的位置信息，则可通过 OpenCVAnalyzeResult 获取
         if (result is OpenCVScanningAnalyzer.QRCodeAnalyzeResult) { // 如果需要处理结果二维码的位置信息
             val buffer = StringBuilder()
             val bitmap = result.bitmap!!.drawRect { canvas, paint ->
