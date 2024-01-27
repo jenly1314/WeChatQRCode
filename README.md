@@ -7,16 +7,24 @@
 [![CircleCI](https://circleci.com/gh/jenly1314/WeChatQRCode.svg?style=svg)](https://circleci.com/gh/jenly1314/WeChatQRCode)
 [![API](https://img.shields.io/badge/API-21%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=21)
 [![License](https://img.shields.io/badge/license-Apche%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
-[![Blog](https://img.shields.io/badge/blog-Jenly-9933CC.svg)](https://jenly1314.github.io/)
-[![QQGroup](https://img.shields.io/badge/QQGroup-20867961-blue.svg)](http://shang.qq.com/wpa/qunwpa?idkey=8fcc6a2f88552ea44b1.1.982c94fd124f7bb3ec227e2a400dbbfaad3dc2f5ad)
 
-基于OpenCV开源的微信二维码引擎移植的封装库。又一个扫码相关的轮子，之所以说又，是因为这样的轮子已经开源三个了；几个轮子之间的优缺点，各有千秋，请自寻选择（小孩子才做选择，我全都要）。
-
-> 基于ZXing的扫码轮子  [ZXingLite](https://github.com/jenly1314/ZXingLite)
- 
-> 基于MLKit的扫码轮子  [MLKit](https://github.com/jenly1314/MLKit)
- 
-> 基于OpenCV的扫码轮子 [WeChatQRCode](https://github.com/jenly1314/WeChatQRCode)
+WeChatQRCode 一个基于OpenCV开源的微信二维码引擎移植封装的二维码识别库。
+<html>
+    <table style="margin-left: auto; margin-right: auto;">
+        <tr>
+            <td>
+             又一个扫码相关的轮子，之所以说又，是因为这样的轮子已经开源三个了；几个轮子之间的优缺点，各有千秋，请自寻选择（小孩子才做选择，我全都要）。
+             <br/><p>
+             <p><strong> 基于ZXing的扫码轮子 <a href="https://github.com/jenly1314/ZXingLite" target="_blank">ZXingLite</a> </strong>
+             <p><strong> 基于MLKit的扫码轮子 <a href="https://github.com/jenly1314/MLKit" target="_blank">MLKit</a> </strong>
+             <p><strong> 基于OpenCV的扫码轮子  <a href="https://github.com/jenly1314/WeChatQRCode" target="_blank">WeChatQRCode</a> </strong>
+            </td>
+            <td>
+             <img src="https://img.picgo.net/2024/01/28/056c87392d980a097b470b5cd48a6660919a84a17cd9a353bd775456.md.jpeg" class="none">
+            </td>
+        </tr>
+    </table>
+</html>
 
 ## GIF 展示
 
@@ -307,7 +315,7 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 
 扫描识别二维码实现示例：通过直接继承 OpenCVCameraScanActivity 实现的示例 [OpenCVQRCodeActivity](app/src/main/java/com/king/wechat/qrcode/app/OpenCVQRCodeActivity.kt)
  
-### 特别说明
+### 版本变化说明
 
 从2.0.0版本开始 **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning** 都是以[CameraScan](https://github.com/jenly1314/CameraScan)作为基础库去实现具体的分析检测功能，所以关于 **CameraScan** 的使用和自定义扫码界面布局都完全遵循[CameraScan](https://github.com/jenly1314/CameraScan) 的使用方式。
 
@@ -315,7 +323,7 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 
 > 关于扫描框动画，你可以查看[ViewfinderView](https://github.com/jenly1314/ViewfinderView)的使用说明；
 
-### 2.x版本的变化
+#### 2.x版本的变化
 
 从 **1.x** 到 **2.x** 主要变化如下：
 * 1.x版本中 **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning** 默认依赖的 **mlkit-camera-core** 被移除了；
@@ -331,7 +339,7 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 
 > 如果你使用的是1.x版本的话请直接[查看v1.x分支版本](https://github.com/jenly1314/WeChatQRCode/tree/1.x/)
 
-### 2.x版本的使用
+#### 2.x版本的使用
 
 2.x版本的实现主要是以[CameraScan](https://github.com/jenly1314/CameraScan)作为基础库去实现具体的分析检测功能，所以你可以直接去看[CameraScan](https://github.com/jenly1314/CameraScan)的使用说明，只要知道了[CameraScan](https://github.com/jenly1314/CameraScan)的基本使用方式，自然就会使用 **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning**了。
 
@@ -414,30 +422,25 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 * WeChatQRCode初始版本
 
 ## 赞赏
-如果您喜欢WeChatQRCode，或感觉WeChatQRCode帮助到了您，可以点右上角“Star”支持一下，您的支持就是我的动力，谢谢 :smiley:<p>
-您也可以扫描下面的二维码，请作者喝杯咖啡 :coffee:
+如果您喜欢WeChatQRCode，或感觉WeChatQRCode帮助到了您，可以点右上角“Star”支持一下，您的支持就是我的动力，谢谢 :smiley:
+<p>您也可以扫描下面的二维码，请作者喝杯咖啡 :coffee:
+
 <div>
-<img src="https://jenly1314.github.io/image/pay/sponsor.png" width="98%">
+   <img src="https://jenly1314.github.io/image/page/rewardcode.png">
 </div>
 
 ## 关于我
 
-Name: <a title="关于作者" href="https://jenly1314.github.io" target="_blank">Jenly</a>
+| 我的博客                                                                                | GitHub                                                                                  | Gitee                                                                                  | CSDN                                                                                 | 博客园                                                                            |
+|:------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------|
+| <a title="我的博客" href="https://jenly1314.github.io" target="_blank">Jenly's Blog</a> | <a title="GitHub开源项目" href="https://github.com/jenly1314" target="_blank">jenly1314</a> | <a title="Gitee开源项目" href="https://gitee.com/jenly1314" target="_blank">jenly1314</a>  | <a title="CSDN博客" href="http://blog.csdn.net/jenly121" target="_blank">jenly121</a>  | <a title="博客园" href="https://www.cnblogs.com/jenly" target="_blank">jenly</a>  |
 
-Email: <a title="欢迎邮件与我交流" href="mailto:jenly1314@gmail.com" target="_blank">jenly1314#gmail.com</a>
-/ <a title="给我发邮件" href="mailto:jenly1314@vip.qq.com" target="_blank">jenly1314#vip.qq.com</a>
+## 联系我
 
-CSDN: <a title="CSDN博客" href="http://blog.csdn.net/jenly121" target="_blank">jenly121</a>
+| 微信公众号        | Gmail邮箱                                                                          | QQ邮箱                                                                              | QQ群                                                                                                                       | QQ群                                                                                                                       |
+|:-------------|:---------------------------------------------------------------------------------|:----------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------|
+| [Jenly666](http://weixin.qq.com/r/wzpWTuPEQL4-ract92-R) | <a title="给我发邮件" href="mailto:jenly1314@gmail.com" target="_blank">jenly1314</a> | <a title="给我发邮件" href="mailto:jenly1314@vip.qq.com" target="_blank">jenly1314</a> | <a title="点击加入QQ群" href="https://qm.qq.com/cgi-bin/qm/qr?k=6_RukjAhwjAdDHEk2G7nph-o8fBFFzZz" target="_blank">20867961</a> | <a title="点击加入QQ群" href="https://qm.qq.com/cgi-bin/qm/qr?k=Z9pobM8bzAW7tM_8xC31W8IcbIl0A-zT" target="_blank">64020761</a> |
 
-CNBlogs: <a title="博客园" href="https://www.cnblogs.com/jenly" target="_blank">jenly</a>
-
-GitHub: <a title="GitHub开源项目" href="https://github.com/jenly1314" target="_blank">jenly1314</a>
-
-Gitee: <a title="Gitee开源项目" href="https://gitee.com/jenly1314" target="_blank">jenly1314</a>
-
-加入QQ群: <a title="点击加入QQ群" href="http://shang.qq.com/wpa/qunwpa?idkey=8fcc6a2f88552ea44b1411582c94fd124f7bb3ec227e2a400dbbfaad3dc2f5ad" target="_blank">
-20867961</a>
-   <div>
-       <img src="https://jenly1314.github.io/image/jenly666.png">
-       <img src="https://jenly1314.github.io/image/qqgourp.png">
-   </div>
+<div>
+   <img src="https://jenly1314.github.io/image/page/footer.png">
+</div>
