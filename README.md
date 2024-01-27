@@ -13,7 +13,7 @@ WeChatQRCode 一个基于OpenCV开源的微信二维码引擎移植封装的二�
     <table style="margin-left: auto; margin-right: auto;">
         <tr>
             <td>
-             又一个扫码相关的轮子，之所以说又，是因为这样的轮子已经开源三个了；几个轮子之间的优缺点，各有千秋，请自寻选择（小孩子才做选择，我全都要）。
+             又一个扫码相关的轮子，之所以说又，是因为这样的轮子已经开源三个了；几个轮子之间的优缺点，各有千秋，请自寻选择（小孩子才做选择）。
              <p>
              <p><strong> 基于ZXing的扫码轮子 <a href="https://github.com/jenly1314/ZXingLite" target="_blank">ZXingLite</a> </strong>
              <p><strong> 基于MLKit的扫码轮子 <a href="https://github.com/jenly1314/MLKit" target="_blank">MLKit</a> </strong>
