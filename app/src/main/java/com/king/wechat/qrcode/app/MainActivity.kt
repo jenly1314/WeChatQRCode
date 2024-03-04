@@ -1,6 +1,5 @@
 package com.king.wechat.qrcode.app
 
-import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,7 +11,6 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.lifecycleScope
 import com.king.camera.scan.CameraScan
 import com.king.camera.scan.util.LogUtils
-import com.king.camera.scan.util.PermissionUtils
 import com.king.opencv.qrcode.OpenCVQRCodeDetector
 import com.king.wechat.qrcode.WeChatQRCodeDetector
 import kotlinx.coroutines.Dispatchers
@@ -48,24 +46,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getContext() = this
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == REQUEST_CODE_REQUEST_EXTERNAL_STORAGE && PermissionUtils.requestPermissionsResult(
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                permissions,
-                grantResults
-            )
-        ) {
-            startPickPhoto()
-        }
-    }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -136,22 +116,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun pickPhotoClicked(useWeChatDetect: Boolean) {
         this.useWeChatDetect = useWeChatDetect
-        if (PermissionUtils.checkPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            startPickPhoto()
-        } else {
-            PermissionUtils.requestPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                REQUEST_CODE_REQUEST_EXTERNAL_STORAGE
-            )
-        }
+        startPickPhoto()
     }
 
     private fun startPickPhoto() {
-        val pickIntent = Intent(
-            Intent.ACTION_PICK,
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        )
+        val pickIntent = Intent(Intent.ACTION_PICK)
         pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
         startActivityForResult(pickIntent, REQUEST_CODE_PICK_PHOTO)
     }
@@ -174,7 +143,6 @@ class MainActivity : AppCompatActivity() {
     companion object {
 
         const val REQUEST_CODE_QRCODE = 0x10
-        const val REQUEST_CODE_REQUEST_EXTERNAL_STORAGE = 0x11
-        const val REQUEST_CODE_PICK_PHOTO = 0x12
+        const val REQUEST_CODE_PICK_PHOTO = 0x11
     }
 }
