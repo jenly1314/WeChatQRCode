@@ -17,6 +17,8 @@ import androidx.annotation.Nullable;
  * 通过继承 {@link WeChatCameraScanActivity}或{@link WeChatCameraScanFragment}可快速实现二维码扫描
  *
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
+ * <p>
+ * <a href="https://github.com/jenly1314">Follow me</a>
  */
 public abstract class WeChatCameraScanFragment extends BaseCameraScanFragment<List<String>> {
     protected ViewfinderView viewfinderView;

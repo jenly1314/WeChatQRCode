@@ -17,6 +17,8 @@ import com.king.opencv.qrcode.scanning.analyze.OpenCVScanningAnalyzer
  * OpenCV二维码扫描实现示例
  *
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
+ * <p>
+ * <a href="https://github.com/jenly1314">Follow me</a>
  */
 class OpenCVQRCodeActivity : OpenCVCameraScanActivity() {
     override fun onScanResultCallback(result: AnalyzeResult<MutableList<String>>) {
@@ -31,7 +33,6 @@ class OpenCVQRCodeActivity : OpenCVCameraScanActivity() {
                 result.result.forEachIndexed{ index, data ->
                     buffer.append("[$index] ").append(data).append("\n")
                 }
-                Log.w(TAG, "123456cols: ${result.points.cols()}, rows: ${result.points.rows()}")
 
                 for (i in 0 until result.points.rows()) {
                     result.points.row(i).let { mat ->
@@ -79,7 +80,7 @@ class OpenCVQRCodeActivity : OpenCVCameraScanActivity() {
     }
 
     override fun createAnalyzer(): Analyzer<MutableList<String>> {
-        // 如果需要返回结果二维码位置信息，则初始化分析器时，参数传 true 即可
+        // 如果需要返回结果二维码位置信息，则初始化分析器时，isOutputVertices参数传 true 即可
         return OpenCVScanningAnalyzer(true)
     }
 

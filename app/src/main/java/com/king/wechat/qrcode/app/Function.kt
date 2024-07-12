@@ -4,10 +4,12 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import com.king.camera.scan.util.LogUtils
+import com.king.logx.LogX
 
 /**
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
+ * <p>
+ * <a href="https://github.com/jenly1314">Follow me</a>
  */
 fun Bitmap.drawRect(block: (canvas: Canvas,paint: Paint) -> Unit): Bitmap {
     val result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
@@ -24,7 +26,7 @@ fun Bitmap.drawRect(block: (canvas: Canvas,paint: Paint) -> Unit): Bitmap {
         canvas.save()
         canvas.restore()
     } catch (e: Exception) {
-        LogUtils.w(e.message)
+        LogX.w(e.message)
     }
     return result
 }

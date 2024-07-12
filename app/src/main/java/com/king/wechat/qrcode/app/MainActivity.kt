@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.lifecycleScope
 import com.king.camera.scan.CameraScan
-import com.king.camera.scan.util.LogUtils
+import com.king.logx.LogX
 import com.king.opencv.qrcode.OpenCVQRCodeDetector
 import com.king.wechat.qrcode.WeChatQRCodeDetector
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +21,8 @@ import org.opencv.OpenCV
 /**
  * 示例
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
+ * <p>
+ * <a href="https://github.com/jenly1314">Follow me</a>
  */
 class MainActivity : AppCompatActivity() {
 
@@ -74,13 +76,13 @@ class MainActivity : AppCompatActivity() {
                         if (result.isNotEmpty()) {// 不为空，则表示识别成功
                             // 打印所有结果
                             for ((index, text) in result.withIndex()) {
-                                LogUtils.d("result$index:$text")
+                                LogX.d("result$index:$text")
                             }
                             // 一般需求都是识别一个码，所以这里取第0个就可以；有识别多个码的需求，可以取全部
                             Toast.makeText(getContext(), result[0], Toast.LENGTH_SHORT).show()
                         } else {
                             // 为空表示识别失败
-                            LogUtils.d("result = null")
+                            LogX.d("result = null")
                         }
                     } else {
                         val result = withContext(Dispatchers.IO) {
@@ -89,18 +91,18 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         if (!result.isNullOrEmpty()) {// 不为空，则表示识别成功
-                            LogUtils.d("result$result")
+                            LogX.d("result: $result")
                             Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show()
                         } else {
                             // 为空表示识别失败
-                            LogUtils.d("result = null")
+                            LogX.d("result = null")
                         }
                     }
 
                 }
 
             } catch (e: Exception) {
-                LogUtils.w(e)
+                LogX.w(e)
             }
 
         }

@@ -6,7 +6,7 @@ import com.king.camera.scan.AnalyzeResult;
 import com.king.camera.scan.FrameMetadata;
 import com.king.camera.scan.analyze.Analyzer;
 import com.king.camera.scan.util.ImageUtils;
-import com.king.camera.scan.util.LogUtils;
+import com.king.logx.LogX;
 import com.king.wechat.qrcode.WeChatQRCodeDetector;
 
 import org.opencv.core.Core;
@@ -28,6 +28,8 @@ import androidx.camera.core.ImageProxy;
  * 微信二维码分析器：分析相机预览的帧数据，从中检测识别二维码
  *
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
+ * <p>
+ * <a href="https://github.com/jenly1314">Follow me</a>
  */
 public class WeChatScanningAnalyzer implements Analyzer<List<String>> {
 
@@ -64,10 +66,11 @@ public class WeChatScanningAnalyzer implements Analyzer<List<String>> {
             queue.add(bytes);
             joinQueue.set(true);
         }
-        if (queue.isEmpty()) {
+
+        final byte[] nv21Data = queue.poll();
+        if(nv21Data == null) {
             return;
         }
-        final byte[] nv21Data = queue.poll();
         AnalyzeResult<List<String>> result = null;
         try {
             ImageUtils.yuv_420_888toNv21(imageProxy, nv21Data);
@@ -75,9 +78,9 @@ public class WeChatScanningAnalyzer implements Analyzer<List<String>> {
                     imageProxy.getWidth(),
                     imageProxy.getHeight(),
                     imageProxy.getImageInfo().getRotationDegrees());
-            result = detectAndDecode(nv21Data, frameMetadata, isOutputVertices);
+            result = detectAndDecode(nv21Data, frameMetadata);
         } catch (Exception e) {
-            LogUtils.w(e);
+            LogX.w(e);
         }
         if (result != null) {
             joinQueue.set(false);
@@ -91,12 +94,12 @@ public class WeChatScanningAnalyzer implements Analyzer<List<String>> {
     /**
      * 检测并识别二维码
      *
-     * @param nv21
-     * @param isOutputVertices 是否输出二维码顶点坐标
-     * @return
+     * @param nv21 nv21帧数据
+     * @param frameMetadata {@link FrameMetadata}
+     * @return 返回识别的二维码结果
      */
     @Nullable
-    private AnalyzeResult<List<String>> detectAndDecode(byte[] nv21, FrameMetadata frameMetadata, boolean isOutputVertices) {
+    private AnalyzeResult<List<String>> detectAndDecode(byte[] nv21, FrameMetadata frameMetadata) {
         Mat mat = new Mat(frameMetadata.getHeight() + frameMetadata.getHeight() / 2, frameMetadata.getWidth(), CvType.CV_8UC1);
         mat.put(0,0, nv21);
         Mat bgrMat = new Mat();
@@ -125,8 +128,8 @@ public class WeChatScanningAnalyzer implements Analyzer<List<String>> {
 
     /**
      * 旋转指定角度
-     * @param mat
-     * @param rotation
+     * @param mat {@link Mat}
+     * @param rotation 旋转角度
      */
     private void rotation(Mat mat, int rotation) {
         //  旋转90°
@@ -172,7 +175,7 @@ public class WeChatScanningAnalyzer implements Analyzer<List<String>> {
         /**
          * 获取二维码的位置点信息
          *
-         * @return
+         * @return 通过 {@link Mat} 返回二维码的位置点信息
          */
         @Nullable
         public List<Mat> getPoints() {

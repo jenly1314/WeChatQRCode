@@ -96,23 +96,23 @@ OpenCV二维码扫码：有了上面的OpenCV二维码识别功能，基本的�
 
     ```gradle
     // OpenCV基础库（*必须）
-    implementation 'com.github.jenly1314.WeChatQRCode:opencv:2.1.0'
-    implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:2.1.0'
-    
-    // OpenCV的其他ABI（可选），根据你的需要选择想要支持的SO库架构
-    implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv64:2.1.0'
-    implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86:2.1.0'
-    implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86_64:2.1.0'
+    implementation 'com.github.jenly1314.WeChatQRCode:opencv:2.2.0'
+   
+    // OpenCV的ABI（可选），根据你的需要选择想要支持的SO库架构（至少选一个）
+    implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:2.2.0'
+    implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv64:2.2.0'
+    implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86:2.2.0'
+    implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86_64:2.2.0'
     
     // OpenCV二维码识别功能（可选）
-    implementation 'com.github.jenly1314.WeChatQRCode:opencv-qrcode:2.1.0'
+    implementation 'com.github.jenly1314.WeChatQRCode:opencv-qrcode:2.2.0'
     // OpenCV二维码扫码功能（可选）
-    implementation 'com.github.jenly1314.WeChatQRCode:opencv-qrcode-scanning:2.1.0'
+    implementation 'com.github.jenly1314.WeChatQRCode:opencv-qrcode-scanning:2.2.0'
     
     // 微信二维码识别功能（可选）
-    implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:2.1.0'
+    implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:2.2.0'
     // 微信二维码扫码功能（可选）
-    implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:2.1.0'
+    implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-scanning:2.2.0'
     
     ```
 
@@ -383,6 +383,12 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 
 ## 版本记录
 
+#### v2.2.0：2024-7-11
+* 更新CameraScan至v1.2.0
+* 更新ViewfinderView至v1.2.0
+* 使用[LogX](https://github.com/jenly1314/LogX) 来统一管理日志
+* 优化一些细节
+
 #### v2.1.0：2024-1-13
 * 更新OpenCV至v4.9.0
 * 更新CameraScan至v1.1.0
@@ -404,22 +410,7 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 * 更新compileSdkVersion至33
 * 更新Gradle至v7.5
 
-#### v1.2.1：2023-2-27
-* 优化细节
-
-#### v1.2.0：2022-8-4
-* 更新OpenCV至v4.6.0
-
-#### v1.1.1：2021-11-2
-* 优化细节
-* 更新mlkit-camera-core至v1.0.3
-
-#### v1.1.0：2021-8-6
-* 编译多种ABI支持
-* 更新mlkit-camera-core至v1.0.2
-
-#### v1.0.0：2021-7-24
-* WeChatQRCode初始版本
+#### [查看更多版本记录](change_log.md)
 
 ## 赞赏
 如果您喜欢WeChatQRCode，或感觉WeChatQRCode帮助到了您，可以点右上角“Star”支持一下，您的支持就是我的动力，谢谢 :smiley:

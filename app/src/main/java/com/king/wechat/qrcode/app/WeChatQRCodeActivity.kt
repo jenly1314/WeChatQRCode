@@ -15,6 +15,8 @@ import com.king.wechat.qrcode.scanning.analyze.WeChatScanningAnalyzer
  * 微信二维码扫描实现示例
  *
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
+ * <p>
+ * <a href="https://github.com/jenly1314">Follow me</a>
  */
 class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 
@@ -29,8 +31,8 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
         // 停止分析
         cameraScan.setAnalyzeImage(false)
         Log.d(TAG, result.result.toString())
-        val width = result.bitmapWidth
-        val height = result.bitmapHeight
+        val width = result.imageWidth
+        val height = result.imageHeight
 
         // 当初始化 WeChatScanningAnalyzer 时，如果是需要二维码的位置信息，则可通过 WeChatScanningAnalyzer.QRCodeAnalyzeResult 获取
         if (result is WeChatScanningAnalyzer.QRCodeAnalyzeResult) { // 如果需要处理结果二维码的位置信息
@@ -92,7 +94,7 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
     override fun createAnalyzer(): Analyzer<MutableList<String>> {
         // 分析器默认不会返回结果二维码的位置信息
 //        return WeChatScanningAnalyzer()
-        // 如果需要返回结果二维码位置信息，则初始化分析器时，参数传 true 即可
+        // 如果需要返回结果二维码位置信息，则初始化分析器时，isOutputVertices参数传 true 即可
         return WeChatScanningAnalyzer(true)
     }
 

@@ -1,7 +1,6 @@
 package org.opencv;
 
 import android.content.Context;
-import android.util.Log;
 
 import org.opencv.android.OpenCVLoader;
 
@@ -9,6 +8,8 @@ import org.opencv.android.OpenCVLoader;
  * OpenCV
  *
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
+ * <p>
+ * <a href="https://github.com/jenly1314">Follow me</a>
  */
 public final class OpenCV {
 
@@ -28,8 +29,7 @@ public final class OpenCV {
     /**
      * 初始化 OpenCV
      *
-     * @param context
-     *
+     * @param context {@link Context}
      * @deprecated 使用 {@link OpenCV#initOpenCV()}
      */
     @Deprecated
