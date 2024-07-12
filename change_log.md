@@ -1,6 +1,6 @@
 ## 版本记录
 
-#### v2.2.0：2024-7-11
+#### v2.2.0：2024-7-12
 * 更新CameraScan至v1.2.0
 * 更新ViewfinderView至v1.2.0
 * 使用[LogX](https://github.com/jenly1314/LogX) 来统一管理日志
