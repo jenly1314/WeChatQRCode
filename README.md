@@ -5,7 +5,7 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/jenly1314/WeChatQRCode/build.yml?logo=github)](https://github.com/jenly1314/WeChatQRCode/actions/workflows/build.yml)
 [![Download](https://img.shields.io/badge/download-APK-brightgreen?logo=github)](https://raw.githubusercontent.com/jenly1314/WeChatQRCode/master/app/release/app-release.apk)
 [![API](https://img.shields.io/badge/API-21%2B-brightgreen?logo=android)](https://developer.android.com/guide/topics/manifest/uses-sdk-element#ApiLevels)
-[![License](https://img.shields.io/github/license/jenly1314/WeChatQRCode?logo=open-source-initiative)](https://opensource.org/licenses/LICENSE-2-0)
+[![License](https://img.shields.io/github/license/jenly1314/WeChatQRCode?logo=open-source-initiative)](https://opensource.org/licenses/apache-2-0)
 
 
 WeChatQRCode 一个基于OpenCV开源的微信二维码引擎移植封装的二维码识别库。
