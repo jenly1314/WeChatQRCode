@@ -5,6 +5,7 @@ pluginManagement {
         mavenCentral()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -14,15 +15,15 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "WeChatQRCode"
-include ':app'
-include ':opencv'
-include ':opencv-armv7a'
-include ':opencv-armv64'
-include ':opencv-x86'
-include ':opencv-x86_64'
-include ':opencv-qrcode'
-include ':opencv-qrcode-scanning'
-include ':wechat-qrcode'
-include ':wechat-qrcode-scanning'
-
-
+include(
+    ":app",
+    ":opencv",
+    ":opencv-armv7a",
+    ":opencv-armv64",
+    ":opencv-x86",
+    ":opencv-x86_64",
+    ":opencv-qrcode",
+    ":opencv-qrcode-scanning",
+    ":wechat-qrcode",
+    ":wechat-qrcode-scanning",
+)
