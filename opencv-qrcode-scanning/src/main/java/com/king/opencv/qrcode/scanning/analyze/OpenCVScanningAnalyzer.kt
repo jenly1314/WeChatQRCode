@@ -152,7 +152,7 @@ open class OpenCVScanningAnalyzer @JvmOverloads constructor(
     /**
      * 二维码分析结果
      */
-    open class QRCodeAnalyzeResult<T> @JvmOverloads constructor(
+    open class QRCodeAnalyzeResult<T : Any> @JvmOverloads constructor(
         imageData: ByteArray,
         imageFormat: Int,
         frameMetadata: FrameMetadata,
