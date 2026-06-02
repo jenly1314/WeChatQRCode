@@ -124,15 +124,19 @@ object WeChatQRCodeDetector {
      *
      * @param scalingFactor automatically generated
      */
+    @JvmStatic
     fun setScaleFactor(scalingFactor: Float) {
-        sWeChatQRCode!!.setScaleFactor(scalingFactor)
+        val qrCode = sWeChatQRCode ?: return
+        qrCode.setScaleFactor(scalingFactor)
     }
 
     /**
      * get scale factor
      */
+    @JvmStatic
     fun getScaleFactor(): Float {
-        return sWeChatQRCode!!.getScaleFactor()
+        val qrCode = sWeChatQRCode ?: return 0f
+        return qrCode.getScaleFactor()
     }
 
     /**
@@ -183,7 +187,8 @@ object WeChatQRCodeDetector {
      */
     @JvmStatic
     fun detectAndDecode(img: Mat): List<String> {
-        return sWeChatQRCode!!.detectAndDecode(img)
+        val qrCode = sWeChatQRCode ?: return emptyList()
+        return qrCode.detectAndDecode(img)
     }
 
     /**
@@ -197,6 +202,8 @@ object WeChatQRCodeDetector {
      */
     @JvmStatic
     fun detectAndDecode(img: Mat, points: List<Mat>): List<String> {
-        return sWeChatQRCode!!.detectAndDecode(img, points)
+        val qrCode = sWeChatQRCode ?: return emptyList()
+        return qrCode.detectAndDecode(img, points)
     }
+
 }
