@@ -29,9 +29,9 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
         ivResult = findViewById(R.id.ivResult)
 
         onBackPressedDispatcher.addCallback(this) {
-            val viewfinderView = viewfinderView
+            val viewfinderView = viewfinderView!!
             // 如果是结果点显示时，用户点击了返回键，则认为是取消选择当前结果，重新开始扫码
-            if (viewfinderView?.isShowPoints == true) {
+            if (viewfinderView.isShowPoints) {
                 ivResult.setImageResource(0)
                 viewfinderView.showScanner()
                 cameraScan.setAnalyzeImage(true)
@@ -47,10 +47,10 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
         LogX.d(result.result.toString())
         val width = result.imageWidth
         val height = result.imageHeight
-        val viewfinderView = viewfinderView
+        val viewfinderView = viewfinderView!!
 
         // 当初始化 WeChatScanningAnalyzer 时，如果是需要二维码的位置信息，则可通过 WeChatScanningAnalyzer.QRCodeAnalyzeResult 获取
-        if (result is WeChatScanningAnalyzer.QRCodeAnalyzeResult && viewfinderView != null) { // 如果需要处理结果二维码的位置信息
+        if (result is WeChatScanningAnalyzer.QRCodeAnalyzeResult) { // 如果需要处理结果二维码的位置信息
             //取预览当前帧图片并显示，为结果点提供参照
             ivResult.setImageBitmap(previewView.bitmap)
             val points = ArrayList<Point>()
