@@ -106,22 +106,25 @@ open class WeChatScanningAnalyzer @JvmOverloads constructor(
      * @param rotation 旋转角度
      */
     private fun rotation(mat: Mat, rotation: Int) {
-        // 旋转90°
-        if (rotation == ROTATION_90) {
-            // 将图像逆时针旋转90°，然后再关于x轴对称
-            Core.transpose(mat, mat)
-            // 然后再绕Y轴旋转180° （顺时针）
-            Core.flip(mat, mat, 1)
-        } else if (rotation == ROTATION_180) {
-            // 将图片绕X轴旋转180°（顺时针）
-            Core.flip(mat, mat, 0)
-            // 将图片绕Y轴旋转180°（顺时针）
-            Core.flip(mat, mat, 1)
-        } else if (rotation == ROTATION_270) {
-            // 将图像逆时针旋转90°，然后再关于x轴对称
-            Core.transpose(mat, mat)
-            // 将图片绕X轴旋转180°（顺时针）
-            Core.flip(mat, mat, 0)
+        when (rotation) {
+            ROTATION_90 -> {
+                // 将图像逆时针旋转90°，然后再关于x轴对称
+                Core.transpose(mat, mat)
+                // 然后再绕Y轴旋转180° （顺时针）
+                Core.flip(mat, mat, 1)
+            }
+            ROTATION_180 -> {
+                // 将图片绕X轴旋转180°（顺时针）
+                Core.flip(mat, mat, 0)
+                // 将图片绕Y轴旋转180°（顺时针）
+                Core.flip(mat, mat, 1)
+            }
+            ROTATION_270 -> {
+                // 将图像逆时针旋转90°，然后再关于x轴对称
+                Core.transpose(mat, mat)
+                // 将图片绕X轴旋转180°（顺时针）
+                Core.flip(mat, mat, 0)
+            }
         }
     }
 
