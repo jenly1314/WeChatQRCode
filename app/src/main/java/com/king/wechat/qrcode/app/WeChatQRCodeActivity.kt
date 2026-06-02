@@ -29,11 +29,10 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
         ivResult = findViewById(R.id.ivResult)
 
         onBackPressedDispatcher.addCallback(this) {
-            val viewfinderView = viewfinderView!!
             // 如果是结果点显示时，用户点击了返回键，则认为是取消选择当前结果，重新开始扫码
-            if (viewfinderView.isShowPoints) {
+            if (viewfinderView!!.isShowPoints) {
                 ivResult.setImageResource(0)
-                viewfinderView.showScanner()
+                viewfinderView!!.showScanner()
                 cameraScan.setAnalyzeImage(true)
             } else {
                 finish()
@@ -47,7 +46,6 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
         LogX.d(result.result.toString())
         val width = result.imageWidth
         val height = result.imageHeight
-        val viewfinderView = viewfinderView!!
 
         // 当初始化 WeChatScanningAnalyzer 时，如果是需要二维码的位置信息，则可通过 WeChatScanningAnalyzer.QRCodeAnalyzeResult 获取
         if (result is WeChatScanningAnalyzer.QRCodeAnalyzeResult) { // 如果需要处理结果二维码的位置信息
@@ -75,13 +73,13 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
                     centerY,
                     width,
                     height,
-                    viewfinderView.width,
-                    viewfinderView.height
+                    viewfinderView!!.width,
+                    viewfinderView!!.height
                 )
                 points.add(point)
             }
             //设置Item点击监听
-            viewfinderView.setOnItemClickListener {
+            viewfinderView!!.setOnItemClickListener {
                 //显示点击Item将所在位置扫码识别的结果返回
                 val intent = Intent()
                 intent.putExtra(CameraScan.SCAN_RESULT, result.result[it])
@@ -89,7 +87,7 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
                 finish()
             }
             //显示结果点信息
-            viewfinderView.showResultPoints(points)
+            viewfinderView!!.showResultPoints(points)
 
             if (result.result.size == 1) {
                 val intent = Intent()
