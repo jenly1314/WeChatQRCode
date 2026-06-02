@@ -17,7 +17,7 @@ import com.king.wechat.qrcode.scanning.analyze.WeChatScanningAnalyzer
  */
 abstract class WeChatCameraScanFragment : BaseCameraScanFragment<List<String>>() {
 
-    protected lateinit var viewfinderView: ViewfinderView
+    protected var viewfinderView: ViewfinderView? = null
 
     override fun initUI() {
         val viewfinderViewId = getViewfinderViewId()
