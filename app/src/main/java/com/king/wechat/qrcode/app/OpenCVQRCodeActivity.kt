@@ -23,7 +23,7 @@ import com.king.opencv.qrcode.scanning.analyze.OpenCVScanningAnalyzer
  */
 class OpenCVQRCodeActivity : OpenCVCameraScanActivity() {
 
-    override fun onScanResultCallback(result: AnalyzeResult<MutableList<String>>) {
+    override fun onScanResultCallback(result: AnalyzeResult<List<String>>) {
         // 停止分析
         cameraScan.setAnalyzeImage(false)
         LogX.d(result.result.toString())
@@ -80,7 +80,7 @@ class OpenCVQRCodeActivity : OpenCVCameraScanActivity() {
         }
     }
 
-    override fun createAnalyzer(): Analyzer<MutableList<String>> {
+    override fun createAnalyzer(): Analyzer<List<String>> {
         // 如果需要返回结果二维码位置信息，则初始化分析器时，isOutputVertices参数传 true 即可
         return OpenCVScanningAnalyzer(true)
     }

@@ -72,7 +72,10 @@ class MainActivity : AppCompatActivity() {
     private fun processPickPhotoResult(uri: Uri) {
         lifecycleScope.launch {
             try {
-                val bitmap = getBitmapFromUri(getContext(), uri)
+                val bitmap = getBitmapFromUri(getContext(), uri) ?: run {
+                    LogX.d("bitmap = null")
+                    return@launch
+                }
                 if (useWeChatDetect) {
                     val result = withContext(Dispatchers.IO) {
                         // 通过WeChatQRCodeDetector识别图片中的二维码
