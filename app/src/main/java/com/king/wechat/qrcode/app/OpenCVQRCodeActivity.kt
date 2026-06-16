@@ -36,21 +36,23 @@ class OpenCVQRCodeActivity : OpenCVCameraScanActivity() {
                     buffer.append("[$index] ").append(data).append("\n")
                 }
 
-                for (i in 0 until result.points.rows()) {
-                    result.points.row(i).let { mat ->
-                        // 扫码结果二维码的四个点（一个四边形）；需要注意的是：OpenCVQRCode识别的二维码和WeChatQRCode的识别的二维码记录在Mat中的点位方式是不一样的
-                        LogX.format(LogFormat.PLAIN).d("point0: ${mat[0, 0][0]}, ${mat[0, 0][1]}")
-                        LogX.format(LogFormat.PLAIN).d("point1: ${mat[0, 1][0]}, ${mat[0, 1][1]}")
-                        LogX.format(LogFormat.PLAIN).d("point2: ${mat[0, 2][0]}, ${mat[0, 2][1]}")
-                        LogX.format(LogFormat.PLAIN).d("point3: ${mat[0, 3][0]}, ${mat[0, 3][1]}")
-                        val path = Path()
-                        path.moveTo(mat[0, 0][0].toFloat(), mat[0, 0][1].toFloat())
-                        path.lineTo(mat[0, 1][0].toFloat(), mat[0, 1][1].toFloat())
-                        path.lineTo(mat[0, 2][0].toFloat(), mat[0, 2][1].toFloat())
-                        path.lineTo(mat[0, 3][0].toFloat(), mat[0, 3][1].toFloat())
-                        path.lineTo(mat[0, 0][0].toFloat(), mat[0, 0][1].toFloat())
-                        // 将二维码位置在图片上框出来
-                        canvas.drawPath(path, paint)
+                result.points?.let { points ->
+                    for (i in 0 until points.rows()) {
+                        points.row(i)?.let { mat ->
+                            // 扫码结果二维码的四个点（一个四边形）；需要注意的是：OpenCVQRCode识别的二维码和WeChatQRCode的识别的二维码记录在Mat中的点位方式是不一样的
+                            LogX.format(LogFormat.PLAIN).d("point0: ${mat[0, 0][0]}, ${mat[0, 0][1]}")
+                            LogX.format(LogFormat.PLAIN).d("point1: ${mat[0, 1][0]}, ${mat[0, 1][1]}")
+                            LogX.format(LogFormat.PLAIN).d("point2: ${mat[0, 2][0]}, ${mat[0, 2][1]}")
+                            LogX.format(LogFormat.PLAIN).d("point3: ${mat[0, 3][0]}, ${mat[0, 3][1]}")
+                            val path = Path()
+                            path.moveTo(mat[0, 0][0].toFloat(), mat[0, 0][1].toFloat())
+                            path.lineTo(mat[0, 1][0].toFloat(), mat[0, 1][1].toFloat())
+                            path.lineTo(mat[0, 2][0].toFloat(), mat[0, 2][1].toFloat())
+                            path.lineTo(mat[0, 3][0].toFloat(), mat[0, 3][1].toFloat())
+                            path.lineTo(mat[0, 0][0].toFloat(), mat[0, 0][1].toFloat())
+                            // 将二维码位置在图片上框出来
+                            canvas.drawPath(path, paint)
+                        }
                     }
                 }
             }
