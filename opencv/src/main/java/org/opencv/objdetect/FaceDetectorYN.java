@@ -20,7 +20,10 @@ import org.opencv.utils.Converters;
 public class FaceDetectorYN {
 
     protected final long nativeObj;
-    protected FaceDetectorYN(long addr) { nativeObj = addr; }
+    protected FaceDetectorYN(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -153,7 +156,7 @@ public class FaceDetectorYN {
      * Creates an instance of face detector class with given parameters
      *
      * @param model the path to the requested model
-     * @param config the path to the config file for compability, which is not requested for ONNX models
+     * @param config the path to the config file for compatibility, which is not requested for ONNX models
      * @param input_size the size of the input image
      * @param score_threshold the threshold to filter out bounding boxes of score smaller than the given value
      * @param nms_threshold the threshold to suppress bounding boxes of IoU bigger than the given value
@@ -170,7 +173,7 @@ public class FaceDetectorYN {
      * Creates an instance of face detector class with given parameters
      *
      * @param model the path to the requested model
-     * @param config the path to the config file for compability, which is not requested for ONNX models
+     * @param config the path to the config file for compatibility, which is not requested for ONNX models
      * @param input_size the size of the input image
      * @param score_threshold the threshold to filter out bounding boxes of score smaller than the given value
      * @param nms_threshold the threshold to suppress bounding boxes of IoU bigger than the given value
@@ -186,7 +189,7 @@ public class FaceDetectorYN {
      * Creates an instance of face detector class with given parameters
      *
      * @param model the path to the requested model
-     * @param config the path to the config file for compability, which is not requested for ONNX models
+     * @param config the path to the config file for compatibility, which is not requested for ONNX models
      * @param input_size the size of the input image
      * @param score_threshold the threshold to filter out bounding boxes of score smaller than the given value
      * @param nms_threshold the threshold to suppress bounding boxes of IoU bigger than the given value
@@ -201,7 +204,7 @@ public class FaceDetectorYN {
      * Creates an instance of face detector class with given parameters
      *
      * @param model the path to the requested model
-     * @param config the path to the config file for compability, which is not requested for ONNX models
+     * @param config the path to the config file for compatibility, which is not requested for ONNX models
      * @param input_size the size of the input image
      * @param score_threshold the threshold to filter out bounding boxes of score smaller than the given value
      * @param nms_threshold the threshold to suppress bounding boxes of IoU bigger than the given value
@@ -215,7 +218,7 @@ public class FaceDetectorYN {
      * Creates an instance of face detector class with given parameters
      *
      * @param model the path to the requested model
-     * @param config the path to the config file for compability, which is not requested for ONNX models
+     * @param config the path to the config file for compatibility, which is not requested for ONNX models
      * @param input_size the size of the input image
      * @param score_threshold the threshold to filter out bounding boxes of score smaller than the given value
      * @return automatically generated
@@ -228,7 +231,7 @@ public class FaceDetectorYN {
      * Creates an instance of face detector class with given parameters
      *
      * @param model the path to the requested model
-     * @param config the path to the config file for compability, which is not requested for ONNX models
+     * @param config the path to the config file for compatibility, which is not requested for ONNX models
      * @param input_size the size of the input image
      * @return automatically generated
      */
@@ -397,7 +400,7 @@ public class FaceDetectorYN {
     private static native long create_10(String framework, long bufferModel_mat_nativeObj, long bufferConfig_mat_nativeObj, double input_size_width, double input_size_height, float score_threshold);
     private static native long create_11(String framework, long bufferModel_mat_nativeObj, long bufferConfig_mat_nativeObj, double input_size_width, double input_size_height);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

@@ -57,7 +57,7 @@ public class TrackerMIL extends Tracker {
     private static native long create_0(long parameters_nativeObj);
     private static native long create_1();
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

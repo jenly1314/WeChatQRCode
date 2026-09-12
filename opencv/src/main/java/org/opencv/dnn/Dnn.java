@@ -22,28 +22,58 @@ import org.opencv.utils.Converters;
 
 public class Dnn {
 
+    // C++: enum ActivationType (cv.dnn.ActivationType)
+    public static final int
+            ACTIV_NONE = 0,
+            ACTIV_MISH = 0+1,
+            ACTIV_SWISH = 0+2,
+            ACTIV_SIGMOID = 0+3,
+            ACTIV_TANH = 0+4,
+            ACTIV_ELU = 0+5,
+            ACTIV_HARDSWISH = 0+6,
+            ACTIV_HARDSIGMOID = 0+7,
+            ACTIV_GELU = 0+8,
+            ACTIV_GELU_APPROX = 0+9,
+            ACTIV_RELU = 0+10,
+            ACTIV_CLIP = 0+11;
+
+
+    // C++: enum ArgKind (cv.dnn.ArgKind)
+    public static final int
+            DNN_ARG_EMPTY = 0,
+            DNN_ARG_CONST = 1,
+            DNN_ARG_INPUT = 2,
+            DNN_ARG_OUTPUT = 3,
+            DNN_ARG_TEMP = 4,
+            DNN_ARG_PATTERN = 5;
+
+
+    // C++: enum AutoPadding (cv.dnn.AutoPadding)
+    public static final int
+            AUTO_PAD_NONE = 0,
+            AUTO_PAD_SAME_UPPER = 1,
+            AUTO_PAD_SAME_LOWER = 2,
+            AUTO_PAD_VALID = 3;
+
+
     // C++: enum Backend (cv.dnn.Backend)
     public static final int
             DNN_BACKEND_DEFAULT = 0,
-            DNN_BACKEND_HALIDE = 0+1,
-            DNN_BACKEND_INFERENCE_ENGINE = 0+2,
-            DNN_BACKEND_OPENCV = 0+3,
-            DNN_BACKEND_VKCOM = 0+4,
-            DNN_BACKEND_CUDA = 0+5,
-            DNN_BACKEND_WEBNN = 0+6,
-            DNN_BACKEND_TIMVX = 0+7,
-            DNN_BACKEND_CANN = 0+8;
+            DNN_BACKEND_INFERENCE_ENGINE = 2,
+            DNN_BACKEND_OPENCV = 2+1,
+            DNN_BACKEND_VKCOM = 2+2,
+            DNN_BACKEND_CUDA = 2+3,
+            DNN_BACKEND_WEBNN = 2+4,
+            DNN_BACKEND_TIMVX = 2+5,
+            DNN_BACKEND_CANN = 2+6;
 
 
-    // C++: enum DataLayout (cv.dnn.DataLayout)
+    // C++: enum EngineType (cv.dnn.EngineType)
     public static final int
-            DNN_LAYOUT_UNKNOWN = 0,
-            DNN_LAYOUT_ND = 1,
-            DNN_LAYOUT_NCHW = 2,
-            DNN_LAYOUT_NCDHW = 3,
-            DNN_LAYOUT_NHWC = 4,
-            DNN_LAYOUT_NDHWC = 5,
-            DNN_LAYOUT_PLANAR = 6;
+            ENGINE_CLASSIC = 1,
+            ENGINE_NEW = 2,
+            ENGINE_AUTO = 3,
+            ENGINE_ORT = 4;
 
 
     // C++: enum ImagePaddingMode (cv.dnn.ImagePaddingMode)
@@ -51,6 +81,70 @@ public class Dnn {
             DNN_PMODE_NULL = 0,
             DNN_PMODE_CROP_CENTER = 1,
             DNN_PMODE_LETTERBOX = 2;
+
+
+    // C++: enum LossReduction (cv.dnn.LossReduction)
+    public static final int
+            LOSS_REDUCTION_NONE = 0,
+            LOSS_REDUCTION_MEAN = 1,
+            LOSS_REDUCTION_SUM = 2;
+
+
+    // C++: enum ModelFormat (cv.dnn.ModelFormat)
+    public static final int
+            DNN_MODEL_GENERIC = 0,
+            DNN_MODEL_ONNX = 1,
+            DNN_MODEL_TF = 2,
+            DNN_MODEL_TFLITE = 3;
+
+
+    // C++: enum OPERATION (cv.dnn.NaryEltwiseLayer.OPERATION)
+    public static final int
+            OPERATION_AND = 0,
+            OPERATION_EQUAL = 0+1,
+            OPERATION_GREATER = 0+2,
+            OPERATION_GREATER_EQUAL = 0+3,
+            OPERATION_LESS = 0+4,
+            OPERATION_LESS_EQUAL = 0+5,
+            OPERATION_OR = 0+6,
+            OPERATION_POW = 0+7,
+            OPERATION_XOR = 0+8,
+            OPERATION_BITSHIFT = 0+9,
+            OPERATION_MAX = 0+10,
+            OPERATION_MEAN = 0+11,
+            OPERATION_MIN = 0+12,
+            OPERATION_MOD = 0+13,
+            OPERATION_FMOD = 0+14,
+            OPERATION_PROD = 0+15,
+            OPERATION_SUB = 0+16,
+            OPERATION_SUM = 0+17,
+            OPERATION_ADD = 0+18,
+            OPERATION_DIV = 0+19,
+            OPERATION_WHERE = 0+20,
+            OPERATION_BITWISE_AND = 0+21,
+            OPERATION_BITWISE_OR = 0+22,
+            OPERATION_BITWISE_XOR = 0+23;
+
+
+    // C++: enum ProfilingMode (cv.dnn.ProfilingMode)
+    public static final int
+            DNN_PROFILE_NONE = 0,
+            DNN_PROFILE_SUMMARY = 1,
+            DNN_PROFILE_DETAILED = 2;
+
+
+    // C++: enum ReduceType (cv.dnn.Reduce2Layer.ReduceType)
+    public static final int
+            ReduceType_MAX = 0,
+            ReduceType_MIN = 1,
+            ReduceType_MEAN = 2,
+            ReduceType_SUM = 3,
+            ReduceType_L1 = 4,
+            ReduceType_L2 = 5,
+            ReduceType_PROD = 6,
+            ReduceType_SUM_SQUARE = 7,
+            ReduceType_LOG_SUM = 8,
+            ReduceType_LOG_SUM_EXP = 9;
 
 
     // C++: enum SoftNMSMethod (cv.dnn.SoftNMSMethod)
@@ -74,6 +168,13 @@ public class Dnn {
             DNN_TARGET_CPU_FP16 = 0+10;
 
 
+    // C++: enum TracingMode (cv.dnn.TracingMode)
+    public static final int
+            DNN_TRACE_NONE = 0,
+            DNN_TRACE_ALL = 1,
+            DNN_TRACE_OP = 2;
+
+
     //
     // C++:  vector_Target cv::dnn::getAvailableTargets(dnn_Backend be)
     //
@@ -84,109 +185,7 @@ public class Dnn {
 
 
     //
-    // C++:  Net cv::dnn::readNetFromDarknet(String cfgFile, String darknetModel = String())
-    //
-
-    /**
-     * Reads a network model stored in &lt;a href="https://pjreddie.com/darknet/"&gt;Darknet&lt;/a&gt; model files.
-     * @param cfgFile      path to the .cfg file with text description of the network architecture.
-     * @param darknetModel path to the .weights file with learned network.
-     * @return Network object that ready to do forward, throw an exception in failure cases.
-     */
-    public static Net readNetFromDarknet(String cfgFile, String darknetModel) {
-        return new Net(readNetFromDarknet_0(cfgFile, darknetModel));
-    }
-
-    /**
-     * Reads a network model stored in &lt;a href="https://pjreddie.com/darknet/"&gt;Darknet&lt;/a&gt; model files.
-     * @param cfgFile      path to the .cfg file with text description of the network architecture.
-     * @return Network object that ready to do forward, throw an exception in failure cases.
-     */
-    public static Net readNetFromDarknet(String cfgFile) {
-        return new Net(readNetFromDarknet_1(cfgFile));
-    }
-
-
-    //
-    // C++:  Net cv::dnn::readNetFromDarknet(vector_uchar bufferCfg, vector_uchar bufferModel = std::vector<uchar>())
-    //
-
-    /**
-     * Reads a network model stored in &lt;a href="https://pjreddie.com/darknet/"&gt;Darknet&lt;/a&gt; model files.
-     * @param bufferCfg   A buffer contains a content of .cfg file with text description of the network architecture.
-     * @param bufferModel A buffer contains a content of .weights file with learned network.
-     * @return Net object.
-     */
-    public static Net readNetFromDarknet(MatOfByte bufferCfg, MatOfByte bufferModel) {
-        Mat bufferCfg_mat = bufferCfg;
-        Mat bufferModel_mat = bufferModel;
-        return new Net(readNetFromDarknet_2(bufferCfg_mat.nativeObj, bufferModel_mat.nativeObj));
-    }
-
-    /**
-     * Reads a network model stored in &lt;a href="https://pjreddie.com/darknet/"&gt;Darknet&lt;/a&gt; model files.
-     * @param bufferCfg   A buffer contains a content of .cfg file with text description of the network architecture.
-     * @return Net object.
-     */
-    public static Net readNetFromDarknet(MatOfByte bufferCfg) {
-        Mat bufferCfg_mat = bufferCfg;
-        return new Net(readNetFromDarknet_3(bufferCfg_mat.nativeObj));
-    }
-
-
-    //
-    // C++:  Net cv::dnn::readNetFromCaffe(String prototxt, String caffeModel = String())
-    //
-
-    /**
-     * Reads a network model stored in &lt;a href="http://caffe.berkeleyvision.org"&gt;Caffe&lt;/a&gt; framework's format.
-     * @param prototxt   path to the .prototxt file with text description of the network architecture.
-     * @param caffeModel path to the .caffemodel file with learned network.
-     * @return Net object.
-     */
-    public static Net readNetFromCaffe(String prototxt, String caffeModel) {
-        return new Net(readNetFromCaffe_0(prototxt, caffeModel));
-    }
-
-    /**
-     * Reads a network model stored in &lt;a href="http://caffe.berkeleyvision.org"&gt;Caffe&lt;/a&gt; framework's format.
-     * @param prototxt   path to the .prototxt file with text description of the network architecture.
-     * @return Net object.
-     */
-    public static Net readNetFromCaffe(String prototxt) {
-        return new Net(readNetFromCaffe_1(prototxt));
-    }
-
-
-    //
-    // C++:  Net cv::dnn::readNetFromCaffe(vector_uchar bufferProto, vector_uchar bufferModel = std::vector<uchar>())
-    //
-
-    /**
-     * Reads a network model stored in Caffe model in memory.
-     * @param bufferProto buffer containing the content of the .prototxt file
-     * @param bufferModel buffer containing the content of the .caffemodel file
-     * @return Net object.
-     */
-    public static Net readNetFromCaffe(MatOfByte bufferProto, MatOfByte bufferModel) {
-        Mat bufferProto_mat = bufferProto;
-        Mat bufferModel_mat = bufferModel;
-        return new Net(readNetFromCaffe_2(bufferProto_mat.nativeObj, bufferModel_mat.nativeObj));
-    }
-
-    /**
-     * Reads a network model stored in Caffe model in memory.
-     * @param bufferProto buffer containing the content of the .prototxt file
-     * @return Net object.
-     */
-    public static Net readNetFromCaffe(MatOfByte bufferProto) {
-        Mat bufferProto_mat = bufferProto;
-        return new Net(readNetFromCaffe_3(bufferProto_mat.nativeObj));
-    }
-
-
-    //
-    // C++:  Net cv::dnn::readNetFromTensorflow(String model, String config = String())
+    // C++:  Net cv::dnn::readNetFromTensorflow(String model, String config = String(), int engine = ENGINE_AUTO, vector_String extraOutputs = std::vector<String>())
     //
 
     /**
@@ -195,10 +194,40 @@ public class Dnn {
      * @param config path to the .pbtxt file that contains text graph definition in protobuf format.
      * Resulting Net object is built by text graph using weights from a binary one that
      * let us make it more flexible.
+     * @param engine select DNN engine to be used. With auto selection the new engine is used.
+     * @param extraOutputs specify model outputs explicitly, in addition to the outputs the graph analyzer finds.
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
+     * @return Net object.
+     */
+    public static Net readNetFromTensorflow(String model, String config, int engine, List<String> extraOutputs) {
+        return new Net(readNetFromTensorflow_0(model, config, engine, extraOutputs));
+    }
+
+    /**
+     * Reads a network model stored in &lt;a href="https://www.tensorflow.org/"&gt;TensorFlow&lt;/a&gt; framework's format.
+     * @param model  path to the .pb file with binary protobuf description of the network architecture
+     * @param config path to the .pbtxt file that contains text graph definition in protobuf format.
+     * Resulting Net object is built by text graph using weights from a binary one that
+     * let us make it more flexible.
+     * @param engine select DNN engine to be used. With auto selection the new engine is used.
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
+     * @return Net object.
+     */
+    public static Net readNetFromTensorflow(String model, String config, int engine) {
+        return new Net(readNetFromTensorflow_1(model, config, engine));
+    }
+
+    /**
+     * Reads a network model stored in &lt;a href="https://www.tensorflow.org/"&gt;TensorFlow&lt;/a&gt; framework's format.
+     * @param model  path to the .pb file with binary protobuf description of the network architecture
+     * @param config path to the .pbtxt file that contains text graph definition in protobuf format.
+     * Resulting Net object is built by text graph using weights from a binary one that
+     * let us make it more flexible.
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
      * @return Net object.
      */
     public static Net readNetFromTensorflow(String model, String config) {
-        return new Net(readNetFromTensorflow_0(model, config));
+        return new Net(readNetFromTensorflow_2(model, config));
     }
 
     /**
@@ -206,249 +235,227 @@ public class Dnn {
      * @param model  path to the .pb file with binary protobuf description of the network architecture
      * Resulting Net object is built by text graph using weights from a binary one that
      * let us make it more flexible.
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
      * @return Net object.
      */
     public static Net readNetFromTensorflow(String model) {
-        return new Net(readNetFromTensorflow_1(model));
+        return new Net(readNetFromTensorflow_3(model));
     }
 
 
     //
-    // C++:  Net cv::dnn::readNetFromTensorflow(vector_uchar bufferModel, vector_uchar bufferConfig = std::vector<uchar>())
+    // C++:  Net cv::dnn::readNetFromTensorflow(vector_uchar bufferModel, vector_uchar bufferConfig = std::vector<uchar>(), int engine = ENGINE_AUTO, vector_String extraOutputs = std::vector<String>())
     //
 
     /**
      * Reads a network model stored in &lt;a href="https://www.tensorflow.org/"&gt;TensorFlow&lt;/a&gt; framework's format.
      * @param bufferModel buffer containing the content of the pb file
      * @param bufferConfig buffer containing the content of the pbtxt file
+     * @param engine select DNN engine to be used. With auto selection the new engine is used.
+     * @param extraOutputs specify model outputs explicitly, in addition to the outputs the graph analyzer finds.
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
      * @return Net object.
      */
-    public static Net readNetFromTensorflow(MatOfByte bufferModel, MatOfByte bufferConfig) {
+    public static Net readNetFromTensorflow(MatOfByte bufferModel, MatOfByte bufferConfig, int engine, List<String> extraOutputs) {
         Mat bufferModel_mat = bufferModel;
         Mat bufferConfig_mat = bufferConfig;
-        return new Net(readNetFromTensorflow_2(bufferModel_mat.nativeObj, bufferConfig_mat.nativeObj));
+        return new Net(readNetFromTensorflow_4(bufferModel_mat.nativeObj, bufferConfig_mat.nativeObj, engine, extraOutputs));
     }
 
     /**
      * Reads a network model stored in &lt;a href="https://www.tensorflow.org/"&gt;TensorFlow&lt;/a&gt; framework's format.
      * @param bufferModel buffer containing the content of the pb file
+     * @param bufferConfig buffer containing the content of the pbtxt file
+     * @param engine select DNN engine to be used. With auto selection the new engine is used.
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
+     * @return Net object.
+     */
+    public static Net readNetFromTensorflow(MatOfByte bufferModel, MatOfByte bufferConfig, int engine) {
+        Mat bufferModel_mat = bufferModel;
+        Mat bufferConfig_mat = bufferConfig;
+        return new Net(readNetFromTensorflow_5(bufferModel_mat.nativeObj, bufferConfig_mat.nativeObj, engine));
+    }
+
+    /**
+     * Reads a network model stored in &lt;a href="https://www.tensorflow.org/"&gt;TensorFlow&lt;/a&gt; framework's format.
+     * @param bufferModel buffer containing the content of the pb file
+     * @param bufferConfig buffer containing the content of the pbtxt file
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
+     * @return Net object.
+     */
+    public static Net readNetFromTensorflow(MatOfByte bufferModel, MatOfByte bufferConfig) {
+        Mat bufferModel_mat = bufferModel;
+        Mat bufferConfig_mat = bufferConfig;
+        return new Net(readNetFromTensorflow_6(bufferModel_mat.nativeObj, bufferConfig_mat.nativeObj));
+    }
+
+    /**
+     * Reads a network model stored in &lt;a href="https://www.tensorflow.org/"&gt;TensorFlow&lt;/a&gt; framework's format.
+     * @param bufferModel buffer containing the content of the pb file
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
      * @return Net object.
      */
     public static Net readNetFromTensorflow(MatOfByte bufferModel) {
         Mat bufferModel_mat = bufferModel;
-        return new Net(readNetFromTensorflow_3(bufferModel_mat.nativeObj));
+        return new Net(readNetFromTensorflow_7(bufferModel_mat.nativeObj));
     }
 
 
     //
-    // C++:  Net cv::dnn::readNetFromTFLite(String model)
+    // C++:  Net cv::dnn::readNetFromTFLite(String model, int engine = ENGINE_AUTO)
     //
 
     /**
      * Reads a network model stored in &lt;a href="https://www.tensorflow.org/lite"&gt;TFLite&lt;/a&gt; framework's format.
      * @param model  path to the .tflite file with binary flatbuffers description of the network architecture
+     * @param engine select DNN engine to be used. With auto selection the new engine is used first and falls back to classic.
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
+     * @return Net object.
+     */
+    public static Net readNetFromTFLite(String model, int engine) {
+        return new Net(readNetFromTFLite_0(model, engine));
+    }
+
+    /**
+     * Reads a network model stored in &lt;a href="https://www.tensorflow.org/lite"&gt;TFLite&lt;/a&gt; framework's format.
+     * @param model  path to the .tflite file with binary flatbuffers description of the network architecture
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
      * @return Net object.
      */
     public static Net readNetFromTFLite(String model) {
-        return new Net(readNetFromTFLite_0(model));
+        return new Net(readNetFromTFLite_1(model));
     }
 
 
     //
-    // C++:  Net cv::dnn::readNetFromTFLite(vector_uchar bufferModel)
+    // C++:  Net cv::dnn::readNetFromTFLite(vector_uchar bufferModel, int engine = ENGINE_AUTO)
     //
 
     /**
      * Reads a network model stored in &lt;a href="https://www.tensorflow.org/lite"&gt;TFLite&lt;/a&gt; framework's format.
      * @param bufferModel buffer containing the content of the tflite file
+     * @param engine select DNN engine to be used. With auto selection the new engine is used first and falls back to classic.
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
+     * @return Net object.
+     */
+    public static Net readNetFromTFLite(MatOfByte bufferModel, int engine) {
+        Mat bufferModel_mat = bufferModel;
+        return new Net(readNetFromTFLite_2(bufferModel_mat.nativeObj, engine));
+    }
+
+    /**
+     * Reads a network model stored in &lt;a href="https://www.tensorflow.org/lite"&gt;TFLite&lt;/a&gt; framework's format.
+     * @param bufferModel buffer containing the content of the tflite file
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
      * @return Net object.
      */
     public static Net readNetFromTFLite(MatOfByte bufferModel) {
         Mat bufferModel_mat = bufferModel;
-        return new Net(readNetFromTFLite_1(bufferModel_mat.nativeObj));
+        return new Net(readNetFromTFLite_3(bufferModel_mat.nativeObj));
     }
 
 
     //
-    // C++:  Net cv::dnn::readNetFromTorch(String model, bool isBinary = true, bool evaluate = true)
-    //
-
-    /**
-     * Reads a network model stored in &lt;a href="http://torch.ch"&gt;Torch7&lt;/a&gt; framework's format.
-     * @param model    path to the file, dumped from Torch by using torch.save() function.
-     * @param isBinary specifies whether the network was serialized in ascii mode or binary.
-     * @param evaluate specifies testing phase of network. If true, it's similar to evaluate() method in Torch.
-     * @return Net object.
-     *
-     * <b>Note:</b> Ascii mode of Torch serializer is more preferable, because binary mode extensively use {@code long} type of C language,
-     * which has various bit-length on different systems.
-     *
-     * The loading file must contain serialized &lt;a href="https://github.com/torch/nn/blob/master/doc/module.md"&gt;nn.Module&lt;/a&gt; object
-     * with importing network. Try to eliminate a custom objects from serialazing data to avoid importing errors.
-     *
-     * List of supported layers (i.e. object instances derived from Torch nn.Module class):
-     * - nn.Sequential
-     * - nn.Parallel
-     * - nn.Concat
-     * - nn.Linear
-     * - nn.SpatialConvolution
-     * - nn.SpatialMaxPooling, nn.SpatialAveragePooling
-     * - nn.ReLU, nn.TanH, nn.Sigmoid
-     * - nn.Reshape
-     * - nn.SoftMax, nn.LogSoftMax
-     *
-     * Also some equivalents of these classes from cunn, cudnn, and fbcunn may be successfully imported.
-     */
-    public static Net readNetFromTorch(String model, boolean isBinary, boolean evaluate) {
-        return new Net(readNetFromTorch_0(model, isBinary, evaluate));
-    }
-
-    /**
-     * Reads a network model stored in &lt;a href="http://torch.ch"&gt;Torch7&lt;/a&gt; framework's format.
-     * @param model    path to the file, dumped from Torch by using torch.save() function.
-     * @param isBinary specifies whether the network was serialized in ascii mode or binary.
-     * @return Net object.
-     *
-     * <b>Note:</b> Ascii mode of Torch serializer is more preferable, because binary mode extensively use {@code long} type of C language,
-     * which has various bit-length on different systems.
-     *
-     * The loading file must contain serialized &lt;a href="https://github.com/torch/nn/blob/master/doc/module.md"&gt;nn.Module&lt;/a&gt; object
-     * with importing network. Try to eliminate a custom objects from serialazing data to avoid importing errors.
-     *
-     * List of supported layers (i.e. object instances derived from Torch nn.Module class):
-     * - nn.Sequential
-     * - nn.Parallel
-     * - nn.Concat
-     * - nn.Linear
-     * - nn.SpatialConvolution
-     * - nn.SpatialMaxPooling, nn.SpatialAveragePooling
-     * - nn.ReLU, nn.TanH, nn.Sigmoid
-     * - nn.Reshape
-     * - nn.SoftMax, nn.LogSoftMax
-     *
-     * Also some equivalents of these classes from cunn, cudnn, and fbcunn may be successfully imported.
-     */
-    public static Net readNetFromTorch(String model, boolean isBinary) {
-        return new Net(readNetFromTorch_1(model, isBinary));
-    }
-
-    /**
-     * Reads a network model stored in &lt;a href="http://torch.ch"&gt;Torch7&lt;/a&gt; framework's format.
-     * @param model    path to the file, dumped from Torch by using torch.save() function.
-     * @return Net object.
-     *
-     * <b>Note:</b> Ascii mode of Torch serializer is more preferable, because binary mode extensively use {@code long} type of C language,
-     * which has various bit-length on different systems.
-     *
-     * The loading file must contain serialized &lt;a href="https://github.com/torch/nn/blob/master/doc/module.md"&gt;nn.Module&lt;/a&gt; object
-     * with importing network. Try to eliminate a custom objects from serialazing data to avoid importing errors.
-     *
-     * List of supported layers (i.e. object instances derived from Torch nn.Module class):
-     * - nn.Sequential
-     * - nn.Parallel
-     * - nn.Concat
-     * - nn.Linear
-     * - nn.SpatialConvolution
-     * - nn.SpatialMaxPooling, nn.SpatialAveragePooling
-     * - nn.ReLU, nn.TanH, nn.Sigmoid
-     * - nn.Reshape
-     * - nn.SoftMax, nn.LogSoftMax
-     *
-     * Also some equivalents of these classes from cunn, cudnn, and fbcunn may be successfully imported.
-     */
-    public static Net readNetFromTorch(String model) {
-        return new Net(readNetFromTorch_2(model));
-    }
-
-
-    //
-    // C++:  Net cv::dnn::readNet(String model, String config = "", String framework = "")
+    // C++:  Net cv::dnn::readNet(String model, String config = "", String framework = "", int engine = ENGINE_AUTO)
     //
 
     /**
      * Read deep learning network represented in one of the supported formats.
      * @param model Binary file contains trained weights. The following file
      * extensions are expected for models from different frameworks:
-     * * {@code *.caffemodel} (Caffe, http://caffe.berkeleyvision.org/)
      * * {@code *.pb} (TensorFlow, https://www.tensorflow.org/)
-     * * {@code *.t7} | {@code *.net} (Torch, http://torch.ch/)
-     * * {@code *.weights} (Darknet, https://pjreddie.com/darknet/)
      * * {@code *.bin} | {@code *.onnx} (OpenVINO, https://software.intel.com/openvino-toolkit)
      * * {@code *.onnx} (ONNX, https://onnx.ai/)
      * @param config Text file contains network configuration. It could be a
      * file with the following extensions:
-     * * {@code *.prototxt} (Caffe, http://caffe.berkeleyvision.org/)
      * * {@code *.pbtxt} (TensorFlow, https://www.tensorflow.org/)
-     * * {@code *.cfg} (Darknet, https://pjreddie.com/darknet/)
      * * {@code *.xml} (OpenVINO, https://software.intel.com/openvino-toolkit)
      * @param framework Explicit framework name tag to determine a format.
+     * @param engine select DNN engine to be used. With auto selection the new engine is used first and falls back to classic.
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
+     * Use ENGINE_CLASSIC if you want to use other back-ends.
      * @return Net object.
      *
      * This function automatically detects an origin framework of trained model
-     * and calls an appropriate function such REF: readNetFromCaffe, REF: readNetFromTensorflow,
-     * REF: readNetFromTorch or REF: readNetFromDarknet. An order of {@code model} and {@code config}
-     * arguments does not matter.
+     * and calls an appropriate function such REF: readNetFromTensorflow, REF: readNetFromONNX.
+     * An order of {@code model} and {@code config} arguments does not matter.
      */
-    public static Net readNet(String model, String config, String framework) {
-        return new Net(readNet_0(model, config, framework));
+    public static Net readNet(String model, String config, String framework, int engine) {
+        return new Net(readNet_0(model, config, framework, engine));
     }
 
     /**
      * Read deep learning network represented in one of the supported formats.
      * @param model Binary file contains trained weights. The following file
      * extensions are expected for models from different frameworks:
-     * * {@code *.caffemodel} (Caffe, http://caffe.berkeleyvision.org/)
      * * {@code *.pb} (TensorFlow, https://www.tensorflow.org/)
-     * * {@code *.t7} | {@code *.net} (Torch, http://torch.ch/)
-     * * {@code *.weights} (Darknet, https://pjreddie.com/darknet/)
      * * {@code *.bin} | {@code *.onnx} (OpenVINO, https://software.intel.com/openvino-toolkit)
      * * {@code *.onnx} (ONNX, https://onnx.ai/)
      * @param config Text file contains network configuration. It could be a
      * file with the following extensions:
-     * * {@code *.prototxt} (Caffe, http://caffe.berkeleyvision.org/)
      * * {@code *.pbtxt} (TensorFlow, https://www.tensorflow.org/)
-     * * {@code *.cfg} (Darknet, https://pjreddie.com/darknet/)
      * * {@code *.xml} (OpenVINO, https://software.intel.com/openvino-toolkit)
+     * @param framework Explicit framework name tag to determine a format.
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
+     * Use ENGINE_CLASSIC if you want to use other back-ends.
      * @return Net object.
      *
      * This function automatically detects an origin framework of trained model
-     * and calls an appropriate function such REF: readNetFromCaffe, REF: readNetFromTensorflow,
-     * REF: readNetFromTorch or REF: readNetFromDarknet. An order of {@code model} and {@code config}
-     * arguments does not matter.
+     * and calls an appropriate function such REF: readNetFromTensorflow, REF: readNetFromONNX.
+     * An order of {@code model} and {@code config} arguments does not matter.
      */
-    public static Net readNet(String model, String config) {
-        return new Net(readNet_1(model, config));
+    public static Net readNet(String model, String config, String framework) {
+        return new Net(readNet_1(model, config, framework));
     }
 
     /**
      * Read deep learning network represented in one of the supported formats.
      * @param model Binary file contains trained weights. The following file
      * extensions are expected for models from different frameworks:
-     * * {@code *.caffemodel} (Caffe, http://caffe.berkeleyvision.org/)
      * * {@code *.pb} (TensorFlow, https://www.tensorflow.org/)
-     * * {@code *.t7} | {@code *.net} (Torch, http://torch.ch/)
-     * * {@code *.weights} (Darknet, https://pjreddie.com/darknet/)
      * * {@code *.bin} | {@code *.onnx} (OpenVINO, https://software.intel.com/openvino-toolkit)
      * * {@code *.onnx} (ONNX, https://onnx.ai/)
+     * @param config Text file contains network configuration. It could be a
      * file with the following extensions:
-     * * {@code *.prototxt} (Caffe, http://caffe.berkeleyvision.org/)
      * * {@code *.pbtxt} (TensorFlow, https://www.tensorflow.org/)
-     * * {@code *.cfg} (Darknet, https://pjreddie.com/darknet/)
      * * {@code *.xml} (OpenVINO, https://software.intel.com/openvino-toolkit)
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
+     * Use ENGINE_CLASSIC if you want to use other back-ends.
      * @return Net object.
      *
      * This function automatically detects an origin framework of trained model
-     * and calls an appropriate function such REF: readNetFromCaffe, REF: readNetFromTensorflow,
-     * REF: readNetFromTorch or REF: readNetFromDarknet. An order of {@code model} and {@code config}
-     * arguments does not matter.
+     * and calls an appropriate function such REF: readNetFromTensorflow, REF: readNetFromONNX.
+     * An order of {@code model} and {@code config} arguments does not matter.
+     */
+    public static Net readNet(String model, String config) {
+        return new Net(readNet_2(model, config));
+    }
+
+    /**
+     * Read deep learning network represented in one of the supported formats.
+     * @param model Binary file contains trained weights. The following file
+     * extensions are expected for models from different frameworks:
+     * * {@code *.pb} (TensorFlow, https://www.tensorflow.org/)
+     * * {@code *.bin} | {@code *.onnx} (OpenVINO, https://software.intel.com/openvino-toolkit)
+     * * {@code *.onnx} (ONNX, https://onnx.ai/)
+     * file with the following extensions:
+     * * {@code *.pbtxt} (TensorFlow, https://www.tensorflow.org/)
+     * * {@code *.xml} (OpenVINO, https://software.intel.com/openvino-toolkit)
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
+     * Use ENGINE_CLASSIC if you want to use other back-ends.
+     * @return Net object.
+     *
+     * This function automatically detects an origin framework of trained model
+     * and calls an appropriate function such REF: readNetFromTensorflow, REF: readNetFromONNX.
+     * An order of {@code model} and {@code config} arguments does not matter.
      */
     public static Net readNet(String model) {
-        return new Net(readNet_2(model));
+        return new Net(readNet_3(model));
     }
 
 
     //
-    // C++:  Net cv::dnn::readNet(String framework, vector_uchar bufferModel, vector_uchar bufferConfig = std::vector<uchar>())
+    // C++:  Net cv::dnn::readNet(String framework, vector_uchar bufferModel, vector_uchar bufferConfig = std::vector<uchar>(), int engine = ENGINE_AUTO)
     //
 
     /**
@@ -458,12 +465,15 @@ public class Dnn {
      * @param framework    Name of origin framework.
      * @param bufferModel  A buffer with a content of binary file with weights
      * @param bufferConfig A buffer with a content of text file contains network configuration.
+     * @param engine select DNN engine to be used. With auto selection the new engine is used first and falls back to classic.
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
+     * Use ENGINE_CLASSIC if you want to use other back-ends.
      * @return Net object.
      */
-    public static Net readNet(String framework, MatOfByte bufferModel, MatOfByte bufferConfig) {
+    public static Net readNet(String framework, MatOfByte bufferModel, MatOfByte bufferConfig, int engine) {
         Mat bufferModel_mat = bufferModel;
         Mat bufferConfig_mat = bufferConfig;
-        return new Net(readNet_3(framework, bufferModel_mat.nativeObj, bufferConfig_mat.nativeObj));
+        return new Net(readNet_4(framework, bufferModel_mat.nativeObj, bufferConfig_mat.nativeObj, engine));
     }
 
     /**
@@ -472,37 +482,30 @@ public class Dnn {
      * It differs from the above function only in what argument(s) it accepts.
      * @param framework    Name of origin framework.
      * @param bufferModel  A buffer with a content of binary file with weights
+     * @param bufferConfig A buffer with a content of text file contains network configuration.
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
+     * Use ENGINE_CLASSIC if you want to use other back-ends.
+     * @return Net object.
+     */
+    public static Net readNet(String framework, MatOfByte bufferModel, MatOfByte bufferConfig) {
+        Mat bufferModel_mat = bufferModel;
+        Mat bufferConfig_mat = bufferConfig;
+        return new Net(readNet_5(framework, bufferModel_mat.nativeObj, bufferConfig_mat.nativeObj));
+    }
+
+    /**
+     * Read deep learning network represented in one of the supported formats.
+     * This is an overloaded member function, provided for convenience.
+     * It differs from the above function only in what argument(s) it accepts.
+     * @param framework    Name of origin framework.
+     * @param bufferModel  A buffer with a content of binary file with weights
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
+     * Use ENGINE_CLASSIC if you want to use other back-ends.
      * @return Net object.
      */
     public static Net readNet(String framework, MatOfByte bufferModel) {
         Mat bufferModel_mat = bufferModel;
-        return new Net(readNet_4(framework, bufferModel_mat.nativeObj));
-    }
-
-
-    //
-    // C++:  Mat cv::dnn::readTorchBlob(String filename, bool isBinary = true)
-    //
-
-    /**
-     * Loads blob which was serialized as torch.Tensor object of Torch7 framework.
-     * WARNING: This function has the same limitations as readNetFromTorch().
-     * @param filename automatically generated
-     * @param isBinary automatically generated
-     * @return automatically generated
-     */
-    public static Mat readTorchBlob(String filename, boolean isBinary) {
-        return new Mat(readTorchBlob_0(filename, isBinary));
-    }
-
-    /**
-     * Loads blob which was serialized as torch.Tensor object of Torch7 framework.
-     * WARNING: This function has the same limitations as readNetFromTorch().
-     * @param filename automatically generated
-     * @return automatically generated
-     */
-    public static Mat readTorchBlob(String filename) {
-        return new Mat(readTorchBlob_1(filename));
+        return new Net(readNet_6(framework, bufferModel_mat.nativeObj));
     }
 
 
@@ -554,33 +557,60 @@ public class Dnn {
 
 
     //
-    // C++:  Net cv::dnn::readNetFromONNX(String onnxFile)
+    // C++:  Net cv::dnn::readNetFromONNX(String onnxFile, int engine = ENGINE_AUTO)
     //
 
     /**
      * Reads a network model &lt;a href="https://onnx.ai/"&gt;ONNX&lt;/a&gt;.
      * @param onnxFile path to the .onnx file with text description of the network architecture.
+     * @param engine select DNN engine to be used. With auto selection the new engine is used first and falls back to classic.
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
+     * @return Network object that ready to do forward, throw an exception in failure cases.
+     */
+    public static Net readNetFromONNX(String onnxFile, int engine) {
+        return new Net(readNetFromONNX_0(onnxFile, engine));
+    }
+
+    /**
+     * Reads a network model &lt;a href="https://onnx.ai/"&gt;ONNX&lt;/a&gt;.
+     * @param onnxFile path to the .onnx file with text description of the network architecture.
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
      * @return Network object that ready to do forward, throw an exception in failure cases.
      */
     public static Net readNetFromONNX(String onnxFile) {
-        return new Net(readNetFromONNX_0(onnxFile));
+        return new Net(readNetFromONNX_1(onnxFile));
     }
 
 
     //
-    // C++:  Net cv::dnn::readNetFromONNX(vector_uchar buffer)
+    // C++:  Net cv::dnn::readNetFromONNX(vector_uchar buffer, int engine = ENGINE_AUTO)
     //
 
     /**
      * Reads a network model from &lt;a href="https://onnx.ai/"&gt;ONNX&lt;/a&gt;
      * in-memory buffer.
      * @param buffer in-memory buffer that stores the ONNX model bytes.
+     * @param engine select DNN engine to be used. With auto selection the new engine is used first and falls back to classic.
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
+     * @return Network object that ready to do forward, throw an exception
+     * in failure cases.
+     */
+    public static Net readNetFromONNX(MatOfByte buffer, int engine) {
+        Mat buffer_mat = buffer;
+        return new Net(readNetFromONNX_2(buffer_mat.nativeObj, engine));
+    }
+
+    /**
+     * Reads a network model from &lt;a href="https://onnx.ai/"&gt;ONNX&lt;/a&gt;
+     * in-memory buffer.
+     * @param buffer in-memory buffer that stores the ONNX model bytes.
+     * Please pay attention that the new DNN does not support non-CPU back-ends for now.
      * @return Network object that ready to do forward, throw an exception
      * in failure cases.
      */
     public static Net readNetFromONNX(MatOfByte buffer) {
         Mat buffer_mat = buffer;
-        return new Net(readNetFromONNX_1(buffer_mat.nativeObj));
+        return new Net(readNetFromONNX_3(buffer_mat.nativeObj));
     }
 
 
@@ -1032,46 +1062,6 @@ public class Dnn {
 
 
     //
-    // C++:  void cv::dnn::shrinkCaffeModel(String src, String dst, vector_String layersTypes = std::vector<String>())
-    //
-
-    /**
-     * Convert all weights of Caffe network to half precision floating point.
-     * @param src Path to origin model from Caffe framework contains single
-     * precision floating point weights (usually has {@code .caffemodel} extension).
-     * @param dst Path to destination model with updated weights.
-     * @param layersTypes Set of layers types which parameters will be converted.
-     * By default, converts only Convolutional and Fully-Connected layers'
-     * weights.
-     *
-     * <b>Note:</b> Shrinked model has no origin float32 weights so it can't be used
-     * in origin Caffe framework anymore. However the structure of data
-     * is taken from NVidia's Caffe fork: https://github.com/NVIDIA/caffe.
-     * So the resulting model may be used there.
-     */
-    public static void shrinkCaffeModel(String src, String dst, List<String> layersTypes) {
-        shrinkCaffeModel_0(src, dst, layersTypes);
-    }
-
-    /**
-     * Convert all weights of Caffe network to half precision floating point.
-     * @param src Path to origin model from Caffe framework contains single
-     * precision floating point weights (usually has {@code .caffemodel} extension).
-     * @param dst Path to destination model with updated weights.
-     * By default, converts only Convolutional and Fully-Connected layers'
-     * weights.
-     *
-     * <b>Note:</b> Shrinked model has no origin float32 weights so it can't be used
-     * in origin Caffe framework anymore. However the structure of data
-     * is taken from NVidia's Caffe fork: https://github.com/NVIDIA/caffe.
-     * So the resulting model may be used there.
-     */
-    public static void shrinkCaffeModel(String src, String dst) {
-        shrinkCaffeModel_1(src, dst);
-    }
-
-
-    //
     // C++:  void cv::dnn::writeTextGraph(String model, String output)
     //
 
@@ -1398,53 +1388,36 @@ public class Dnn {
     // C++:  vector_Target cv::dnn::getAvailableTargets(dnn_Backend be)
     private static native List<Integer> getAvailableTargets_0(int be);
 
-    // C++:  Net cv::dnn::readNetFromDarknet(String cfgFile, String darknetModel = String())
-    private static native long readNetFromDarknet_0(String cfgFile, String darknetModel);
-    private static native long readNetFromDarknet_1(String cfgFile);
+    // C++:  Net cv::dnn::readNetFromTensorflow(String model, String config = String(), int engine = ENGINE_AUTO, vector_String extraOutputs = std::vector<String>())
+    private static native long readNetFromTensorflow_0(String model, String config, int engine, List<String> extraOutputs);
+    private static native long readNetFromTensorflow_1(String model, String config, int engine);
+    private static native long readNetFromTensorflow_2(String model, String config);
+    private static native long readNetFromTensorflow_3(String model);
 
-    // C++:  Net cv::dnn::readNetFromDarknet(vector_uchar bufferCfg, vector_uchar bufferModel = std::vector<uchar>())
-    private static native long readNetFromDarknet_2(long bufferCfg_mat_nativeObj, long bufferModel_mat_nativeObj);
-    private static native long readNetFromDarknet_3(long bufferCfg_mat_nativeObj);
+    // C++:  Net cv::dnn::readNetFromTensorflow(vector_uchar bufferModel, vector_uchar bufferConfig = std::vector<uchar>(), int engine = ENGINE_AUTO, vector_String extraOutputs = std::vector<String>())
+    private static native long readNetFromTensorflow_4(long bufferModel_mat_nativeObj, long bufferConfig_mat_nativeObj, int engine, List<String> extraOutputs);
+    private static native long readNetFromTensorflow_5(long bufferModel_mat_nativeObj, long bufferConfig_mat_nativeObj, int engine);
+    private static native long readNetFromTensorflow_6(long bufferModel_mat_nativeObj, long bufferConfig_mat_nativeObj);
+    private static native long readNetFromTensorflow_7(long bufferModel_mat_nativeObj);
 
-    // C++:  Net cv::dnn::readNetFromCaffe(String prototxt, String caffeModel = String())
-    private static native long readNetFromCaffe_0(String prototxt, String caffeModel);
-    private static native long readNetFromCaffe_1(String prototxt);
+    // C++:  Net cv::dnn::readNetFromTFLite(String model, int engine = ENGINE_AUTO)
+    private static native long readNetFromTFLite_0(String model, int engine);
+    private static native long readNetFromTFLite_1(String model);
 
-    // C++:  Net cv::dnn::readNetFromCaffe(vector_uchar bufferProto, vector_uchar bufferModel = std::vector<uchar>())
-    private static native long readNetFromCaffe_2(long bufferProto_mat_nativeObj, long bufferModel_mat_nativeObj);
-    private static native long readNetFromCaffe_3(long bufferProto_mat_nativeObj);
+    // C++:  Net cv::dnn::readNetFromTFLite(vector_uchar bufferModel, int engine = ENGINE_AUTO)
+    private static native long readNetFromTFLite_2(long bufferModel_mat_nativeObj, int engine);
+    private static native long readNetFromTFLite_3(long bufferModel_mat_nativeObj);
 
-    // C++:  Net cv::dnn::readNetFromTensorflow(String model, String config = String())
-    private static native long readNetFromTensorflow_0(String model, String config);
-    private static native long readNetFromTensorflow_1(String model);
+    // C++:  Net cv::dnn::readNet(String model, String config = "", String framework = "", int engine = ENGINE_AUTO)
+    private static native long readNet_0(String model, String config, String framework, int engine);
+    private static native long readNet_1(String model, String config, String framework);
+    private static native long readNet_2(String model, String config);
+    private static native long readNet_3(String model);
 
-    // C++:  Net cv::dnn::readNetFromTensorflow(vector_uchar bufferModel, vector_uchar bufferConfig = std::vector<uchar>())
-    private static native long readNetFromTensorflow_2(long bufferModel_mat_nativeObj, long bufferConfig_mat_nativeObj);
-    private static native long readNetFromTensorflow_3(long bufferModel_mat_nativeObj);
-
-    // C++:  Net cv::dnn::readNetFromTFLite(String model)
-    private static native long readNetFromTFLite_0(String model);
-
-    // C++:  Net cv::dnn::readNetFromTFLite(vector_uchar bufferModel)
-    private static native long readNetFromTFLite_1(long bufferModel_mat_nativeObj);
-
-    // C++:  Net cv::dnn::readNetFromTorch(String model, bool isBinary = true, bool evaluate = true)
-    private static native long readNetFromTorch_0(String model, boolean isBinary, boolean evaluate);
-    private static native long readNetFromTorch_1(String model, boolean isBinary);
-    private static native long readNetFromTorch_2(String model);
-
-    // C++:  Net cv::dnn::readNet(String model, String config = "", String framework = "")
-    private static native long readNet_0(String model, String config, String framework);
-    private static native long readNet_1(String model, String config);
-    private static native long readNet_2(String model);
-
-    // C++:  Net cv::dnn::readNet(String framework, vector_uchar bufferModel, vector_uchar bufferConfig = std::vector<uchar>())
-    private static native long readNet_3(String framework, long bufferModel_mat_nativeObj, long bufferConfig_mat_nativeObj);
-    private static native long readNet_4(String framework, long bufferModel_mat_nativeObj);
-
-    // C++:  Mat cv::dnn::readTorchBlob(String filename, bool isBinary = true)
-    private static native long readTorchBlob_0(String filename, boolean isBinary);
-    private static native long readTorchBlob_1(String filename);
+    // C++:  Net cv::dnn::readNet(String framework, vector_uchar bufferModel, vector_uchar bufferConfig = std::vector<uchar>(), int engine = ENGINE_AUTO)
+    private static native long readNet_4(String framework, long bufferModel_mat_nativeObj, long bufferConfig_mat_nativeObj, int engine);
+    private static native long readNet_5(String framework, long bufferModel_mat_nativeObj, long bufferConfig_mat_nativeObj);
+    private static native long readNet_6(String framework, long bufferModel_mat_nativeObj);
 
     // C++:  Net cv::dnn::readNetFromModelOptimizer(String xml, String bin = "")
     private static native long readNetFromModelOptimizer_0(String xml, String bin);
@@ -1453,11 +1426,13 @@ public class Dnn {
     // C++:  Net cv::dnn::readNetFromModelOptimizer(vector_uchar bufferModelConfig, vector_uchar bufferWeights)
     private static native long readNetFromModelOptimizer_2(long bufferModelConfig_mat_nativeObj, long bufferWeights_mat_nativeObj);
 
-    // C++:  Net cv::dnn::readNetFromONNX(String onnxFile)
-    private static native long readNetFromONNX_0(String onnxFile);
+    // C++:  Net cv::dnn::readNetFromONNX(String onnxFile, int engine = ENGINE_AUTO)
+    private static native long readNetFromONNX_0(String onnxFile, int engine);
+    private static native long readNetFromONNX_1(String onnxFile);
 
-    // C++:  Net cv::dnn::readNetFromONNX(vector_uchar buffer)
-    private static native long readNetFromONNX_1(long buffer_mat_nativeObj);
+    // C++:  Net cv::dnn::readNetFromONNX(vector_uchar buffer, int engine = ENGINE_AUTO)
+    private static native long readNetFromONNX_2(long buffer_mat_nativeObj, int engine);
+    private static native long readNetFromONNX_3(long buffer_mat_nativeObj);
 
     // C++:  Mat cv::dnn::readTensorFromONNX(String path)
     private static native long readTensorFromONNX_0(String path);
@@ -1498,10 +1473,6 @@ public class Dnn {
 
     // C++:  void cv::dnn::imagesFromBlob(Mat blob_, vector_Mat& images_)
     private static native void imagesFromBlob_0(long blob__nativeObj, long images__mat_nativeObj);
-
-    // C++:  void cv::dnn::shrinkCaffeModel(String src, String dst, vector_String layersTypes = std::vector<String>())
-    private static native void shrinkCaffeModel_0(String src, String dst, List<String> layersTypes);
-    private static native void shrinkCaffeModel_1(String src, String dst);
 
     // C++:  void cv::dnn::writeTextGraph(String model, String output)
     private static native void writeTextGraph_0(String model, String output);

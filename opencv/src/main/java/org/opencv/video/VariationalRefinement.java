@@ -301,7 +301,7 @@ public class VariationalRefinement extends DenseOpticalFlow {
     // C++: static Ptr_VariationalRefinement cv::VariationalRefinement::create()
     private static native long create_0();
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

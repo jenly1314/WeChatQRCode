@@ -12,7 +12,10 @@ package org.opencv.objdetect;
 public class DetectorParameters {
 
     protected final long nativeObj;
-    protected DetectorParameters(long addr) { nativeObj = addr; }
+    protected DetectorParameters(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -654,6 +657,24 @@ public class DetectorParameters {
     }
 
 
+    //
+    // C++: float DetectorParameters::validBitIdThreshold
+    //
+
+    public float get_validBitIdThreshold() {
+        return get_validBitIdThreshold_0(nativeObj);
+    }
+
+
+    //
+    // C++: void DetectorParameters::validBitIdThreshold
+    //
+
+    public void set_validBitIdThreshold(float validBitIdThreshold) {
+        set_validBitIdThreshold_0(nativeObj, validBitIdThreshold);
+    }
+
+
     @Override
     protected void finalize() throws Throwable {
         delete(nativeObj);
@@ -868,7 +889,13 @@ public class DetectorParameters {
     // C++: void DetectorParameters::minMarkerLengthRatioOriginalImg
     private static native void set_minMarkerLengthRatioOriginalImg_0(long nativeObj, float minMarkerLengthRatioOriginalImg);
 
-    // native support for java finalize()
+    // C++: float DetectorParameters::validBitIdThreshold
+    private static native float get_validBitIdThreshold_0(long nativeObj);
+
+    // C++: void DetectorParameters::validBitIdThreshold
+    private static native void set_validBitIdThreshold_0(long nativeObj, float validBitIdThreshold);
+
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

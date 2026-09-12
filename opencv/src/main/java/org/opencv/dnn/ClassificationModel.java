@@ -130,7 +130,7 @@ public class ClassificationModel extends Model {
     // C++:  void cv::dnn::ClassificationModel::classify(Mat frame, int& classId, float& conf)
     private static native void classify_0(long nativeObj, long frame_nativeObj, double[] classId_out, double[] conf_out);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

@@ -12,7 +12,10 @@ package org.opencv.videoio;
 public class IStreamReader {
 
     protected final long nativeObj;
-    protected IStreamReader(long addr) { nativeObj = addr; }
+    protected IStreamReader(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -75,7 +78,7 @@ protected IStreamReader() { nativeObj = 0; }
     // C++:  long long cv::IStreamReader::seek(long long offset, int origin)
     private static native long seek_0(long nativeObj, long offset, int origin);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

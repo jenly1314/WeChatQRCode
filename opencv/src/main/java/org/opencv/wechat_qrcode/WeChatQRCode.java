@@ -19,7 +19,10 @@ import org.opencv.utils.Converters;
 public class WeChatQRCode {
 
     protected final long nativeObj;
-    protected WeChatQRCode(long addr) { nativeObj = addr; }
+    protected WeChatQRCode(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -27,67 +30,40 @@ public class WeChatQRCode {
     public static WeChatQRCode __fromPtr__(long addr) { return new WeChatQRCode(addr); }
 
     //
-    // C++:   cv::wechat_qrcode::WeChatQRCode::WeChatQRCode(string detector_prototxt_path = "", string detector_caffe_model_path = "", string super_resolution_prototxt_path = "", string super_resolution_caffe_model_path = "")
+    // C++:   cv::wechat_qrcode::WeChatQRCode::WeChatQRCode(string detector_model_path = "", string super_resolution_model_path = "")
     //
 
     /**
      * Initialize the WeChatQRCode.
-     * It includes two models, which are packaged with caffe format.
-     * Therefore, there are prototxt and caffe models (In total, four paramenters).
+     * It includes two CNN-based models in ONNX format:
+     * a detector model and a super resolution model.
      *
-     * @param detector_prototxt_path prototxt file path for the detector
-     * @param detector_caffe_model_path caffe model file path for the detector
-     * @param super_resolution_prototxt_path prototxt file path for the super resolution model
-     * @param super_resolution_caffe_model_path caffe file path for the super resolution model
+     * @param detector_model_path onnx model file path for the detector
+     * @param super_resolution_model_path onnx model file path for the super resolution model
      */
-    public WeChatQRCode(String detector_prototxt_path, String detector_caffe_model_path, String super_resolution_prototxt_path, String super_resolution_caffe_model_path) {
-        nativeObj = WeChatQRCode_0(detector_prototxt_path, detector_caffe_model_path, super_resolution_prototxt_path, super_resolution_caffe_model_path);
+    public WeChatQRCode(String detector_model_path, String super_resolution_model_path) {
+        nativeObj = WeChatQRCode_0(detector_model_path, super_resolution_model_path);
     }
 
     /**
      * Initialize the WeChatQRCode.
-     * It includes two models, which are packaged with caffe format.
-     * Therefore, there are prototxt and caffe models (In total, four paramenters).
+     * It includes two CNN-based models in ONNX format:
+     * a detector model and a super resolution model.
      *
-     * @param detector_prototxt_path prototxt file path for the detector
-     * @param detector_caffe_model_path caffe model file path for the detector
-     * @param super_resolution_prototxt_path prototxt file path for the super resolution model
+     * @param detector_model_path onnx model file path for the detector
      */
-    public WeChatQRCode(String detector_prototxt_path, String detector_caffe_model_path, String super_resolution_prototxt_path) {
-        nativeObj = WeChatQRCode_1(detector_prototxt_path, detector_caffe_model_path, super_resolution_prototxt_path);
+    public WeChatQRCode(String detector_model_path) {
+        nativeObj = WeChatQRCode_1(detector_model_path);
     }
 
     /**
      * Initialize the WeChatQRCode.
-     * It includes two models, which are packaged with caffe format.
-     * Therefore, there are prototxt and caffe models (In total, four paramenters).
-     *
-     * @param detector_prototxt_path prototxt file path for the detector
-     * @param detector_caffe_model_path caffe model file path for the detector
-     */
-    public WeChatQRCode(String detector_prototxt_path, String detector_caffe_model_path) {
-        nativeObj = WeChatQRCode_2(detector_prototxt_path, detector_caffe_model_path);
-    }
-
-    /**
-     * Initialize the WeChatQRCode.
-     * It includes two models, which are packaged with caffe format.
-     * Therefore, there are prototxt and caffe models (In total, four paramenters).
-     *
-     * @param detector_prototxt_path prototxt file path for the detector
-     */
-    public WeChatQRCode(String detector_prototxt_path) {
-        nativeObj = WeChatQRCode_3(detector_prototxt_path);
-    }
-
-    /**
-     * Initialize the WeChatQRCode.
-     * It includes two models, which are packaged with caffe format.
-     * Therefore, there are prototxt and caffe models (In total, four paramenters).
+     * It includes two CNN-based models in ONNX format:
+     * a detector model and a super resolution model.
      *
      */
     public WeChatQRCode() {
-        nativeObj = WeChatQRCode_4();
+        nativeObj = WeChatQRCode_2();
     }
 
 
@@ -163,12 +139,10 @@ public class WeChatQRCode {
 
 
 
-    // C++:   cv::wechat_qrcode::WeChatQRCode::WeChatQRCode(string detector_prototxt_path = "", string detector_caffe_model_path = "", string super_resolution_prototxt_path = "", string super_resolution_caffe_model_path = "")
-    private static native long WeChatQRCode_0(String detector_prototxt_path, String detector_caffe_model_path, String super_resolution_prototxt_path, String super_resolution_caffe_model_path);
-    private static native long WeChatQRCode_1(String detector_prototxt_path, String detector_caffe_model_path, String super_resolution_prototxt_path);
-    private static native long WeChatQRCode_2(String detector_prototxt_path, String detector_caffe_model_path);
-    private static native long WeChatQRCode_3(String detector_prototxt_path);
-    private static native long WeChatQRCode_4();
+    // C++:   cv::wechat_qrcode::WeChatQRCode::WeChatQRCode(string detector_model_path = "", string super_resolution_model_path = "")
+    private static native long WeChatQRCode_0(String detector_model_path, String super_resolution_model_path);
+    private static native long WeChatQRCode_1(String detector_model_path);
+    private static native long WeChatQRCode_2();
 
     // C++:  vector_string cv::wechat_qrcode::WeChatQRCode::detectAndDecode(Mat img, vector_Mat& points = vector_Mat())
     private static native List<String> detectAndDecode_0(long nativeObj, long img_nativeObj, long points_mat_nativeObj);
@@ -180,7 +154,7 @@ public class WeChatQRCode {
     // C++:  float cv::wechat_qrcode::WeChatQRCode::getScaleFactor()
     private static native float getScaleFactor_0(long nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

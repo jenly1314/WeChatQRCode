@@ -81,6 +81,34 @@ public class CLAHE extends Algorithm {
 
 
     //
+    // C++:  void cv::CLAHE::setBitShift(int bitShift)
+    //
+
+    /**
+     * Sets bit shift parameter for histogram bins.
+     *
+     *     @param bitShift bit shift value (default is 0).
+     */
+    public void setBitShift(int bitShift) {
+        setBitShift_0(nativeObj, bitShift);
+    }
+
+
+    //
+    // C++:  int cv::CLAHE::getBitShift()
+    //
+
+    /**
+     * Returns the bit shift parameter for histogram bins.
+     *
+     *     @return current bit shift value.
+     */
+    public int getBitShift() {
+        return getBitShift_0(nativeObj);
+    }
+
+
+    //
     // C++:  void cv::CLAHE::collectGarbage()
     //
 
@@ -111,10 +139,16 @@ public class CLAHE extends Algorithm {
     // C++:  Size cv::CLAHE::getTilesGridSize()
     private static native double[] getTilesGridSize_0(long nativeObj);
 
+    // C++:  void cv::CLAHE::setBitShift(int bitShift)
+    private static native void setBitShift_0(long nativeObj, int bitShift);
+
+    // C++:  int cv::CLAHE::getBitShift()
+    private static native int getBitShift_0(long nativeObj);
+
     // C++:  void cv::CLAHE::collectGarbage()
     private static native void collectGarbage_0(long nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

@@ -188,7 +188,7 @@ public class SparsePyrLKOpticalFlow extends SparseOpticalFlow {
     private static native long create_4(double winSize_width, double winSize_height);
     private static native long create_5();
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

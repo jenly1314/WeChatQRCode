@@ -19,7 +19,10 @@ import org.opencv.utils.Converters;
 public class Animation {
 
     protected final long nativeObj;
-    protected Animation(long addr) { nativeObj = addr; }
+    protected Animation(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -258,7 +261,7 @@ public class Animation {
     // C++: void Animation::still_image
     private static native void set_still_image_0(long nativeObj, long still_image_nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

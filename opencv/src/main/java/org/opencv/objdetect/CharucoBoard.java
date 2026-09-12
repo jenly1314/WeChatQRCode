@@ -180,7 +180,7 @@ public class CharucoBoard extends Board {
     // C++:  bool cv::aruco::CharucoBoard::checkCharucoCornersCollinear(Mat charucoIds)
     private static native boolean checkCharucoCornersCollinear_0(long nativeObj, long charucoIds_nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

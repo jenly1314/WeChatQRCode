@@ -62,19 +62,6 @@ public class TrackerNano extends Tracker {
     }
 
 
-    //
-    // C++:  float cv::TrackerNano::getTrackingScore()
-    //
-
-    /**
-     * Return tracking score
-     * @return automatically generated
-     */
-    public float getTrackingScore() {
-        return getTrackingScore_0(nativeObj);
-    }
-
-
     @Override
     protected void finalize() throws Throwable {
         delete(nativeObj);
@@ -89,10 +76,7 @@ public class TrackerNano extends Tracker {
     // C++: static Ptr_TrackerNano cv::TrackerNano::create(Net backbone, Net neckhead)
     private static native long create_2(long backbone_nativeObj, long neckhead_nativeObj);
 
-    // C++:  float cv::TrackerNano::getTrackingScore()
-    private static native float getTrackingScore_0(long nativeObj);
-
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

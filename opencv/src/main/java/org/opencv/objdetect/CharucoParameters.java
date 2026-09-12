@@ -10,7 +10,10 @@ import org.opencv.core.Mat;
 public class CharucoParameters {
 
     protected final long nativeObj;
-    protected CharucoParameters(long addr) { nativeObj = addr; }
+    protected CharucoParameters(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -156,7 +159,7 @@ public class CharucoParameters {
     // C++: void CharucoParameters::checkMarkers
     private static native void set_checkMarkers_0(long nativeObj, boolean checkMarkers);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

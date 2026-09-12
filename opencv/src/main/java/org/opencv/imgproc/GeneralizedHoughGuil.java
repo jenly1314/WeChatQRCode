@@ -313,7 +313,7 @@ public class GeneralizedHoughGuil extends GeneralizedHough {
     // C++:  int cv::GeneralizedHoughGuil::getPosThresh()
     private static native int getPosThresh_0(long nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

@@ -58,7 +58,7 @@ public class DenseOpticalFlow extends Algorithm {
     // C++:  void cv::DenseOpticalFlow::collectGarbage()
     private static native void collectGarbage_0(long nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

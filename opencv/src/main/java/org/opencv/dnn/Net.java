@@ -8,7 +8,6 @@ import java.util.List;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.core.MatOfDouble;
-import org.opencv.core.MatOfFloat;
 import org.opencv.core.MatOfInt;
 import org.opencv.core.Scalar;
 import org.opencv.dnn.DictValue;
@@ -31,7 +30,10 @@ import org.opencv.utils.Converters;
 public class Net {
 
     protected final long nativeObj;
-    protected Net(long addr) { nativeObj = addr; }
+    protected Net(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -379,88 +381,16 @@ public class Net {
     // C++:  void cv::dnn::Net::forward(vector_vector_Mat& outputBlobs, vector_String outBlobNames)
     //
 
-    // Unknown type 'vector_vector_Mat' (O), skipping the function
-
-
-    //
-    // C++:  Net cv::dnn::Net::quantize(vector_Mat calibData, int inputsDtype, int outputsDtype, bool perChannel = true)
-    //
-
     /**
-     * Returns a quantized Net from a floating-point Net.
-     * @param calibData Calibration data to compute the quantization parameters.
-     * @param inputsDtype Datatype of quantized net's inputs. Can be CV_32F or CV_8S.
-     * @param outputsDtype Datatype of quantized net's outputs. Can be CV_32F or CV_8S.
-     * @param perChannel Quantization granularity of quantized Net. The default is true, that means quantize model
-     * in per-channel way (channel-wise). Set it false to quantize model in per-tensor way (or tensor-wise).
-     * @return automatically generated
+     * Runs forward pass to compute outputs of layers listed in {@code outBlobNames}.
+     * @param outputBlobs contains all output blobs for each layer specified in {@code outBlobNames}.
+     * @param outBlobNames names for layers which outputs are needed to get
      */
-    public Net quantize(List<Mat> calibData, int inputsDtype, int outputsDtype, boolean perChannel) {
-        Mat calibData_mat = Converters.vector_Mat_to_Mat(calibData);
-        return new Net(quantize_0(nativeObj, calibData_mat.nativeObj, inputsDtype, outputsDtype, perChannel));
-    }
-
-    /**
-     * Returns a quantized Net from a floating-point Net.
-     * @param calibData Calibration data to compute the quantization parameters.
-     * @param inputsDtype Datatype of quantized net's inputs. Can be CV_32F or CV_8S.
-     * @param outputsDtype Datatype of quantized net's outputs. Can be CV_32F or CV_8S.
-     * in per-channel way (channel-wise). Set it false to quantize model in per-tensor way (or tensor-wise).
-     * @return automatically generated
-     */
-    public Net quantize(List<Mat> calibData, int inputsDtype, int outputsDtype) {
-        Mat calibData_mat = Converters.vector_Mat_to_Mat(calibData);
-        return new Net(quantize_1(nativeObj, calibData_mat.nativeObj, inputsDtype, outputsDtype));
-    }
-
-
-    //
-    // C++:  void cv::dnn::Net::getInputDetails(vector_float& scales, vector_int& zeropoints)
-    //
-
-    /**
-     * Returns input scale and zeropoint for a quantized Net.
-     * @param scales output parameter for returning input scales.
-     * @param zeropoints output parameter for returning input zeropoints.
-     */
-    public void getInputDetails(MatOfFloat scales, MatOfInt zeropoints) {
-        Mat scales_mat = scales;
-        Mat zeropoints_mat = zeropoints;
-        getInputDetails_0(nativeObj, scales_mat.nativeObj, zeropoints_mat.nativeObj);
-    }
-
-
-    //
-    // C++:  void cv::dnn::Net::getOutputDetails(vector_float& scales, vector_int& zeropoints)
-    //
-
-    /**
-     * Returns output scale and zeropoint for a quantized Net.
-     * @param scales output parameter for returning output scales.
-     * @param zeropoints output parameter for returning output zeropoints.
-     */
-    public void getOutputDetails(MatOfFloat scales, MatOfInt zeropoints) {
-        Mat scales_mat = scales;
-        Mat zeropoints_mat = zeropoints;
-        getOutputDetails_0(nativeObj, scales_mat.nativeObj, zeropoints_mat.nativeObj);
-    }
-
-
-    //
-    // C++:  void cv::dnn::Net::setHalideScheduler(String scheduler)
-    //
-
-    /**
-     * Compile Halide layers.
-     * @param scheduler Path to YAML file with scheduling directives.
-     * SEE: setPreferableBackend
-     *
-     * Schedule layers that support Halide backend. Then compile them for
-     * specific target. For layers that not represented in scheduling file
-     * or if no manual scheduling used at all, automatic scheduling will be applied.
-     */
-    public void setHalideScheduler(String scheduler) {
-        setHalideScheduler_0(nativeObj, scheduler);
+    public void forwardAndRetrieve(List<List<Mat>> outputBlobs, List<String> outBlobNames) {
+        Mat outputBlobs_mat = new Mat();
+        forwardAndRetrieve_0(nativeObj, outputBlobs_mat.nativeObj, outBlobNames);
+        Converters.Mat_to_vector_vector_Mat(outputBlobs_mat, outputBlobs);
+        outputBlobs_mat.release();
     }
 
 
@@ -488,20 +418,76 @@ public class Net {
      * SEE: Target
      *
      * List of supported combinations backend / target:
-     * |                        | DNN_BACKEND_OPENCV | DNN_BACKEND_INFERENCE_ENGINE | DNN_BACKEND_HALIDE |  DNN_BACKEND_CUDA |
-     * |------------------------|--------------------|------------------------------|--------------------|-------------------|
-     * | DNN_TARGET_CPU         |                  + |                            + |                  + |                   |
-     * | DNN_TARGET_OPENCL      |                  + |                            + |                  + |                   |
-     * | DNN_TARGET_OPENCL_FP16 |                  + |                            + |                    |                   |
-     * | DNN_TARGET_MYRIAD      |                    |                            + |                    |                   |
-     * | DNN_TARGET_FPGA        |                    |                            + |                    |                   |
-     * | DNN_TARGET_CUDA        |                    |                              |                    |                 + |
-     * | DNN_TARGET_CUDA_FP16   |                    |                              |                    |                 + |
-     * | DNN_TARGET_HDDL        |                    |                            + |                    |                   |
+     * |                        | DNN_BACKEND_OPENCV | DNN_BACKEND_INFERENCE_ENGINE |  DNN_BACKEND_CUDA |
+     * |------------------------|--------------------|------------------------------|-------------------|
+     * | DNN_TARGET_CPU         |                  + |                            + |                   |
+     * | DNN_TARGET_OPENCL      |                  + |                            + |                   |
+     * | DNN_TARGET_OPENCL_FP16 |                  + |                            + |                   |
+     * | DNN_TARGET_MYRIAD      |                    |                            + |                   |
+     * | DNN_TARGET_FPGA        |                    |                            + |                   |
+     * | DNN_TARGET_CUDA        |                    |                              |                 + |
+     * | DNN_TARGET_CUDA_FP16   |                    |                              |                 + |
+     * | DNN_TARGET_HDDL        |                    |                            + |                   |
      */
     public void setPreferableTarget(int targetId) {
         setPreferableTarget_0(nativeObj, targetId);
     }
+
+
+    //
+    // C++:  void cv::dnn::Net::finalizeNet()
+    //
+
+    /**
+     * Finalizes the network configuration and prepares it for inference.
+     *
+     * This method must be called after setting backend/target via
+     * setPreferableBackend() and setPreferableTarget(), and before the first
+     * forward() call. It creates the underlying execution session (e.g. ONNX
+     * Runtime session) on the configured backend/target. If not called
+     * explicitly, the first forward() will call it automatically.
+     *
+     * Calling finalizeNet() early lets you pay the one-time setup cost at a
+     * predictable point and catch configuration errors before inference.
+     */
+    public void finalizeNet() {
+        finalizeNet_0(nativeObj);
+    }
+
+
+    //
+    // C++:  void cv::dnn::Net::setTracingMode(TracingMode tracingMode)
+    //
+
+    // Unknown type 'TracingMode' (I), skipping the function
+
+
+    //
+    // C++:  TracingMode cv::dnn::Net::getTracingMode()
+    //
+
+    // Return type 'TracingMode' is not supported, skipping the function
+
+
+    //
+    // C++:  void cv::dnn::Net::setProfilingMode(ProfilingMode profilingMode)
+    //
+
+    // Unknown type 'ProfilingMode' (I), skipping the function
+
+
+    //
+    // C++:  ProfilingMode cv::dnn::Net::getProfilingMode()
+    //
+
+    // Return type 'ProfilingMode' is not supported, skipping the function
+
+
+    //
+    // C++:  ModelFormat cv::dnn::Net::getModelFormat()
+    //
+
+    // Return type 'ModelFormat' is not supported, skipping the function
 
 
     //
@@ -589,6 +575,12 @@ public class Net {
     // C++:  void cv::dnn::Net::setParam(String layerName, int numParam, Mat blob)
     //
 
+    /**
+     * Sets the parameter blob of a layer identified by its name or output tensor name.
+     * @param layerName layer name (classic engine) or raw ONNX output tensor name (ENGINE_NEW).
+     * @param numParam index of the constant weight input to update (0 = kernel, 1 = bias, etc.).
+     * @param blob the new parameter value.
+     */
     public void setParam(String layerName, int numParam, Mat blob) {
         setParam_1(nativeObj, layerName, numParam, blob.nativeObj);
     }
@@ -664,59 +656,38 @@ public class Net {
 
 
     //
-    // C++:  void cv::dnn::Net::getLayersShapes(vector_MatShape netInputShapes, vector_int& layersIds, vector_vector_MatShape& inLayersShapes, vector_vector_MatShape& outLayersShapes)
+    // C++:  void cv::dnn::Net::getLayerShapes(vector_MatShape netInputShapes, vector_int netInputTypes, int layerId, vector_MatShape& inLayerShapes, vector_MatShape& outLayerShapes)
     //
 
-    // Unknown type 'vector_vector_MatShape' (O), skipping the function
+    /**
+     *
+     *
+     * The only overload of getLayerShapes that should be kept in 5.x
+     * @param netInputShapes automatically generated
+     * @param netInputTypes automatically generated
+     * @param layerId automatically generated
+     * @param inLayerShapes automatically generated
+     * @param outLayerShapes automatically generated
+     */
+    public void getLayerShapes(List<MatOfInt> netInputShapes, MatOfInt netInputTypes, int layerId, List<MatOfInt> inLayerShapes, List<MatOfInt> outLayerShapes) {
+        Mat netInputTypes_mat = netInputTypes;
+        getLayerShapes_0(nativeObj, netInputShapes, netInputTypes_mat.nativeObj, layerId, inLayerShapes, outLayerShapes);
+    }
 
 
     //
-    // C++:  void cv::dnn::Net::getLayersShapes(MatShape netInputShape, vector_int& layersIds, vector_vector_MatShape& inLayersShapes, vector_vector_MatShape& outLayersShapes)
-    //
-
-    // Unknown type 'vector_vector_MatShape' (O), skipping the function
-
-
-    //
-    // C++:  int64 cv::dnn::Net::getFLOPS(vector_MatShape netInputShapes)
+    // C++:  int64 cv::dnn::Net::getFLOPS(vector_MatShape netInputShapes, vector_int netInputTypes)
     //
 
     /**
      * Computes FLOP for whole loaded model with specified input shapes.
      * @param netInputShapes vector of shapes for all net inputs.
+     * @param netInputTypes vector of types for all net inputs.
      * @return computed FLOP.
      */
-    public long getFLOPS(List<MatOfInt> netInputShapes) {
-        return getFLOPS_0(nativeObj, netInputShapes);
-    }
-
-
-    //
-    // C++:  int64 cv::dnn::Net::getFLOPS(MatShape netInputShape)
-    //
-
-    public long getFLOPS(MatOfInt netInputShape) {
-        Mat netInputShape_mat = netInputShape;
-        return getFLOPS_1(nativeObj, netInputShape_mat.nativeObj);
-    }
-
-
-    //
-    // C++:  int64 cv::dnn::Net::getFLOPS(int layerId, vector_MatShape netInputShapes)
-    //
-
-    public long getFLOPS(int layerId, List<MatOfInt> netInputShapes) {
-        return getFLOPS_2(nativeObj, layerId, netInputShapes);
-    }
-
-
-    //
-    // C++:  int64 cv::dnn::Net::getFLOPS(int layerId, MatShape netInputShape)
-    //
-
-    public long getFLOPS(int layerId, MatOfInt netInputShape) {
-        Mat netInputShape_mat = netInputShape;
-        return getFLOPS_3(nativeObj, layerId, netInputShape_mat.nativeObj);
+    public long getFLOPS(List<MatOfInt> netInputShapes, MatOfInt netInputTypes) {
+        Mat netInputTypes_mat = netInputTypes;
+        return getFLOPS_0(nativeObj, netInputShapes, netInputTypes_mat.nativeObj);
     }
 
 
@@ -748,41 +719,22 @@ public class Net {
 
 
     //
-    // C++:  void cv::dnn::Net::getMemoryConsumption(MatShape netInputShape, size_t& weights, size_t& blobs)
+    // C++:  void cv::dnn::Net::getMemoryConsumption(vector_MatShape netInputShapes, vector_int netInputTypes, size_t& weights, size_t& blobs)
     //
 
-    public void getMemoryConsumption(MatOfInt netInputShape, long[] weights, long[] blobs) {
-        Mat netInputShape_mat = netInputShape;
+    /**
+     * Computes bytes number which are required to store
+     * all weights and intermediate blobs for model.
+     * @param netInputShapes vector of shapes for all net inputs.
+     * @param netInputTypes vector of types for all net inputs.
+     * @param weights output parameter to store resulting bytes for weights.
+     * @param blobs output parameter to store resulting bytes for intermediate blobs.
+     */
+    public void getMemoryConsumption(List<MatOfInt> netInputShapes, MatOfInt netInputTypes, long[] weights, long[] blobs) {
+        Mat netInputTypes_mat = netInputTypes;
         double[] weights_out = new double[1];
         double[] blobs_out = new double[1];
-        getMemoryConsumption_0(nativeObj, netInputShape_mat.nativeObj, weights_out, blobs_out);
-        if(weights!=null) weights[0] = (long)weights_out[0];
-        if(blobs!=null) blobs[0] = (long)blobs_out[0];
-    }
-
-
-    //
-    // C++:  void cv::dnn::Net::getMemoryConsumption(int layerId, vector_MatShape netInputShapes, size_t& weights, size_t& blobs)
-    //
-
-    public void getMemoryConsumption(int layerId, List<MatOfInt> netInputShapes, long[] weights, long[] blobs) {
-        double[] weights_out = new double[1];
-        double[] blobs_out = new double[1];
-        getMemoryConsumption_1(nativeObj, layerId, netInputShapes, weights_out, blobs_out);
-        if(weights!=null) weights[0] = (long)weights_out[0];
-        if(blobs!=null) blobs[0] = (long)blobs_out[0];
-    }
-
-
-    //
-    // C++:  void cv::dnn::Net::getMemoryConsumption(int layerId, MatShape netInputShape, size_t& weights, size_t& blobs)
-    //
-
-    public void getMemoryConsumption(int layerId, MatOfInt netInputShape, long[] weights, long[] blobs) {
-        Mat netInputShape_mat = netInputShape;
-        double[] weights_out = new double[1];
-        double[] blobs_out = new double[1];
-        getMemoryConsumption_2(nativeObj, layerId, netInputShape_mat.nativeObj, weights_out, blobs_out);
+        getMemoryConsumption_0(nativeObj, netInputShapes, netInputTypes_mat.nativeObj, weights_out, blobs_out);
         if(weights!=null) weights[0] = (long)weights_out[0];
         if(blobs!=null) blobs[0] = (long)blobs_out[0];
     }
@@ -831,6 +783,76 @@ public class Net {
     public long getPerfProfile(MatOfDouble timings) {
         Mat timings_mat = timings;
         return getPerfProfile_0(nativeObj, timings_mat.nativeObj);
+    }
+
+
+    //
+    // C++:  void cv::dnn::Net::enableKVCache()
+    //
+
+    /**
+     * Enables KV-Cache for all AttentionOnnxI layers
+     */
+    public void enableKVCache() {
+        enableKVCache_0(nativeObj);
+    }
+
+
+    //
+    // C++:  void cv::dnn::Net::disableKVCache()
+    //
+
+    /**
+     * Disables KV-Cache for all AttentionOnnxI layers
+     */
+    public void disableKVCache() {
+        disableKVCache_0(nativeObj);
+    }
+
+
+    //
+    // C++:  void cv::dnn::Net::resetKVCache()
+    //
+
+    /**
+     * Resets KV-Cache for all AttentionOnnxI layers
+     */
+    public void resetKVCache() {
+        resetKVCache_0(nativeObj);
+    }
+
+
+    //
+    // C++:  void cv::dnn::Net::getPerfProfile(vector_string& names, vector_string& timems, vector_string& counts)
+    //
+
+    /**
+     * Returns profiling data captured during the last forward pass.
+     *
+     * Entries are sorted by time in descending order. Empty vectors are returned
+     * if profiling is disabled (DNN_PROFILE_NONE).
+     * @param names automatically generated
+     * @param timems automatically generated
+     * @param counts automatically generated
+     */
+    public void getPerfProfile(List<String> names, List<String> timems, List<String> counts) {
+        getPerfProfile_1(nativeObj, names, timems, counts);
+    }
+
+
+    //
+    // C++:  void cv::dnn::Net::printPerfProfile()
+    //
+
+    /**
+     * Prints the profile captured during the last forward pass in a formatted table using CV_LOG_INFO.
+     *
+     * In DNN_PROFILE_DETAILED mode, prints per-layer label, time, and percentage.
+     * In DNN_PROFILE_SUMMARY mode, prints per-type count, time, and percentage.
+     * Does nothing if profiling is disabled (DNN_PROFILE_NONE) or all timings are zero.
+     */
+    public void printPerfProfile() {
+        printPerfProfile_0(nativeObj);
     }
 
 
@@ -900,24 +922,17 @@ public class Net {
     // C++:  void cv::dnn::Net::forward(vector_Mat& outputBlobs, vector_String outBlobNames)
     private static native void forward_4(long nativeObj, long outputBlobs_mat_nativeObj, List<String> outBlobNames);
 
-    // C++:  Net cv::dnn::Net::quantize(vector_Mat calibData, int inputsDtype, int outputsDtype, bool perChannel = true)
-    private static native long quantize_0(long nativeObj, long calibData_mat_nativeObj, int inputsDtype, int outputsDtype, boolean perChannel);
-    private static native long quantize_1(long nativeObj, long calibData_mat_nativeObj, int inputsDtype, int outputsDtype);
-
-    // C++:  void cv::dnn::Net::getInputDetails(vector_float& scales, vector_int& zeropoints)
-    private static native void getInputDetails_0(long nativeObj, long scales_mat_nativeObj, long zeropoints_mat_nativeObj);
-
-    // C++:  void cv::dnn::Net::getOutputDetails(vector_float& scales, vector_int& zeropoints)
-    private static native void getOutputDetails_0(long nativeObj, long scales_mat_nativeObj, long zeropoints_mat_nativeObj);
-
-    // C++:  void cv::dnn::Net::setHalideScheduler(String scheduler)
-    private static native void setHalideScheduler_0(long nativeObj, String scheduler);
+    // C++:  void cv::dnn::Net::forward(vector_vector_Mat& outputBlobs, vector_String outBlobNames)
+    private static native void forwardAndRetrieve_0(long nativeObj, long outputBlobs_mat_nativeObj, List<String> outBlobNames);
 
     // C++:  void cv::dnn::Net::setPreferableBackend(int backendId)
     private static native void setPreferableBackend_0(long nativeObj, int backendId);
 
     // C++:  void cv::dnn::Net::setPreferableTarget(int targetId)
     private static native void setPreferableTarget_0(long nativeObj, int targetId);
+
+    // C++:  void cv::dnn::Net::finalizeNet()
+    private static native void finalizeNet_0(long nativeObj);
 
     // C++:  void cv::dnn::Net::setInput(Mat blob, String name = "", double scalefactor = 1.0, Scalar mean = Scalar())
     private static native void setInput_0(long nativeObj, long blob_nativeObj, String name, double scalefactor, double mean_val0, double mean_val1, double mean_val2, double mean_val3);
@@ -945,17 +960,11 @@ public class Net {
     // C++:  vector_String cv::dnn::Net::getUnconnectedOutLayersNames()
     private static native List<String> getUnconnectedOutLayersNames_0(long nativeObj);
 
-    // C++:  int64 cv::dnn::Net::getFLOPS(vector_MatShape netInputShapes)
-    private static native long getFLOPS_0(long nativeObj, List<MatOfInt> netInputShapes);
+    // C++:  void cv::dnn::Net::getLayerShapes(vector_MatShape netInputShapes, vector_int netInputTypes, int layerId, vector_MatShape& inLayerShapes, vector_MatShape& outLayerShapes)
+    private static native void getLayerShapes_0(long nativeObj, List<MatOfInt> netInputShapes, long netInputTypes_mat_nativeObj, int layerId, List<MatOfInt> inLayerShapes, List<MatOfInt> outLayerShapes);
 
-    // C++:  int64 cv::dnn::Net::getFLOPS(MatShape netInputShape)
-    private static native long getFLOPS_1(long nativeObj, long netInputShape_mat_nativeObj);
-
-    // C++:  int64 cv::dnn::Net::getFLOPS(int layerId, vector_MatShape netInputShapes)
-    private static native long getFLOPS_2(long nativeObj, int layerId, List<MatOfInt> netInputShapes);
-
-    // C++:  int64 cv::dnn::Net::getFLOPS(int layerId, MatShape netInputShape)
-    private static native long getFLOPS_3(long nativeObj, int layerId, long netInputShape_mat_nativeObj);
+    // C++:  int64 cv::dnn::Net::getFLOPS(vector_MatShape netInputShapes, vector_int netInputTypes)
+    private static native long getFLOPS_0(long nativeObj, List<MatOfInt> netInputShapes, long netInputTypes_mat_nativeObj);
 
     // C++:  void cv::dnn::Net::getLayerTypes(vector_String& layersTypes)
     private static native void getLayerTypes_0(long nativeObj, List<String> layersTypes);
@@ -963,14 +972,8 @@ public class Net {
     // C++:  int cv::dnn::Net::getLayersCount(String layerType)
     private static native int getLayersCount_0(long nativeObj, String layerType);
 
-    // C++:  void cv::dnn::Net::getMemoryConsumption(MatShape netInputShape, size_t& weights, size_t& blobs)
-    private static native void getMemoryConsumption_0(long nativeObj, long netInputShape_mat_nativeObj, double[] weights_out, double[] blobs_out);
-
-    // C++:  void cv::dnn::Net::getMemoryConsumption(int layerId, vector_MatShape netInputShapes, size_t& weights, size_t& blobs)
-    private static native void getMemoryConsumption_1(long nativeObj, int layerId, List<MatOfInt> netInputShapes, double[] weights_out, double[] blobs_out);
-
-    // C++:  void cv::dnn::Net::getMemoryConsumption(int layerId, MatShape netInputShape, size_t& weights, size_t& blobs)
-    private static native void getMemoryConsumption_2(long nativeObj, int layerId, long netInputShape_mat_nativeObj, double[] weights_out, double[] blobs_out);
+    // C++:  void cv::dnn::Net::getMemoryConsumption(vector_MatShape netInputShapes, vector_int netInputTypes, size_t& weights, size_t& blobs)
+    private static native void getMemoryConsumption_0(long nativeObj, List<MatOfInt> netInputShapes, long netInputTypes_mat_nativeObj, double[] weights_out, double[] blobs_out);
 
     // C++:  void cv::dnn::Net::enableFusion(bool fusion)
     private static native void enableFusion_0(long nativeObj, boolean fusion);
@@ -981,7 +984,22 @@ public class Net {
     // C++:  int64 cv::dnn::Net::getPerfProfile(vector_double& timings)
     private static native long getPerfProfile_0(long nativeObj, long timings_mat_nativeObj);
 
-    // native support for java finalize()
+    // C++:  void cv::dnn::Net::enableKVCache()
+    private static native void enableKVCache_0(long nativeObj);
+
+    // C++:  void cv::dnn::Net::disableKVCache()
+    private static native void disableKVCache_0(long nativeObj);
+
+    // C++:  void cv::dnn::Net::resetKVCache()
+    private static native void resetKVCache_0(long nativeObj);
+
+    // C++:  void cv::dnn::Net::getPerfProfile(vector_string& names, vector_string& timems, vector_string& counts)
+    private static native void getPerfProfile_1(long nativeObj, List<String> names, List<String> timems, List<String> counts);
+
+    // C++:  void cv::dnn::Net::printPerfProfile()
+    private static native void printPerfProfile_0(long nativeObj);
+
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

@@ -99,7 +99,7 @@ public class GridBoard extends Board {
     // C++:  float cv::aruco::GridBoard::getMarkerSeparation()
     private static native float getMarkerSeparation_0(long nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

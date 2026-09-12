@@ -19,7 +19,10 @@ import org.opencv.utils.Converters;
 public class FaceRecognizerSF {
 
     protected final long nativeObj;
-    protected FaceRecognizerSF(long addr) { nativeObj = addr; }
+    protected FaceRecognizerSF(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -94,7 +97,7 @@ public class FaceRecognizerSF {
     /**
      * Creates an instance of this class with given parameters
      * @param model the path of the onnx model used for face recognition
-     * @param config the path to the config file for compability, which is not requested for ONNX models
+     * @param config the path to the config file for compatibility, which is not requested for ONNX models
      * @param backend_id the id of backend
      * @param target_id the id of target device
      * @return automatically generated
@@ -106,7 +109,7 @@ public class FaceRecognizerSF {
     /**
      * Creates an instance of this class with given parameters
      * @param model the path of the onnx model used for face recognition
-     * @param config the path to the config file for compability, which is not requested for ONNX models
+     * @param config the path to the config file for compatibility, which is not requested for ONNX models
      * @param backend_id the id of backend
      * @return automatically generated
      */
@@ -117,7 +120,7 @@ public class FaceRecognizerSF {
     /**
      * Creates an instance of this class with given parameters
      * @param model the path of the onnx model used for face recognition
-     * @param config the path to the config file for compability, which is not requested for ONNX models
+     * @param config the path to the config file for compatibility, which is not requested for ONNX models
      * @return automatically generated
      */
     public static FaceRecognizerSF create(String model, String config) {
@@ -202,7 +205,7 @@ public class FaceRecognizerSF {
     private static native long create_4(String framework, long bufferModel_mat_nativeObj, long bufferConfig_mat_nativeObj, int backend_id);
     private static native long create_5(String framework, long bufferModel_mat_nativeObj, long bufferConfig_mat_nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

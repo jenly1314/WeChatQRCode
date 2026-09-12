@@ -12,7 +12,10 @@ package org.opencv.objdetect;
 public class RefineParameters {
 
     protected final long nativeObj;
-    protected RefineParameters(long addr) { nativeObj = addr; }
+    protected RefineParameters(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -139,7 +142,7 @@ public class RefineParameters {
     // C++: void RefineParameters::checkAllOrders
     private static native void set_checkAllOrders_0(long nativeObj, boolean checkAllOrders);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

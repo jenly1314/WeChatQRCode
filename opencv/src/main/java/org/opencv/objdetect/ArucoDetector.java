@@ -143,6 +143,77 @@ public class ArucoDetector extends Algorithm {
 
 
     //
+    // C++:  void cv::aruco::ArucoDetector::detectMarkersWithConfidence(Mat image, vector_Mat& corners, Mat& ids, Mat& markersConfidence, vector_Mat& rejectedImgPoints = vector_Mat())
+    //
+
+    /**
+     * Marker detection with confidence computation
+     *
+     * @param image input image
+     * @param corners vector of detected marker corners. For each marker, its four corners
+     * are provided, (e.g std::vector&lt;std::vector&lt;cv::Point2f&gt; &gt; ). For N detected markers,
+     * the dimensions of this array is Nx4. The order of the corners is clockwise.
+     * @param ids vector of identifiers of the detected markers. The identifier is of type int
+     * (e.g. std::vector&lt;int&gt;). For N detected markers, the size of ids is also N.
+     * The identifiers have the same order than the markers in the imgPoints array.
+     * @param markersConfidence contains the normalized confidence [0;1] of the markers' detection,
+     * defined as 1 minus the normalized uncertainty (percentage of incorrect pixel detections),
+     * with 1 describing a pixel perfect detection. The confidence values are of type float
+     * (e.g. std::vector&lt;float&gt;)
+     * @param rejectedImgPoints contains the imgPoints of those squares whose inner code has not a
+     * correct codification. Useful for debugging purposes.
+     *
+     * Performs marker detection in the input image. Only markers included in the first specified dictionary
+     * are searched. For each detected marker, it returns the 2D position of its corner in the image
+     * and its corresponding identifier.
+     * Note that this function does not perform pose estimation.
+     * <b>Note:</b> The function does not correct lens distortion or takes it into account. It's recommended to undistort
+     * input image with corresponding camera model, if camera parameters are known
+     * SEE: undistort, estimatePoseSingleMarkers,  estimatePoseBoard
+     */
+    public void detectMarkersWithConfidence(Mat image, List<Mat> corners, Mat ids, Mat markersConfidence, List<Mat> rejectedImgPoints) {
+        Mat corners_mat = new Mat();
+        Mat rejectedImgPoints_mat = new Mat();
+        detectMarkersWithConfidence_0(nativeObj, image.nativeObj, corners_mat.nativeObj, ids.nativeObj, markersConfidence.nativeObj, rejectedImgPoints_mat.nativeObj);
+        Converters.Mat_to_vector_Mat(corners_mat, corners);
+        corners_mat.release();
+        Converters.Mat_to_vector_Mat(rejectedImgPoints_mat, rejectedImgPoints);
+        rejectedImgPoints_mat.release();
+    }
+
+    /**
+     * Marker detection with confidence computation
+     *
+     * @param image input image
+     * @param corners vector of detected marker corners. For each marker, its four corners
+     * are provided, (e.g std::vector&lt;std::vector&lt;cv::Point2f&gt; &gt; ). For N detected markers,
+     * the dimensions of this array is Nx4. The order of the corners is clockwise.
+     * @param ids vector of identifiers of the detected markers. The identifier is of type int
+     * (e.g. std::vector&lt;int&gt;). For N detected markers, the size of ids is also N.
+     * The identifiers have the same order than the markers in the imgPoints array.
+     * @param markersConfidence contains the normalized confidence [0;1] of the markers' detection,
+     * defined as 1 minus the normalized uncertainty (percentage of incorrect pixel detections),
+     * with 1 describing a pixel perfect detection. The confidence values are of type float
+     * (e.g. std::vector&lt;float&gt;)
+     * correct codification. Useful for debugging purposes.
+     *
+     * Performs marker detection in the input image. Only markers included in the first specified dictionary
+     * are searched. For each detected marker, it returns the 2D position of its corner in the image
+     * and its corresponding identifier.
+     * Note that this function does not perform pose estimation.
+     * <b>Note:</b> The function does not correct lens distortion or takes it into account. It's recommended to undistort
+     * input image with corresponding camera model, if camera parameters are known
+     * SEE: undistort, estimatePoseSingleMarkers,  estimatePoseBoard
+     */
+    public void detectMarkersWithConfidence(Mat image, List<Mat> corners, Mat ids, Mat markersConfidence) {
+        Mat corners_mat = new Mat();
+        detectMarkersWithConfidence_1(nativeObj, image.nativeObj, corners_mat.nativeObj, ids.nativeObj, markersConfidence.nativeObj);
+        Converters.Mat_to_vector_Mat(corners_mat, corners);
+        corners_mat.release();
+    }
+
+
+    //
     // C++:  void cv::aruco::ArucoDetector::refineDetectedMarkers(Mat image, Board board, vector_Mat& detectedCorners, Mat& detectedIds, vector_Mat& rejectedCorners, Mat cameraMatrix = Mat(), Mat distCoeffs = Mat(), Mat& recoveredIdxs = Mat())
     //
 
@@ -488,6 +559,10 @@ public class ArucoDetector extends Algorithm {
     private static native void detectMarkers_0(long nativeObj, long image_nativeObj, long corners_mat_nativeObj, long ids_nativeObj, long rejectedImgPoints_mat_nativeObj);
     private static native void detectMarkers_1(long nativeObj, long image_nativeObj, long corners_mat_nativeObj, long ids_nativeObj);
 
+    // C++:  void cv::aruco::ArucoDetector::detectMarkersWithConfidence(Mat image, vector_Mat& corners, Mat& ids, Mat& markersConfidence, vector_Mat& rejectedImgPoints = vector_Mat())
+    private static native void detectMarkersWithConfidence_0(long nativeObj, long image_nativeObj, long corners_mat_nativeObj, long ids_nativeObj, long markersConfidence_nativeObj, long rejectedImgPoints_mat_nativeObj);
+    private static native void detectMarkersWithConfidence_1(long nativeObj, long image_nativeObj, long corners_mat_nativeObj, long ids_nativeObj, long markersConfidence_nativeObj);
+
     // C++:  void cv::aruco::ArucoDetector::refineDetectedMarkers(Mat image, Board board, vector_Mat& detectedCorners, Mat& detectedIds, vector_Mat& rejectedCorners, Mat cameraMatrix = Mat(), Mat distCoeffs = Mat(), Mat& recoveredIdxs = Mat())
     private static native void refineDetectedMarkers_0(long nativeObj, long image_nativeObj, long board_nativeObj, long detectedCorners_mat_nativeObj, long detectedIds_nativeObj, long rejectedCorners_mat_nativeObj, long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long recoveredIdxs_nativeObj);
     private static native void refineDetectedMarkers_1(long nativeObj, long image_nativeObj, long board_nativeObj, long detectedCorners_mat_nativeObj, long detectedIds_nativeObj, long rejectedCorners_mat_nativeObj, long cameraMatrix_nativeObj, long distCoeffs_nativeObj);
@@ -517,7 +592,7 @@ public class ArucoDetector extends Algorithm {
     // C++:  void cv::aruco::ArucoDetector::setRefineParameters(RefineParameters refineParameters)
     private static native void setRefineParameters_0(long nativeObj, long refineParameters_nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

@@ -53,6 +53,46 @@ public class BackgroundSubtractor extends Algorithm {
 
 
     //
+    // C++:  void cv::BackgroundSubtractor::apply(Mat image, Mat knownForegroundMask, Mat& fgmask, double learningRate = -1)
+    //
+
+    /**
+     * Computes a foreground mask with known foreground mask input.
+     *
+     *     @param image Next video frame. Floating point frame will be used without scaling and should be in range \([0,255]\).
+     *     @param fgmask The output foreground mask as an 8-bit binary image.
+     *     @param knownForegroundMask The mask for inputting already known foreground, allows model to ignore pixels.
+     *     @param learningRate The value between 0 and 1 that indicates how fast the background model is
+     *     learnt. Negative parameter value makes the algorithm to use some automatically chosen learning
+     *     rate. 0 means that the background model is not updated at all, 1 means that the background model
+     *     is completely reinitialized from the last frame.
+     *
+     *     <b>Note:</b> This method has a default virtual implementation that throws a "not impemented" error.
+     *     Foreground masking may not be supported by all background subtractors.
+     */
+    public void apply(Mat image, Mat knownForegroundMask, Mat fgmask, double learningRate) {
+        apply_2(nativeObj, image.nativeObj, knownForegroundMask.nativeObj, fgmask.nativeObj, learningRate);
+    }
+
+    /**
+     * Computes a foreground mask with known foreground mask input.
+     *
+     *     @param image Next video frame. Floating point frame will be used without scaling and should be in range \([0,255]\).
+     *     @param fgmask The output foreground mask as an 8-bit binary image.
+     *     @param knownForegroundMask The mask for inputting already known foreground, allows model to ignore pixels.
+     *     learnt. Negative parameter value makes the algorithm to use some automatically chosen learning
+     *     rate. 0 means that the background model is not updated at all, 1 means that the background model
+     *     is completely reinitialized from the last frame.
+     *
+     *     <b>Note:</b> This method has a default virtual implementation that throws a "not impemented" error.
+     *     Foreground masking may not be supported by all background subtractors.
+     */
+    public void apply(Mat image, Mat knownForegroundMask, Mat fgmask) {
+        apply_3(nativeObj, image.nativeObj, knownForegroundMask.nativeObj, fgmask.nativeObj);
+    }
+
+
+    //
     // C++:  void cv::BackgroundSubtractor::getBackgroundImage(Mat& backgroundImage)
     //
 
@@ -80,10 +120,14 @@ public class BackgroundSubtractor extends Algorithm {
     private static native void apply_0(long nativeObj, long image_nativeObj, long fgmask_nativeObj, double learningRate);
     private static native void apply_1(long nativeObj, long image_nativeObj, long fgmask_nativeObj);
 
+    // C++:  void cv::BackgroundSubtractor::apply(Mat image, Mat knownForegroundMask, Mat& fgmask, double learningRate = -1)
+    private static native void apply_2(long nativeObj, long image_nativeObj, long knownForegroundMask_nativeObj, long fgmask_nativeObj, double learningRate);
+    private static native void apply_3(long nativeObj, long image_nativeObj, long knownForegroundMask_nativeObj, long fgmask_nativeObj);
+
     // C++:  void cv::BackgroundSubtractor::getBackgroundImage(Mat& backgroundImage)
     private static native void getBackgroundImage_0(long nativeObj, long backgroundImage_nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

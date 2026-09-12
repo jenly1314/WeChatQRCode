@@ -241,9 +241,9 @@ public class Videoio {
             CAP_PROP_GIGA_FRAME_OFFSET_X = 10001,
             CAP_PROP_GIGA_FRAME_OFFSET_Y = 10002,
             CAP_PROP_GIGA_FRAME_WIDTH_MAX = 10003,
-            CAP_PROP_GIGA_FRAME_HEIGH_MAX = 10004,
+            CAP_PROP_GIGA_FRAME_HEIGHT_MAX = 10004,
             CAP_PROP_GIGA_FRAME_SENS_WIDTH = 10005,
-            CAP_PROP_GIGA_FRAME_SENS_HEIGH = 10006,
+            CAP_PROP_GIGA_FRAME_SENS_HEIGHT = 10006,
             CAP_PROP_INTELPERC_PROFILE_COUNT = 11001,
             CAP_PROP_INTELPERC_PROFILE_IDX = 11002,
             CAP_PROP_INTELPERC_DEPTH_LOW_CONFIDENCE_VALUE = 11003,
@@ -279,13 +279,13 @@ public class Videoio {
             VIDEO_ACCELERATION_ANY = 1,
             VIDEO_ACCELERATION_D3D11 = 2,
             VIDEO_ACCELERATION_VAAPI = 3,
-            VIDEO_ACCELERATION_MFX = 4;
+            VIDEO_ACCELERATION_MFX = 4,
+            VIDEO_ACCELERATION_DRM = 5;
 
 
     // C++: enum VideoCaptureAPIs (cv.VideoCaptureAPIs)
     public static final int
             CAP_ANY = 0,
-            CAP_VFW = 200,
             CAP_V4L = 200,
             CAP_V4L2 = CAP_V4L,
             CAP_FIREWIRE = 300,
@@ -293,16 +293,11 @@ public class Videoio {
             CAP_IEEE1394 = CAP_FIREWIRE,
             CAP_DC1394 = CAP_FIREWIRE,
             CAP_CMU1394 = CAP_FIREWIRE,
-            CAP_QT = 500,
-            CAP_UNICAP = 600,
             CAP_DSHOW = 700,
             CAP_PVAPI = 800,
-            CAP_OPENNI = 900,
-            CAP_OPENNI_ASUS = 910,
             CAP_ANDROID = 1000,
             CAP_XIAPI = 1100,
             CAP_AVFOUNDATION = 1200,
-            CAP_GIGANETIX = 1300,
             CAP_MSMF = 1400,
             CAP_WINRT = 1410,
             CAP_INTELPERC = 1500,
@@ -342,11 +337,25 @@ public class Videoio {
             CAP_PROP_OBSENSOR_INTRINSIC_FX = 26001,
             CAP_PROP_OBSENSOR_INTRINSIC_FY = 26002,
             CAP_PROP_OBSENSOR_INTRINSIC_CX = 26003,
-            CAP_PROP_OBSENSOR_INTRINSIC_CY = 26004;
+            CAP_PROP_OBSENSOR_INTRINSIC_CY = 26004,
+            CAP_PROP_OBSENSOR_RGB_POS_MSEC = 26005,
+            CAP_PROP_OBSENSOR_DEPTH_POS_MSEC = 26006,
+            CAP_PROP_OBSENSOR_DEPTH_WIDTH = 26007,
+            CAP_PROP_OBSENSOR_DEPTH_HEIGHT = 26008,
+            CAP_PROP_OBSENSOR_DEPTH_FPS = 26009,
+            CAP_PROP_OBSENSOR_COLOR_DISTORTION_K1 = 26010,
+            CAP_PROP_OBSENSOR_COLOR_DISTORTION_K2 = 26011,
+            CAP_PROP_OBSENSOR_COLOR_DISTORTION_K3 = 26012,
+            CAP_PROP_OBSENSOR_COLOR_DISTORTION_K4 = 26013,
+            CAP_PROP_OBSENSOR_COLOR_DISTORTION_K5 = 26014,
+            CAP_PROP_OBSENSOR_COLOR_DISTORTION_K6 = 26015,
+            CAP_PROP_OBSENSOR_COLOR_DISTORTION_P1 = 26016,
+            CAP_PROP_OBSENSOR_COLOR_DISTORTION_P2 = 26017;
 
 
     // C++: enum VideoCaptureProperties (cv.VideoCaptureProperties)
     public static final int
+            CAP_PROP_UNKNOWN = -1,
             CAP_PROP_POS_MSEC = 0,
             CAP_PROP_POS_FRAMES = 1,
             CAP_PROP_POS_AVI_RATIO = 2,
@@ -418,11 +427,13 @@ public class Videoio {
             CAP_PROP_FRAME_TYPE = 69,
             CAP_PROP_N_THREADS = 70,
             CAP_PROP_PTS = 71,
-            CAP_PROP_DTS_DELAY = 72;
+            CAP_PROP_DTS_DELAY = 72,
+            CAP_PROP_IMAGE_SEQ_START = 73;
 
 
     // C++: enum VideoWriterProperties (cv.VideoWriterProperties)
     public static final int
+            VIDEOWRITER_PROP_UNKNOWN = -1,
             VIDEOWRITER_PROP_QUALITY = 1,
             VIDEOWRITER_PROP_FRAMEBYTES = 2,
             VIDEOWRITER_PROP_NSTRIPES = 3,
@@ -435,7 +446,9 @@ public class Videoio {
             VIDEOWRITER_PROP_KEY_INTERVAL = 10,
             VIDEOWRITER_PROP_KEY_FLAG = 11,
             VIDEOWRITER_PROP_PTS = 12,
-            VIDEOWRITER_PROP_DTS_DELAY = 13;
+            VIDEOWRITER_PROP_DTS_DELAY = 13,
+            VIDEOWRITER_PROP_COLOR_SPACE = 14,
+            VIDEOWRITER_PROP_ENABLE_ALPHA = 15;
 
 
     //

@@ -13,7 +13,10 @@ package org.opencv.dnn;
 public class DictValue {
 
     protected final long nativeObj;
-    protected DictValue(long addr) { nativeObj = addr; }
+    protected DictValue(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -150,7 +153,7 @@ public class DictValue {
     private static native String getStringValue_0(long nativeObj, int idx);
     private static native String getStringValue_1(long nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

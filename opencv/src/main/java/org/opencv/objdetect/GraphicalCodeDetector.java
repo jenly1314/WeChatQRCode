@@ -13,7 +13,10 @@ import org.opencv.utils.Converters;
 public class GraphicalCodeDetector {
 
     protected final long nativeObj;
-    protected GraphicalCodeDetector(long addr) { nativeObj = addr; }
+    protected GraphicalCodeDetector(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -333,7 +336,7 @@ public class GraphicalCodeDetector {
     private static native boolean detectAndDecodeBytesMulti_1(long nativeObj, long img_nativeObj, List<byte[]> decoded_info, long points_nativeObj);
     private static native boolean detectAndDecodeBytesMulti_2(long nativeObj, long img_nativeObj, List<byte[]> decoded_info);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

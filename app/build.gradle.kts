@@ -18,7 +18,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         ndk {
-            abiFilters += "arm64-v8a"
+            abiFilters += "armeabi-v7a"
         }
     }
 
@@ -58,8 +58,8 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     implementation(project(":opencv"))
-    implementation(project(":opencv-armv64"))
-//    implementation(project(":opencv-armv7a"))
+//    implementation(project(":opencv-armv64"))
+    implementation(project(":opencv-armv7a"))
 //    implementation(project(":opencv-x86"))
 //    implementation(project(":opencv-x86_64"))
     implementation(project(":opencv-qrcode"))

@@ -12,16 +12,15 @@ import org.opencv.utils.Converters;
 
 // C++: class QRCodeEncoder
 /**
- * Groups the object candidate rectangles.
- *     rectList  Input/output vector of rectangles. Output vector includes retained and grouped rectangles. (The Python list is not modified in place.)
- *     weights Input/output vector of weights of rectangles. Output vector includes weights of retained and grouped rectangles. (The Python list is not modified in place.)
- *     groupThreshold Minimum possible number of rectangles minus 1. The threshold is used in a group of rectangles to retain it.
- *     eps Relative difference between sides of the rectangles to merge them into a group.
+ * QR code encoder.
  */
 public class QRCodeEncoder {
 
     protected final long nativeObj;
-    protected QRCodeEncoder(long addr) { nativeObj = addr; }
+    protected QRCodeEncoder(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -137,7 +136,7 @@ public void encode(byte[] encoded_info, Mat qrcode) {
 private static native void encode_1(long nativeObj, byte[] encoded_info, long qrcode_nativeObj);
 
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

@@ -23,7 +23,10 @@ import org.opencv.core.Mat;
 public class Dictionary {
 
     protected final long nativeObj;
-    protected Dictionary(long addr) { nativeObj = addr; }
+    protected Dictionary(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -104,13 +107,38 @@ public class Dictionary {
 
 
     //
+    // C++:  bool cv::aruco::Dictionary::identify(Mat onlyCellPixelRatio, int& idx, int& rotation, double maxCorrectionRate, float validBitIdThreshold)
+    //
+
+    /**
+     * Given a matrix of pixel ratio raging from 0 to 1. Returns whether if marker is identified or not.
+     *
+     * Returns reference to the marker id in the dictionary (if any) and its rotation.
+     * @param onlyCellPixelRatio automatically generated
+     * @param idx automatically generated
+     * @param rotation automatically generated
+     * @param maxCorrectionRate automatically generated
+     * @param validBitIdThreshold automatically generated
+     * @return automatically generated
+     */
+    public boolean identify(Mat onlyCellPixelRatio, int[] idx, int[] rotation, double maxCorrectionRate, float validBitIdThreshold) {
+        double[] idx_out = new double[1];
+        double[] rotation_out = new double[1];
+        boolean retVal = identify_1(nativeObj, onlyCellPixelRatio.nativeObj, idx_out, rotation_out, maxCorrectionRate, validBitIdThreshold);
+        if(idx!=null) idx[0] = (int)idx_out[0];
+        if(rotation!=null) rotation[0] = (int)rotation_out[0];
+        return retVal;
+    }
+
+
+    //
     // C++:  int cv::aruco::Dictionary::getDistanceToId(Mat bits, int id, bool allRotations = true)
     //
 
     /**
      * Returns Hamming distance of the input bits to the specific id.
      *
-     * If {@code allRotations} flag is set, the four posible marker rotations are considered
+     * If {@code allRotations} flag is set, the four possible marker rotations are considered
      * @param bits automatically generated
      * @param id automatically generated
      * @param allRotations automatically generated
@@ -123,7 +151,7 @@ public class Dictionary {
     /**
      * Returns Hamming distance of the input bits to the specific id.
      *
-     * If {@code allRotations} flag is set, the four posible marker rotations are considered
+     * If {@code allRotations} flag is set, the four possible marker rotations are considered
      * @param bits automatically generated
      * @param id automatically generated
      * @return automatically generated
@@ -174,8 +202,19 @@ public class Dictionary {
 
 
     //
-    // C++: static Mat cv::aruco::Dictionary::getBitsFromByteList(Mat byteList, int markerSize)
+    // C++: static Mat cv::aruco::Dictionary::getBitsFromByteList(Mat byteList, int markerSize, int rotationId = 0)
     //
+
+    /**
+     * Transform list of bytes to matrix of bits
+     * @param byteList automatically generated
+     * @param markerSize automatically generated
+     * @param rotationId automatically generated
+     * @return automatically generated
+     */
+    public static Mat getBitsFromByteList(Mat byteList, int markerSize, int rotationId) {
+        return new Mat(getBitsFromByteList_0(byteList.nativeObj, markerSize, rotationId));
+    }
 
     /**
      * Transform list of bytes to matrix of bits
@@ -184,7 +223,31 @@ public class Dictionary {
      * @return automatically generated
      */
     public static Mat getBitsFromByteList(Mat byteList, int markerSize) {
-        return new Mat(getBitsFromByteList_0(byteList.nativeObj, markerSize));
+        return new Mat(getBitsFromByteList_1(byteList.nativeObj, markerSize));
+    }
+
+
+    //
+    // C++:  Mat cv::aruco::Dictionary::getMarkerBits(int markerId, int rotationId = 0)
+    //
+
+    /**
+     * Get ground truth bits float
+     * @param markerId automatically generated
+     * @param rotationId automatically generated
+     * @return automatically generated
+     */
+    public Mat getMarkerBits(int markerId, int rotationId) {
+        return new Mat(getMarkerBits_0(nativeObj, markerId, rotationId));
+    }
+
+    /**
+     * Get ground truth bits float
+     * @param markerId automatically generated
+     * @return automatically generated
+     */
+    public Mat getMarkerBits(int markerId) {
+        return new Mat(getMarkerBits_1(nativeObj, markerId));
     }
 
 
@@ -259,6 +322,9 @@ public class Dictionary {
     // C++:  bool cv::aruco::Dictionary::identify(Mat onlyBits, int& idx, int& rotation, double maxCorrectionRate)
     private static native boolean identify_0(long nativeObj, long onlyBits_nativeObj, double[] idx_out, double[] rotation_out, double maxCorrectionRate);
 
+    // C++:  bool cv::aruco::Dictionary::identify(Mat onlyCellPixelRatio, int& idx, int& rotation, double maxCorrectionRate, float validBitIdThreshold)
+    private static native boolean identify_1(long nativeObj, long onlyCellPixelRatio_nativeObj, double[] idx_out, double[] rotation_out, double maxCorrectionRate, float validBitIdThreshold);
+
     // C++:  int cv::aruco::Dictionary::getDistanceToId(Mat bits, int id, bool allRotations = true)
     private static native int getDistanceToId_0(long nativeObj, long bits_nativeObj, int id, boolean allRotations);
     private static native int getDistanceToId_1(long nativeObj, long bits_nativeObj, int id);
@@ -270,8 +336,13 @@ public class Dictionary {
     // C++: static Mat cv::aruco::Dictionary::getByteListFromBits(Mat bits)
     private static native long getByteListFromBits_0(long bits_nativeObj);
 
-    // C++: static Mat cv::aruco::Dictionary::getBitsFromByteList(Mat byteList, int markerSize)
-    private static native long getBitsFromByteList_0(long byteList_nativeObj, int markerSize);
+    // C++: static Mat cv::aruco::Dictionary::getBitsFromByteList(Mat byteList, int markerSize, int rotationId = 0)
+    private static native long getBitsFromByteList_0(long byteList_nativeObj, int markerSize, int rotationId);
+    private static native long getBitsFromByteList_1(long byteList_nativeObj, int markerSize);
+
+    // C++:  Mat cv::aruco::Dictionary::getMarkerBits(int markerId, int rotationId = 0)
+    private static native long getMarkerBits_0(long nativeObj, int markerId, int rotationId);
+    private static native long getMarkerBits_1(long nativeObj, int markerId);
 
     // C++: Mat Dictionary::bytesList
     private static native long get_bytesList_0(long nativeObj);
@@ -291,7 +362,7 @@ public class Dictionary {
     // C++: void Dictionary::maxCorrectionBits
     private static native void set_maxCorrectionBits_0(long nativeObj, int maxCorrectionBits);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

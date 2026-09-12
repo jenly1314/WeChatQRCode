@@ -63,6 +63,33 @@ public class DISOpticalFlow extends DenseOpticalFlow {
 
 
     //
+    // C++:  void cv::DISOpticalFlow::setCoarsestScale(int val)
+    //
+
+    /**
+     * Sets the coarsest scale
+     *     @param val Coarsest level of the Gaussian pyramid on which the flow is computed.
+     *     If set to -1, the auto-computed coarsest scale will be used.
+     */
+    public void setCoarsestScale(int val) {
+        setCoarsestScale_0(nativeObj, val);
+    }
+
+
+    //
+    // C++:  int cv::DISOpticalFlow::getCoarsestScale()
+    //
+
+    /**
+     * Gets the coarsest scale
+     * @return automatically generated
+     */
+    public int getCoarsestScale() {
+        return getCoarsestScale_0(nativeObj);
+    }
+
+
+    //
     // C++:  int cv::DISOpticalFlow::getPatchSize()
     //
 
@@ -380,6 +407,12 @@ public class DISOpticalFlow extends DenseOpticalFlow {
     // C++:  void cv::DISOpticalFlow::setFinestScale(int val)
     private static native void setFinestScale_0(long nativeObj, int val);
 
+    // C++:  void cv::DISOpticalFlow::setCoarsestScale(int val)
+    private static native void setCoarsestScale_0(long nativeObj, int val);
+
+    // C++:  int cv::DISOpticalFlow::getCoarsestScale()
+    private static native int getCoarsestScale_0(long nativeObj);
+
     // C++:  int cv::DISOpticalFlow::getPatchSize()
     private static native int getPatchSize_0(long nativeObj);
 
@@ -444,7 +477,7 @@ public class DISOpticalFlow extends DenseOpticalFlow {
     private static native long create_0(int preset);
     private static native long create_1();
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

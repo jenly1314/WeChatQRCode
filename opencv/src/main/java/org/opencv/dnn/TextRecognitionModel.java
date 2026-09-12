@@ -213,7 +213,7 @@ public class TextRecognitionModel extends Model {
     // C++:  void cv::dnn::TextRecognitionModel::recognize(Mat frame, vector_Mat roiRects, vector_string& results)
     private static native void recognize_1(long nativeObj, long frame_nativeObj, long roiRects_mat_nativeObj, List<String> results);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

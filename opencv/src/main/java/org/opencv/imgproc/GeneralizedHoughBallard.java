@@ -73,7 +73,7 @@ public class GeneralizedHoughBallard extends GeneralizedHough {
     // C++:  int cv::GeneralizedHoughBallard::getVotesThreshold()
     private static native int getVotesThreshold_0(long nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

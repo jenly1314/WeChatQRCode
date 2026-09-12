@@ -163,7 +163,7 @@ public class Layer extends Algorithm {
     // C++: int Layer::preferableTarget
     private static native int get_preferableTarget_0(long nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

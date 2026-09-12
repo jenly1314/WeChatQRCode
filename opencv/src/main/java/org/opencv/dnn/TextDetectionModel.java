@@ -120,7 +120,7 @@ public class TextDetectionModel extends Model {
     // C++:  void cv::dnn::TextDetectionModel::detectTextRectangles(Mat frame, vector_RotatedRect& detections)
     private static native void detectTextRectangles_1(long nativeObj, long frame_nativeObj, long detections_mat_nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

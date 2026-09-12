@@ -7,7 +7,9 @@ import org.opencv.core.Mat;
 import org.opencv.objdetect.QRCodeDetector;
 
 // C++: class QRCodeDetector
-
+/**
+ * QR code detector.
+ */
 public class QRCodeDetector extends GraphicalCodeDetector {
 
     protected QRCodeDetector(long addr) { super(addr); }
@@ -196,7 +198,7 @@ public class QRCodeDetector extends GraphicalCodeDetector {
     private static native int getEncoding_0(long nativeObj, int codeIdx);
     private static native int getEncoding_1(long nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

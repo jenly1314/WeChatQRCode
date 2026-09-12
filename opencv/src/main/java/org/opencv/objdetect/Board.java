@@ -27,7 +27,10 @@ import org.opencv.utils.Converters;
 public class Board {
 
     protected final long nativeObj;
-    protected Board(long addr) { nativeObj = addr; }
+    protected Board(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -220,7 +223,7 @@ public class Board {
     private static native void generateImage_1(long nativeObj, double outSize_width, double outSize_height, long img_nativeObj, int marginSize);
     private static native void generateImage_2(long nativeObj, double outSize_width, double outSize_height, long img_nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

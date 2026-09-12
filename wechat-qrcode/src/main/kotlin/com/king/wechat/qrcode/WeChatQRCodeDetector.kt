@@ -23,10 +23,8 @@ object WeChatQRCodeDetector {
     private const val TAG = "WeChatQRCodeDetector"
 
     private const val MODEL_DIR = "models"
-    private const val DETECT_PROTO_TXT = "detect.prototxt"
-    private const val DETECT_CAFFE_MODEL = "detect.caffemodel"
-    private const val SR_PROTO_TXT = "sr.prototxt"
-    private const val SR_CAFFE_MODEL = "sr.caffemodel"
+    private const val DETECT_MODEL = "detect_model.onnx"
+    private const val SR_MODEL = "sr_model.onnx"
 
     @Volatile
     private lateinit var weChatQRCode: WeChatQRCode
@@ -49,7 +47,7 @@ object WeChatQRCodeDetector {
     private fun initWeChatQRCode(context: Context) {
         try {
             val saveDirPath = getExternalFilesDir(context, MODEL_DIR)
-            val models = arrayOf(DETECT_PROTO_TXT, DETECT_CAFFE_MODEL, SR_PROTO_TXT, SR_CAFFE_MODEL)
+            val models = arrayOf(DETECT_MODEL, SR_MODEL)
 
             val saveDir = File(saveDirPath)
             var exists = saveDir.exists()
@@ -82,9 +80,7 @@ object WeChatQRCodeDetector {
             }
             weChatQRCode = WeChatQRCode(
                 saveDirPath + File.separatorChar + models[0],
-                saveDirPath + File.separatorChar + models[1],
-                saveDirPath + File.separatorChar + models[2],
-                saveDirPath + File.separatorChar + models[3]
+                saveDirPath + File.separatorChar + models[1]
             )
             LogX.d("WeChatQRCode loaded successfully")
         } catch (e: Exception) {

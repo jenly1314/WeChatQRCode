@@ -17,14 +17,13 @@ import org.opencv.videoio.IStreamReader;
  * The class provides C++ API for capturing video from cameras or for reading video files and image sequences.
  *
  * Here is how the class can be used:
- * INCLUDE: samples/cpp/videocapture_basic.cpp
+ * INCLUDE: samples/cpp/snippets/videocapture_basic.cpp
  *
- * <b>Note:</b> In REF: videoio_c "C API" the black-box structure {@code CvCapture} is used instead of %VideoCapture.
  * <b>Note:</b>
  * <ul>
  *   <li>
  *    (C++) A basic sample on using the %VideoCapture interface can be found at
- *     {@code OPENCV_SOURCE_CODE/samples/cpp/videocapture_starter.cpp}
+ *     {@code OPENCV_SOURCE_CODE/samples/cpp/videocapture_combined.cpp}
  *   </li>
  *   <li>
  *    (Python) A basic sample on using the %VideoCapture interface can be found at
@@ -43,7 +42,10 @@ import org.opencv.videoio.IStreamReader;
 public class VideoCapture {
 
     protected final long nativeObj;
-    protected VideoCapture(long addr) { nativeObj = addr; }
+    protected VideoCapture(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -56,9 +58,6 @@ public class VideoCapture {
 
     /**
      * Default constructor
-     *     <b>Note:</b> In REF: videoio_c "C API", when you finished working with video, release CvCapture structure with
-     *     cvReleaseCapture(), or use Ptr&lt;CvCapture&gt; that calls cvReleaseCapture() automatically in the
-     *     destructor.
      */
     public VideoCapture() {
         nativeObj = VideoCapture_0();
@@ -447,10 +446,6 @@ public class VideoCapture {
      *     and the function returns an empty image (with %cv::Mat, test it with Mat::empty()).
      *
      *     SEE: read()
-     *
-     *     <b>Note:</b> In REF: videoio_c "C API", functions cvRetrieveFrame() and cv.RetrieveFrame() return image stored inside the video
-     *     capturing structure. It is not allowed to modify or release the image! You can copy the frame using
-     *     cvCloneImage and then do whatever you want with the copy.
      * @param image automatically generated
      */
     public boolean retrieve(Mat image, int flag) {
@@ -467,10 +462,6 @@ public class VideoCapture {
      *     and the function returns an empty image (with %cv::Mat, test it with Mat::empty()).
      *
      *     SEE: read()
-     *
-     *     <b>Note:</b> In REF: videoio_c "C API", functions cvRetrieveFrame() and cv.RetrieveFrame() return image stored inside the video
-     *     capturing structure. It is not allowed to modify or release the image! You can copy the frame using
-     *     cvCloneImage and then do whatever you want with the copy.
      * @param image automatically generated
      */
     public boolean retrieve(Mat image) {
@@ -491,10 +482,6 @@ public class VideoCapture {
      *     most convenient method for reading video files or capturing data from decode and returns the just
      *     grabbed frame. If no frames has been grabbed (camera has been disconnected, or there are no more
      *     frames in video file), the method returns false and the function returns empty image (with %cv::Mat, test it with Mat::empty()).
-     *
-     *     <b>Note:</b> In REF: videoio_c "C API", functions cvRetrieveFrame() and cv.RetrieveFrame() return image stored inside the video
-     *     capturing structure. It is not allowed to modify or release the image! You can copy the frame using
-     *     cvCloneImage and then do whatever you want with the copy.
      * @param image automatically generated
      */
     public boolean read(Mat image) {
@@ -530,7 +517,7 @@ public class VideoCapture {
      *
      *     @param propId Property identifier from cv::VideoCaptureProperties (eg. cv::CAP_PROP_POS_MSEC, cv::CAP_PROP_POS_FRAMES, ...)
      *     or one from REF: videoio_flags_others
-     *     @return Value for the specified property. Value 0 is returned when querying a property that is
+     *     @return Value for the specified property. Value cv::CAP_PROP_UNKNOWN is returned when querying a property that is
      *     not supported by the backend used by the VideoCapture instance.
      *
      *     <b>Note:</b> Reading / writing properties involves many layers. Some unexpected result might happens
@@ -668,7 +655,7 @@ public class VideoCapture {
     // C++:  bool cv::VideoCapture::getExceptionMode()
     private static native boolean getExceptionMode_0(long nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

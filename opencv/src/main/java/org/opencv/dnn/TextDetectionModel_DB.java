@@ -175,7 +175,7 @@ public class TextDetectionModel_DB extends TextDetectionModel {
     // C++:  int cv::dnn::TextDetectionModel_DB::getMaxCandidates()
     private static native int getMaxCandidates_0(long nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

@@ -16,7 +16,7 @@ class StaticHelper {
             Log.w(TAG, "CUDA support was removed!");
 
         Log.d(TAG, "First attempt to load libs");
-        if (loadLibrary("opencv_java4"))
+        if (loadLibrary("opencv_java5"))
         {
             Log.d(TAG, "First attempt to load libs is OK");
             String eol = System.getProperty("line.separator");

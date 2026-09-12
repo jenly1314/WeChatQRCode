@@ -66,7 +66,7 @@ public class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
     /**
      * Sets the number of gaussian components in the background model.
      *
-     *     The model needs to be reinitalized to reserve memory.
+     *     The model needs to be reinitialized to reserve memory.
      * @param nmixtures automatically generated
      */
     public void setNMixtures(int nmixtures) {
@@ -378,6 +378,40 @@ public class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
     }
 
 
+    //
+    // C++:  void cv::BackgroundSubtractorMOG2::apply(Mat image, Mat knownForegroundMask, Mat& fgmask, double learningRate = -1)
+    //
+
+    /**
+     * Computes a foreground mask and skips known foreground in evaluation.
+     *
+     *     @param image Next video frame. Floating point frame will be used without scaling and should be in range \([0,255]\).
+     *     @param fgmask The output foreground mask as an 8-bit binary image.
+     *     @param knownForegroundMask The mask for inputting already known foreground, allows model to ignore pixels.
+     *     @param learningRate The value between 0 and 1 that indicates how fast the background model is
+     *     learnt. Negative parameter value makes the algorithm to use some automatically chosen learning
+     *     rate. 0 means that the background model is not updated at all, 1 means that the background model
+     *     is completely reinitialized from the last frame.
+     */
+    public void apply(Mat image, Mat knownForegroundMask, Mat fgmask, double learningRate) {
+        apply_2(nativeObj, image.nativeObj, knownForegroundMask.nativeObj, fgmask.nativeObj, learningRate);
+    }
+
+    /**
+     * Computes a foreground mask and skips known foreground in evaluation.
+     *
+     *     @param image Next video frame. Floating point frame will be used without scaling and should be in range \([0,255]\).
+     *     @param fgmask The output foreground mask as an 8-bit binary image.
+     *     @param knownForegroundMask The mask for inputting already known foreground, allows model to ignore pixels.
+     *     learnt. Negative parameter value makes the algorithm to use some automatically chosen learning
+     *     rate. 0 means that the background model is not updated at all, 1 means that the background model
+     *     is completely reinitialized from the last frame.
+     */
+    public void apply(Mat image, Mat knownForegroundMask, Mat fgmask) {
+        apply_3(nativeObj, image.nativeObj, knownForegroundMask.nativeObj, fgmask.nativeObj);
+    }
+
+
     @Override
     protected void finalize() throws Throwable {
         delete(nativeObj);
@@ -461,7 +495,11 @@ public class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
     private static native void apply_0(long nativeObj, long image_nativeObj, long fgmask_nativeObj, double learningRate);
     private static native void apply_1(long nativeObj, long image_nativeObj, long fgmask_nativeObj);
 
-    // native support for java finalize()
+    // C++:  void cv::BackgroundSubtractorMOG2::apply(Mat image, Mat knownForegroundMask, Mat& fgmask, double learningRate = -1)
+    private static native void apply_2(long nativeObj, long image_nativeObj, long knownForegroundMask_nativeObj, long fgmask_nativeObj, double learningRate);
+    private static native void apply_3(long nativeObj, long image_nativeObj, long knownForegroundMask_nativeObj, long fgmask_nativeObj);
+
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

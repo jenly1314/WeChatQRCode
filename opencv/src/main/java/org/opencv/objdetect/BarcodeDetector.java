@@ -24,7 +24,7 @@ public class BarcodeDetector extends GraphicalCodeDetector {
     //
 
     /**
-     * Initialize the BarcodeDetector.
+     * Initialize the BarcodeDetector. Super resolution is disabled.
      */
     public BarcodeDetector() {
         super(BarcodeDetector_0());
@@ -32,18 +32,23 @@ public class BarcodeDetector extends GraphicalCodeDetector {
 
 
     //
-    // C++:   cv::barcode::BarcodeDetector::BarcodeDetector(string prototxt_path, string model_path)
+    // C++:   cv::barcode::BarcodeDetector::BarcodeDetector(string super_resolution_model_path)
     //
 
     /**
-     * Initialize the BarcodeDetector.
+     * Initialize the BarcodeDetector with a Super Resolution model.
      *
-     * Parameters allow to load _optional_ Super Resolution DNN model for better quality.
-     * @param prototxt_path prototxt file path for the super resolution model
-     * @param model_path model file path for the super resolution model
+     * Loads a Super Resolution DNN model in ONNX format, used to upscale small/low-quality
+     * barcode crops before decoding for better quality.
+     *
+     * <b>Note:</b> Caffe models ({@code sr.prototxt} / {@code sr.caffemodel}) are no longer supported; convert
+     * the model to ONNX (a converted {@code sr.onnx} is available from
+     * https://github.com/WeChatCV/opencv_3rdparty/tree/wechat_qrcode).
+     *
+     * @param super_resolution_model_path path to a single-file ONNX Super Resolution model.
      */
-    public BarcodeDetector(String prototxt_path, String model_path) {
-        super(BarcodeDetector_1(prototxt_path, model_path));
+    public BarcodeDetector(String super_resolution_model_path) {
+        super(BarcodeDetector_1(super_resolution_model_path));
     }
 
 
@@ -206,8 +211,8 @@ public class BarcodeDetector extends GraphicalCodeDetector {
     // C++:   cv::barcode::BarcodeDetector::BarcodeDetector()
     private static native long BarcodeDetector_0();
 
-    // C++:   cv::barcode::BarcodeDetector::BarcodeDetector(string prototxt_path, string model_path)
-    private static native long BarcodeDetector_1(String prototxt_path, String model_path);
+    // C++:   cv::barcode::BarcodeDetector::BarcodeDetector(string super_resolution_model_path)
+    private static native long BarcodeDetector_1(String super_resolution_model_path);
 
     // C++:  bool cv::barcode::BarcodeDetector::decodeWithType(Mat img, Mat points, vector_string& decoded_info, vector_string& decoded_type)
     private static native boolean decodeWithType_0(long nativeObj, long img_nativeObj, long points_nativeObj, List<String> decoded_info, List<String> decoded_type);
@@ -234,7 +239,7 @@ public class BarcodeDetector extends GraphicalCodeDetector {
     // C++:  BarcodeDetector cv::barcode::BarcodeDetector::setGradientThreshold(double thresh)
     private static native long setGradientThreshold_0(long nativeObj, double thresh);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

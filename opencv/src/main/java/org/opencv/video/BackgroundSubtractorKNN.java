@@ -65,7 +65,7 @@ public class BackgroundSubtractorKNN extends BackgroundSubtractor {
     /**
      * Sets the number of data samples in the background model.
      *
-     *     The model needs to be reinitalized to reserve memory.
+     *     The model needs to be reinitialized to reserve memory.
      * @param _nN automatically generated
      */
     public void setNSamples(int _nN) {
@@ -269,7 +269,7 @@ public class BackgroundSubtractorKNN extends BackgroundSubtractor {
     // C++:  void cv::BackgroundSubtractorKNN::setShadowThreshold(double threshold)
     private static native void setShadowThreshold_0(long nativeObj, double threshold);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

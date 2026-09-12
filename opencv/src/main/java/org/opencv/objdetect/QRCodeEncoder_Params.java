@@ -12,7 +12,10 @@ package org.opencv.objdetect;
 public class QRCodeEncoder_Params {
 
     protected final long nativeObj;
-    protected QRCodeEncoder_Params(long addr) { nativeObj = addr; }
+    protected QRCodeEncoder_Params(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -134,7 +137,7 @@ public class QRCodeEncoder_Params {
     // C++: void QRCodeEncoder_Params::structure_number
     private static native void set_structure_number_0(long nativeObj, int structure_number);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

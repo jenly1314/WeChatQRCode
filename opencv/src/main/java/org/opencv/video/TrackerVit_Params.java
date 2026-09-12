@@ -10,7 +10,10 @@ import org.opencv.core.Scalar;
 public class TrackerVit_Params {
 
     protected final long nativeObj;
-    protected TrackerVit_Params(long addr) { nativeObj = addr; }
+    protected TrackerVit_Params(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -180,7 +183,7 @@ public class TrackerVit_Params {
     // C++: void TrackerVit_Params::tracking_score_threshold
     private static native void set_tracking_score_threshold_0(long nativeObj, float tracking_score_threshold);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

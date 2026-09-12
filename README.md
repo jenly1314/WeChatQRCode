@@ -516,6 +516,10 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 
 ## 版本日志
 
+#### 特别版本
+- 本分支基于`opencv-5.x`编译，因存编译生成的so库体积相比`opencv-4.x`版本明显增加，故暂未发布至`MavenCentral`。
+- `opencv-5.x`相较`opencv-4.x`实际性能提升与兼容性收益仍需进一步评估，如使用请自取。
+
 #### v2.6.0：2026-6-17
 - 项目中的 Java 代码已全面转为 Kotlin 实现（`opencv`模块除外）
 - 新增数据类：`DecodeResult` 并提供函数：`decodeResult.getVertexPoints()`来简化获取二维码位置点

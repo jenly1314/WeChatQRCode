@@ -23,7 +23,10 @@ import org.opencv.utils.Converters;
 public class Model {
 
     protected final long nativeObj;
-    protected Model(long addr) { nativeObj = addr; }
+    protected Model(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -334,7 +337,7 @@ public class Model {
     // C++:  Model cv::dnn::Model::enableWinograd(bool useWinograd)
     private static native long enableWinograd_0(long nativeObj, boolean useWinograd);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

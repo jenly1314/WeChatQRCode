@@ -107,7 +107,7 @@ public class KeypointsModel extends Model {
     private static native long estimate_0(long nativeObj, long frame_nativeObj, float thresh);
     private static native long estimate_1(long nativeObj, long frame_nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

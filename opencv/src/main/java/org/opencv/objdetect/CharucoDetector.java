@@ -147,7 +147,7 @@ public class CharucoDetector extends Algorithm {
 
     /**
      * detect aruco markers and interpolate position of ChArUco board corners
-     * @param image input image necesary for corner refinement. Note that markers are not detected and
+     * @param image input image necessary for corner refinement. Note that markers are not detected and
      * should be sent in corners and ids parameters.
      * @param charucoCorners interpolated chessboard corners.
      * @param charucoIds interpolated chessboard corners identifiers.
@@ -179,7 +179,7 @@ public class CharucoDetector extends Algorithm {
 
     /**
      * detect aruco markers and interpolate position of ChArUco board corners
-     * @param image input image necesary for corner refinement. Note that markers are not detected and
+     * @param image input image necessary for corner refinement. Note that markers are not detected and
      * should be sent in corners and ids parameters.
      * @param charucoCorners interpolated chessboard corners.
      * @param charucoIds interpolated chessboard corners identifiers.
@@ -210,7 +210,7 @@ public class CharucoDetector extends Algorithm {
 
     /**
      * detect aruco markers and interpolate position of ChArUco board corners
-     * @param image input image necesary for corner refinement. Note that markers are not detected and
+     * @param image input image necessary for corner refinement. Note that markers are not detected and
      * should be sent in corners and ids parameters.
      * @param charucoCorners interpolated chessboard corners.
      * @param charucoIds interpolated chessboard corners identifiers.
@@ -372,7 +372,7 @@ public class CharucoDetector extends Algorithm {
     private static native void detectDiamonds_1(long nativeObj, long image_nativeObj, long diamondCorners_mat_nativeObj, long diamondIds_nativeObj, long markerCorners_mat_nativeObj);
     private static native void detectDiamonds_2(long nativeObj, long image_nativeObj, long diamondCorners_mat_nativeObj, long diamondIds_nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

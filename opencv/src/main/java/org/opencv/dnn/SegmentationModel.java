@@ -90,7 +90,7 @@ public class SegmentationModel extends Model {
     // C++:  void cv::dnn::SegmentationModel::segment(Mat frame, Mat& mask)
     private static native void segment_0(long nativeObj, long frame_nativeObj, long mask_nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

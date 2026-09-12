@@ -268,7 +268,7 @@ public class FarnebackOpticalFlow extends DenseOpticalFlow {
     private static native long create_7(int numLevels);
     private static native long create_8();
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

@@ -10,7 +10,10 @@ package org.opencv.video;
 public class TrackerNano_Params {
 
     protected final long nativeObj;
-    protected TrackerNano_Params(long addr) { nativeObj = addr; }
+    protected TrackerNano_Params(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -132,7 +135,7 @@ public class TrackerNano_Params {
     // C++: void TrackerNano_Params::target
     private static native void set_target_0(long nativeObj, int target);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

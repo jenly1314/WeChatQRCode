@@ -139,7 +139,7 @@ public class TextDetectionModel_EAST extends TextDetectionModel {
     // C++:  float cv::dnn::TextDetectionModel_EAST::getNMSThreshold()
     private static native float getNMSThreshold_0(long nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

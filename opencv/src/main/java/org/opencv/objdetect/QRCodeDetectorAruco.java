@@ -7,7 +7,9 @@ import org.opencv.objdetect.QRCodeDetectorAruco;
 import org.opencv.objdetect.QRCodeDetectorAruco_Params;
 
 // C++: class QRCodeDetectorAruco
-
+/**
+ * QR code detector based on Aruco markers detection code.
+ */
 public class QRCodeDetectorAruco extends GraphicalCodeDetector {
 
     protected QRCodeDetectorAruco(long addr) { super(addr); }
@@ -97,7 +99,7 @@ public class QRCodeDetectorAruco extends GraphicalCodeDetector {
     // C++:  QRCodeDetectorAruco cv::QRCodeDetectorAruco::setDetectorParameters(QRCodeDetectorAruco_Params params)
     private static native long setDetectorParameters_0(long nativeObj, long params_nativeObj);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }

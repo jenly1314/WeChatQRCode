@@ -10,7 +10,10 @@ package org.opencv.video;
 public class TrackerMIL_Params {
 
     protected final long nativeObj;
-    protected TrackerMIL_Params(long addr) { nativeObj = addr; }
+    protected TrackerMIL_Params(long addr) {
+      nativeObj = addr;
+      
+    }
 
     public long getNativeObjAddr() { return nativeObj; }
 
@@ -204,7 +207,7 @@ public class TrackerMIL_Params {
     // C++: void TrackerMIL_Params::featureSetNumFeatures
     private static native void set_featureSetNumFeatures_0(long nativeObj, int featureSetNumFeatures);
 
-    // native support for java finalize()
+    // native support for java finalize() or cleaner
     private static native void delete(long nativeObj);
 
 }
