@@ -54,7 +54,6 @@ tasks.named('assemble') {
 
 tasks.named('publishToMavenLocal') {
     dependsOn tasks.named('shadowJar')
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 tasks.withType(Test).configureEach {
