@@ -24,6 +24,11 @@ compileTestJava {
     options.encoding = 'UTF-8'
 }
 
+tasks.withType(Javadoc).configureEach {
+    options.encoding = 'UTF-8'
+    options.charSet = 'UTF-8'
+}
+
 dependencies {
     testImplementation 'junit:junit:4.13.2'
     bundled files('lib/opencv-500.jar')

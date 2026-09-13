@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * 微信二维码检测器
+ * WeChat QR code detector.
  *
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
  * <p>
@@ -30,24 +30,24 @@ public final class WeChatQRCodeDetector {
     }
 
     /**
-     * 初始化 WeChatQRCode
+     * Initialize WeChatQRCode.
      */
     public static void init() throws Exception {
         initWeChatQRCodeFromResources();
     }
 
     /**
-     * 初始化 WeChatQRCode
+     * Initialize WeChatQRCode from the specified directory.
      *
-     * @param modelDirPath WeChatQRCode 相关模型文件所在的文件夹
-     * @throws Exception
+     * @param modelDirPath directory containing WeChatQRCode model files
+     * @throws Exception thrown when initialization fails
      */
     public static void init(String modelDirPath) throws Exception {
         initWeChatQRCodeFromFileSystem(modelDirPath);
     }
 
     /**
-     * 从 resources 目录初始化 WeChatQRCode。
+     * Initialize WeChatQRCode from packaged resources.
      */
     private static void initWeChatQRCodeFromResources() throws Exception {
         File detectModel = getModelResourceFile(DETECT_MODEL_FILE_NAME);
@@ -57,9 +57,9 @@ public final class WeChatQRCodeDetector {
 
 
     /**
-     * 初始化 WeChatQRCode
+     * Load WeChatQRCode model files from the file system.
      *
-     * @throws Exception
+     * @throws Exception thrown when initialization fails
      */
     private static void initWeChatQRCodeFromFileSystem(String modelDirPath) throws Exception {
         File detectModel = new File(modelDirPath, DETECT_MODEL_FILE_NAME);
@@ -68,7 +68,7 @@ public final class WeChatQRCodeDetector {
     }
 
     /**
-     * 使用指定模型文件完成 WeChatQRCode 初始化。
+     * Initialize WeChatQRCode with the specified model files.
      */
     private static void initWeChatQRCode(File detectModel, File srModel) {
         sWeChatQRCode = new WeChatQRCode(detectModel.getAbsolutePath(), srModel.getAbsolutePath());
@@ -76,7 +76,7 @@ public final class WeChatQRCodeDetector {
     }
 
     /**
-     * 获取模型资源文件，必要时复制到临时目录。
+     * Get the model resource file, copying it to a temporary location when needed.
      */
     private static File getModelResourceFile(String fileName) throws IOException {
         return ResourceLoader.getResourceFileOrCopy(WeChatQRCodeDetector.class, MODEL_RESOURCE_DIRECTORY + "/" + fileName);

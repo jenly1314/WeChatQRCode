@@ -25,23 +25,23 @@ public final class OpenCV {
     }
 
     /**
-     * 初始化 OpenCV
+     * Initialize OpenCV.
      */
     public static void init() throws Exception {
         initOpenCVFromResources();
     }
 
     /**
-     * 初始化 OpenCV
+     * Initialize OpenCV from the specified directory.
      *
-     * @param libDirPath opencv_java*.dll 或 libopencv_java*.so 所在文件夹
+     * @param libDirPath directory containing opencv_java*.dll or libopencv_java*.so
      */
     public static void init(String libDirPath) throws Exception {
         initOpenCVFromFileSystem(libDirPath);
     }
 
     /**
-     * 从 resources 目录初始化 OpenCV。
+     * Initialize OpenCV from packaged resources.
      */
     private static void initOpenCVFromResources() throws Exception {
         logPlatformInfo();
@@ -53,9 +53,9 @@ public final class OpenCV {
     }
 
     /**
-     * 初始化 OpenCV
+     * Load the OpenCV native library from the file system.
      *
-     * @param libDirPath opencv_java*.dll 或 libopencv_java*.so 所在文件夹
+     * @param libDirPath directory containing opencv_java*.dll or libopencv_java*.so
      */
     private static void initOpenCVFromFileSystem(String libDirPath) throws Exception {
         logPlatformInfo();
@@ -65,7 +65,7 @@ public final class OpenCV {
     }
 
     /**
-     * 根据当前系统环境返回 native 库资源路径。
+     * Resolve the native library resource path for the current platform.
      */
     private static String resolveNativeLibraryResourcePath() {
         if (Platform.isWindows() && Platform.is64Bit()) {
@@ -83,7 +83,7 @@ public final class OpenCV {
     }
 
     /**
-     * 输出当前系统和架构信息。
+     * Log current operating system and architecture information.
      */
     private static void logPlatformInfo() {
         LOGGER.log(Level.INFO,
@@ -91,7 +91,7 @@ public final class OpenCV {
     }
 
     /**
-     * 构造不支持平台时的异常信息。
+     * Create an exception for unsupported platforms.
      */
     private static UnsupportedOperationException unsupportedPlatformException() {
         return new UnsupportedOperationException(
@@ -99,7 +99,7 @@ public final class OpenCV {
     }
 
     /**
-     * 在 native 库加载完成后执行必要的初始化。
+     * Run required initialization after the native library is loaded.
      */
     private static void onLibraryLoaded() {
         Native.getNativeSize(Long.TYPE);

@@ -12,13 +12,31 @@
 
 > 通过上面的链接下载Java版本的WeChatQRCode，然后按照下面的 [使用说明](#使用说明) 进行集成即可。
 
+## 引入 (v3.0.0新增)
+
+### Gradle:
+
+1. 在Project的 **build.gradle** 或 **setting.gradle** 中添加远程仓库
+
+    ```gradle
+    repositories {
+        //...
+        mavenCentral()
+    }
+    ```
+
+2. 在Module的 **build.gradle** 中添加依赖项
+
+    ```gradle
+    implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode-java:3.0.0'
+
+    ```
+### 温馨提示
+此分支仅适用于 **Java** 项目，当前支持以下平台与架构：
+- **Windows**：`x86_64`
+- **Linux**：`x86_64`、`aarch64`(ARM64)
+
 ## 使用
-
-### 使用步骤
-
-1. 将 **lib** 和 **models** 文件夹拷贝到项目的根目录；
-2. 项目引入 **lib** 文件夹中相关的 **jar**；
-3. 初始化 **OpenCV** 和 **WeChatQRCode**。
 
 ### 代码示例
 
@@ -27,7 +45,7 @@
     OpenCV.init();
     //初始化 WeChatQRCode
     WeChatQRCodeDetector.init();
-    
+
     //检测并识别二维码 （同一张图片可能有多个二维码）
     List<String> results = WeChatQRCodeDetector.detectAndDecode("image/WeChatQRCode.png");
     System.out.println("results:" + results);
@@ -37,16 +55,21 @@
 
 ## 版本日志
 
+#### v3.0.0：2026-9-13 （从3.x开始发布到 `MavenCentral`）
+- 更新OpenCV至v5.0.0
+- 简化集成步骤
+
 #### v2.1.0：2024-1-14
-* 更新OpenCV至v4.9.0
+- 更新OpenCV至v4.9.0
 
 #### v2.0.0：2022-1-24
-* 更新OpenCV至v4.5.5
+- 更新OpenCV至v4.5.5
 
 #### v1.0.0：2021-9-26
-* 初始版本：使用OpenCV-4.5.2
+- 初始版本：使用OpenCV-4.5.2
+
+#### [查看更多版本日志](CHANGELOG.md)
 
 ---
 
 ![footer](https://jenly1314.github.io/page/footer.svg)
-

@@ -17,10 +17,10 @@ final class ResourceLoader {
     }
 
     /**
-     * 获取 classpath 中可直接映射为本地文件的资源。
+     * Get a classpath resource that can be mapped directly to a local file.
      *
-     * <p>当资源协议不是 file 时，说明资源并不是一个可直接访问的本地文件，
-     * 此时由调用方决定是否改用需要落地复制的方式处理。
+     * <p>If the resource protocol is not file, callers should decide whether to
+     * fall back to copying it into a temporary directory.
      */
     static File getResourceFile(Class<?> owner, String resourcePath) throws IOException {
         URL url = owner.getClassLoader().getResource(resourcePath);
@@ -38,9 +38,9 @@ final class ResourceLoader {
     }
 
     /**
-     * 获取 classpath 中的资源文件；如果资源不在本地文件系统中，则复制到临时目录后返回。
+     * Get a classpath resource as a local file, copying it to a temporary file when needed.
      *
-     * <p>适用于调用方必须拿到一个真实 File 路径的场景，例如底层 API 仅接受文件绝对路径。
+     * <p>This is useful when the downstream API requires a real file path.
      */
     static File getResourceFileOrCopy(Class<?> owner, String resourcePath) throws IOException {
         URL url = owner.getClassLoader().getResource(resourcePath);
@@ -58,7 +58,7 @@ final class ResourceLoader {
     }
 
     /**
-     * 将非 file 协议的资源复制到临时目录，转换为可传递给本地 API 的真实文件。
+     * Copy a non-file resource into the temporary directory as a real local file.
      */
     private static File copyResourceToTempFile(Class<?> owner, String resourcePath) throws IOException {
         String fileName = new File(resourcePath).getName();
@@ -82,7 +82,7 @@ final class ResourceLoader {
     }
 
     /**
-     * 创建当前进程生命周期内复用的临时资源目录。
+     * Create the temporary resource directory reused during the current process.
      */
     private static File createTempResourceDirectory() {
         try {
