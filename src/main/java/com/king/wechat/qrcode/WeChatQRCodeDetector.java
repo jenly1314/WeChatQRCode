@@ -5,6 +5,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.wechat_qrcode.WeChatQRCode;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +19,10 @@ import java.util.logging.Logger;
  */
 public final class WeChatQRCodeDetector {
 
+    private static final Logger LOGGER = Logger.getLogger(WeChatQRCodeDetector.class.getName());
+    private static final String MODEL_RESOURCE_DIRECTORY = "models";
+    private static final String DETECT_MODEL_FILE_NAME = "detect_model.onnx";
+    private static final String SR_MODEL_FILE_NAME = "sr_model.onnx";
     private static WeChatQRCode sWeChatQRCode;
 
     private WeChatQRCodeDetector() {
@@ -28,7 +33,7 @@ public final class WeChatQRCodeDetector {
      * 初始化 WeChatQRCode
      */
     public static void init() throws Exception {
-        init("models");
+        initWeChatQRCodeFromResources();
     }
 
     /**
@@ -38,8 +43,16 @@ public final class WeChatQRCodeDetector {
      * @throws Exception
      */
     public static void init(String modelDirPath) throws Exception {
-        //初始化 WeChatQRCode
-        initWeChatQRCode(modelDirPath);
+        initWeChatQRCodeFromFileSystem(modelDirPath);
+    }
+
+    /**
+     * 从 resources 目录初始化 WeChatQRCode。
+     */
+    private static void initWeChatQRCodeFromResources() throws Exception {
+        File detectModel = getModelResourceFile(DETECT_MODEL_FILE_NAME);
+        File srModel = getModelResourceFile(SR_MODEL_FILE_NAME);
+        initWeChatQRCode(detectModel, srModel);
     }
 
 
@@ -48,22 +61,26 @@ public final class WeChatQRCodeDetector {
      *
      * @throws Exception
      */
-    private static void initWeChatQRCode(String modelDirPath) throws Exception {
-        //WeChatQRCode 相关的模型文件
-        File detect = new File(modelDirPath, "detect.prototxt");
-        File detectModel = new File(modelDirPath, "detect.caffemodel");
-        File resolution = new File(modelDirPath, "sr.prototxt");
-        File resolutionModel = new File(modelDirPath, "sr.caffemodel");
-        //实例化 WeChatQRCode
-        sWeChatQRCode = new WeChatQRCode(
-                detect.getAbsolutePath(),
-                detectModel.getAbsolutePath(),
-                resolution.getAbsolutePath(),
-                resolutionModel.getAbsolutePath());
-
-        Logger.getLogger(WeChatQRCodeDetector.class.getName()).log(Level.INFO, "Initialization WeChatQRCode.");
+    private static void initWeChatQRCodeFromFileSystem(String modelDirPath) throws Exception {
+        File detectModel = new File(modelDirPath, DETECT_MODEL_FILE_NAME);
+        File srModel = new File(modelDirPath, SR_MODEL_FILE_NAME);
+        initWeChatQRCode(detectModel, srModel);
     }
 
+    /**
+     * 使用指定模型文件完成 WeChatQRCode 初始化。
+     */
+    private static void initWeChatQRCode(File detectModel, File srModel) {
+        sWeChatQRCode = new WeChatQRCode(detectModel.getAbsolutePath(), srModel.getAbsolutePath());
+        LOGGER.log(Level.INFO, "Successfully initialized WeChatQRCode.");
+    }
+
+    /**
+     * 获取模型资源文件，必要时复制到临时目录。
+     */
+    private static File getModelResourceFile(String fileName) throws IOException {
+        return ResourceLoader.getResourceFileOrCopy(WeChatQRCodeDetector.class, MODEL_RESOURCE_DIRECTORY + "/" + fileName);
+    }
 
     /**
      * Both detects and decodes QR code.
@@ -100,5 +117,4 @@ public final class WeChatQRCodeDetector {
     public static List<String> detectAndDecode(Mat img, List<Mat> points) {
         return sWeChatQRCode.detectAndDecode(img, points);
     }
-
 }

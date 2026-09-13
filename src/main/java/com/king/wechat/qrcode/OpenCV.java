@@ -1,5 +1,8 @@
 package com.king.wechat.qrcode;
 
+import com.sun.jna.Native;
+import com.sun.jna.NativeLibrary;
+import com.sun.jna.Platform;
 import org.opencv.core.Core;
 
 import java.io.File;
@@ -15,7 +18,7 @@ import java.util.logging.Logger;
  */
 public final class OpenCV {
 
-    private static final String TAG = "OpenCV";
+    private static final Logger LOGGER = Logger.getLogger(OpenCV.class.getName());
 
     private OpenCV() {
         throw new AssertionError();
@@ -25,41 +28,82 @@ public final class OpenCV {
      * 初始化 OpenCV
      */
     public static void init() throws Exception {
-        init("lib");
+        initOpenCVFromResources();
     }
 
     /**
      * 初始化 OpenCV
      *
-     * @param libDirPath opencv_java*.dll 或 opencv_java*.so 所在文件夹
+     * @param libDirPath opencv_java*.dll 或 libopencv_java*.so 所在文件夹
      */
     public static void init(String libDirPath) throws Exception {
-        initOpenCV(libDirPath);
+        initOpenCVFromFileSystem(libDirPath);
+    }
+
+    /**
+     * 从 resources 目录初始化 OpenCV。
+     */
+    private static void initOpenCVFromResources() throws Exception {
+        logPlatformInfo();
+        File nativeLibraryFile = ResourceLoader.getResourceFileOrCopy(OpenCV.class, resolveNativeLibraryResourcePath());
+        NativeLibrary.addSearchPath(Core.NATIVE_LIBRARY_NAME, nativeLibraryFile.getParentFile().getAbsolutePath());
+        NativeLibrary nativeLibrary = NativeLibrary.getInstance(Core.NATIVE_LIBRARY_NAME);
+        System.load(nativeLibrary.getFile().getAbsolutePath());
+        onLibraryLoaded();
     }
 
     /**
      * 初始化 OpenCV
      *
-     * @param libDirPath opencv_java*.dll 或 opencv_java*.so 所在文件夹
+     * @param libDirPath opencv_java*.dll 或 libopencv_java*.so 所在文件夹
      */
-    private static void initOpenCV(String libDirPath) throws Exception {
-        String os = System.getProperty("os.name");
-        File libOpencvFile = null;
-        if (os != null) {
-            os = os.toLowerCase();
-            Logger.getLogger(OpenCV.class.getName()).log(Level.INFO, "os.name = " + os);
-            if (os.indexOf("windows") >= 0) {
-                libOpencvFile = new File(libDirPath, "libopencv_java490.dll");
-            } else if (os.indexOf("linux") >= 0) {
-                libOpencvFile = new File(libDirPath, "libopencv_java490.so");
+    private static void initOpenCVFromFileSystem(String libDirPath) throws Exception {
+        logPlatformInfo();
+        File libOpencvFile = new File(libDirPath, System.mapLibraryName(Core.NATIVE_LIBRARY_NAME));
+        System.load(libOpencvFile.getAbsolutePath());
+        onLibraryLoaded();
+    }
+
+    /**
+     * 根据当前系统环境返回 native 库资源路径。
+     */
+    private static String resolveNativeLibraryResourcePath() {
+        if (Platform.isWindows() && Platform.is64Bit()) {
+            return "natives/windows-x86-64/" + System.mapLibraryName(Core.NATIVE_LIBRARY_NAME);
+        }
+        if (Platform.isLinux()) {
+            if (Platform.isARM()) {
+                return "natives/linux-aarch64/" + System.mapLibraryName(Core.NATIVE_LIBRARY_NAME);
+            }
+            if (Platform.is64Bit()) {
+                return "natives/linux-x86-64/" + System.mapLibraryName(Core.NATIVE_LIBRARY_NAME);
             }
         }
-        if (libOpencvFile != null) {
-            System.load(libOpencvFile.getAbsolutePath());
-        } else {
-            System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        }
+        throw unsupportedPlatformException();
+    }
+
+    /**
+     * 输出当前系统和架构信息。
+     */
+    private static void logPlatformInfo() {
+        LOGGER.log(Level.INFO,
+                "os.name = " + System.getProperty("os.name") + ", os.arch = " + System.getProperty("os.arch"));
+    }
+
+    /**
+     * 构造不支持平台时的异常信息。
+     */
+    private static UnsupportedOperationException unsupportedPlatformException() {
+        return new UnsupportedOperationException(
+                "Unsupported platform: os.name=" + System.getProperty("os.name") + ", os.arch=" + System.getProperty("os.arch"));
+    }
+
+    /**
+     * 在 native 库加载完成后执行必要的初始化。
+     */
+    private static void onLibraryLoaded() {
+        Native.getNativeSize(Long.TYPE);
         Core.setErrorVerbosity(false);
-        Logger.getLogger(TAG).log(Level.INFO, "Successfully loaded OpenCV native library.");
+        LOGGER.log(Level.INFO, "Successfully loaded OpenCV native library.");
     }
 }
