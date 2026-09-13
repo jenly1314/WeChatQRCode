@@ -1,6 +1,6 @@
 # WeChatQRCode
 
-[![MavenCentral](https://img.shields.io/maven-central/v/com.github.jenly1314.WeChatQRCode/wechat-qrcode?branch=java&logo=sonatype)](https://repo1.maven.org/maven2/com/github/jenly1314/WeChatQRCode/wechat-qrcode-java/)
+[![MavenCentral](https://img.shields.io/maven-central/v/com.github.jenly1314.WeChatQRCode/wechat-qrcode-java?logo=sonatype)](https://repo1.maven.org/maven2/com/github/jenly1314/WeChatQRCode/wechat-qrcode-java/)
 [![test](https://img.shields.io/github/actions/workflow/status/jenly1314/WeChatQrCode/test.yml?branch=java&logo=github&label=test)](https://github.com/jenly1314/WeChatQRCode/actions/workflows/test.yml)
 [![License](https://img.shields.io/github/license/jenly1314/WeChatQRCode?logo=open-source-initiative)](https://opensource.org/licenses/apache-2-0)
 
