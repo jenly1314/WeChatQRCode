@@ -4,7 +4,7 @@ plugins {
     id 'com.vanniktech.maven.publish' version '0.34.0'
 }
 
-group = 'com.king.wechat.qrcode'
+group = 'com.github.jenly1314.WeChatQRCode'
 version = '3.0.0'
 
 configurations {
