@@ -50,7 +50,7 @@
 
 ## 历史版本
 
-未发布到`MavenCentral`的旧版本
+v3.0.0之前的未发布到`MavenCentral`的旧版本
 
 [WeChatQRCode-for-Java-2.1.0.zip](https://raw.githubusercontent.com/jenly1314/WeChatQRCode/java/release/WeChatQRCode-for-Java-2.1.0.zip)
 
