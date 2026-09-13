@@ -1,6 +1,6 @@
 # WeChatQRCode
 
-[![CI](https://img.shields.io/github/actions/workflow/status/jenly1314/WeChatQRCode/build.yml?logo=github)](https://github.com/jenly1314/WeChatQRCode/actions/workflows/build.yml)
+[![MavenCentral](https://img.shields.io/maven-central/v/com.github.jenly1314.WeChatQRCode/wechat-qrcode?branch=java&logo=sonatype)](https://repo1.maven.org/maven2/com/github/jenly1314/WeChatQRCode/wechat-qrcode-java/)
 [![test](https://img.shields.io/github/actions/workflow/status/jenly1314/WeChatQrCode/test.yml?branch=java&logo=github&label=test)](https://github.com/jenly1314/WeChatQRCode/actions/workflows/test.yml)
 [![License](https://img.shields.io/github/license/jenly1314/WeChatQRCode?logo=open-source-initiative)](https://opensource.org/licenses/apache-2-0)
 
@@ -50,7 +50,7 @@
 
 ## 历史版本
 
-v3.0.0之前的未发布到`MavenCentral`的旧版本
+`v3.0.0`之前的版本未发布到`MavenCentral`，需要手动下载库文件进行集成。
 
 [WeChatQRCode-for-Java-2.1.0.zip](https://raw.githubusercontent.com/jenly1314/WeChatQRCode/java/release/WeChatQRCode-for-Java-2.1.0.zip)
 
